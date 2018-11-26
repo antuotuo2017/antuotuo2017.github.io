@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>标签: Java 核心 - Hexo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/tags/Java-核心/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="Hexo" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    <div class="card-content">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/tags">标签</a></li>
+            <li class="is-active"><a href="#" aria-current="page">Java 核心</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-08-08T08:51:44.000Z">2018-08-08</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    25 分钟 读完 (大约 3762 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/08/08/yuque/io-model/">Java NIO、BIO、 AIO 与 同步、阻塞、非阻塞、异步IO 简析</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a><a name="pisong"></a>写在前面</h1><p>我相信大部分人看到这些名词，都是一头雾水的，如果你去搜索引擎搜索，那么恭喜你，你又会被各种文章中的高大上的名词搞得云里雾里。那么，我们应该怎么理清这么名词之间的关系呢？</p>
+<p>所谓 同步/异步/阻塞/非阻塞IO ，是指操作系统中的对IO处理的不同方法，而 Java 对这些不同操作方法做了一些包装，由此有了 BIO / NIO / AIO 几种操作接口。</p>
+<p>我不想复制一些高大上的概念，只是想尽量好好说话，说清楚他们之间的关系。</p>
+<p><strong>需求</strong></p>
+<ol>
+<li>有 A、B、C、D四个线程可以生产文件，假设他们的返回的文件是一样的，对应我们的服务端</li>
+<li>有 E、F、G、H 四个线程在随机时间向服务端上传一个文本，并且要求返回一个文件，对应我们的客户端</li>
+</ol>
+<p>服务端和客户端可以在同一个操作系统中，也可以是在网络中。<br>在网络中，客户端的请求会接入到服务端的操作系统内核，所以和在同一个操作系统中没有太大区别。<br>如果在网络中，那么这可能就是一个 TCP/HTTP 的模型。</p>
+<p>问题：要怎么设计一个程序来的完成上面的操作？</p>
+<h1 id="系统IO缓冲区"><a href="#系统IO缓冲区" class="headerlink" title="系统IO缓冲区"></a><a name="wf1hia"></a>系统IO缓冲区</h1><p>在讲之前，还要明白系统内核中的IO缓冲区的概念。<br>在现实生活中，一个人想要把想法告诉另外一个人，有两种方法，一种是靠嘴说给他听，对方要不停的确认，这样是很慢的。另外一种是直接写一篇10页的文稿一次性发给另外一个人，另外一个人有问题再重写一份文档把所有问题写在上面，那么多了这个文档的缓冲区，就可以提高交流的效率。</p>
+<p><strong>在系统里面，对两个用户之间的传输操作，首先会建立一个连接，然后会创建一个专用的缓冲区。</strong><br>缓冲区有<strong>四个状态</strong>。</p>
+<p>我们现在有一个情景，就是用户端E向服务端A在随机时间上传一份文件。缓冲区会经历这四个状态。</p>
+<ol>
+<li>缓冲区空：E心情不好，还没传文件，这个时候缓冲区是空的</li>
+<li>缓冲区非空：E开始往缓冲区里面传数据了，现在缓冲区是非空的，A知道之后会来查收</li>
+<li>缓冲区满：如果A一直没查收这个文件，或者A的查收速度没有E上传的速度那么块。那么缓冲区会被填满。这个时候E知道了，就先等着。</li>
+<li>缓冲区非满：E等了一段时间，A终于处理了一些E上传的数据了，缓冲区又有空间了，缓冲区把状态设置为缓冲区非满，E知道之后，又可以往缓冲区传数据了。</li>
+</ol>
+<p>最终，经过上面的“博弈”，缓冲区最终为空，文件传输完成。接下来可能又要有下一轮文件传输。<br>我们的几个IO模型就是围绕着上面的博弈展开的。</p>
+<h1 id="同步"><a href="#同步" class="headerlink" title="同步"></a><a name="9wdspd"></a>同步</h1><p><strong>关于 A 如何查收 缓冲区中的内容，我们有同步和异步两种模式。</strong>绝大部分应用都是同步查收的。就是说，A 主动 从缓冲区 剪切、粘贴 到自己的用户空间里面。剪切、粘贴的时间CPU要等着啥也不干，这个过程是比较费时的，但是也没有办法。</p>
+<h2 id="同步阻塞"><a href="#同步阻塞" class="headerlink" title="同步阻塞"></a><a name="dvv5ey"></a>同步阻塞</h2><p>我们来讨论另外一个问题，就是 A 怎么知道 E 要来传文件呢？换一种说法就是，<strong>A怎么知道缓冲区由空变成非空了，要工作了。</strong></p>
+<p><strong>阻塞</strong>就是这样一种方法：A在缓冲区非空的时候，就把自己阻塞住（休眠），等着，啥也不干，一直到缓冲区非空了，系统就叫醒A，A这个时候就会从缓冲区查收数据了。A处理完之后又把自己阻塞住，等待下一个非空状态。</p>
+<p>这样做的坏处是什么呢？就是 E、F、G、H 想在随机时间 往 服务端传文件，建立了连接之后，服务端上面就要有 A、B、C、D 四个线程等着啥也不干。但是我们知道，创建线程是需要消耗内存的，这样子客户端多了之后，系统内存就捉襟见肘了。</p>
+<h2 id="同步非阻塞"><a href="#同步非阻塞" class="headerlink" title="同步非阻塞"></a><a name="n3ranf"></a>同步非阻塞</h2><h3 id="1-0-版：忙轮询"><a href="#1-0-版：忙轮询" class="headerlink" title="1.0 版：忙轮询"></a><a name="bop6bf"></a>1.0 版：忙轮询</h3><p>非阻塞和阻塞相反。A 是不阻塞（休眠）的，他会定时定点就检查一下缓冲区是不是非空（可读）了，如果可读就可以工作了。</p>
+<p>这样做有一个好处，就是 A 可以一次性把 E、F、G、H 接进来，创建四个缓冲区。然后把这些连接保存成一个 list ，然后 A 定时就检查这个 list 中的连接的缓冲区的状态。这样一个 A 就可以处理多个客户端，处理效率就提高了。</p>
+<p>这种一条线程接进来多个客户端的操作，也叫IO多路复用。</p>
+<p>但是如果是由应用层来遍历，也未免有点太傻了，如果 E、F、G、H一直不传文件，A就要一直耗费CPU去定时查询，所以这个傻事要由操作系统统一去干。</p>
+<h3 id="2-0版：-select、poll"><a href="#2-0版：-select、poll" class="headerlink" title="2.0版： select、poll"></a><a name="4rvqqr"></a>2.0版： select、poll</h3><p>我们把定时查询这个任务就交给系统去做，我们只需要把我们关心的用户的连接ID（缓冲区）告诉系统。比如还是上面的例子，A先自己把自己阻塞住，当E、F、G、H没有活干的时候，就一直保持阻塞状态。当E、F、G、H其中之一往系统内核的缓冲区上传了数据，那么，系统就会唤醒A，并且告诉他，起来干活了。不过这个时候 A 对于要查收谁的文件还是一脸懵逼的，只能再自己去遍历一遍所有连接的缓冲区，看看哪个缓冲区的状态是非空的，然后再读。这就是 Select 的大致原理。</p>
+<p>这样做避免了 1.0 版的CPU空转，但是唤醒A之后，A还必须自己去遍历一下所有客户端连接的列表，是一个 O(n) 的操作，所以这个列表不能太长，select 简单粗暴的就定为了 1024 个。 也就是说默认一个线程只能处理1024个客户端。poll 改进了 list 的储存结构，这样就可以存更多的连接，不过也是治标不治本呀。</p>
+<h3 id="3-0版：-epoll"><a href="#3-0版：-epoll" class="headerlink" title="3.0版： epoll"></a><a name="1pztfw"></a>3.0版： epoll</h3><p>epoll 是 select 的改进</p>
+<ol>
+<li>使用了更优的数据结构来管理连接列表，使得定位的时候更快</li>
+<li>唤醒 A 之后，会传给他缓冲区非空的连接，A直接使用即可。而不只是告诉A醒来，让A自己去找。所以这里是一个 O (1) 的复杂度。</li>
+</ol>
+<p>这是目大多数网络应用的底层实现。</p>
+<h3 id="4-0版：-Eventloop"><a href="#4-0版：-Eventloop" class="headerlink" title="4.0版： Eventloop"></a><a name="l56hyg"></a>4.0版： Eventloop</h3><p>Eventloop并不是操作系统底层的实现，但是在应用层提供了一种更高效的复用思路。</p>
+<p>在 传统 epoll 应用中，普通线程只负责客户端的连接的读写操作，如果客户端没有操作，那么线程会被阻塞。而我们要做一些额外的事情可能就要再开线程。</p>
+<p>那么，我们还有另外一种复用线程的思路，就是 Eventloop，我们有一个比较小的线程池，每个线程 都有一个 Eventloop， 上面有个事件队列，一方面，Eventloop尝试epoll，并且设置阻塞的超时时间，如果到达时间，仍没有客户端读写事件，就先处理事件队列上面的其他事件。我们可以打包一些要做的函数进事件队列，那么本来是负责 Epoll 的线程在本来应该阻塞的时候，还可以做些别的任务。这样就减少了整个系统的线程数量。</p>
+<p>当然，要注意，我们有时候也叫 Eventloop 这种实现是异步的，但是和我们整篇文章讲的同步异步并不是在一个区域，我们讲的是系统级的连接的IO操作。而 Eventloop 则是一种在应用级的多任务调度方式。</p>
+<h1 id="异步"><a href="#异步" class="headerlink" title="异步"></a><a name="gvc8of"></a>异步</h1><p>我们之前说了，在系统IO中，对于同步异步的概念，是说<strong> A 如何查收 缓冲区中的内容。</strong></p>
+<p>而异步的意思是说，调用之后，马上返回一个内存引用，这个引用什么时候填充数据我们并不知道，但是我们可以告诉这个引用填充完数据之后应该干什么。然后这个事件会打包进任务队列，在不定时间执行。</p>
+<p>异步IO的方式，我们的A就可以先开好一个用户空间的内存区域，然后把查收之后要做的事情打包成一个函数，全部告诉给内核，然后内核会自动帮你把数据从内核缓冲区复制到你指定的用户空间，然后调用你指定的函数。</p>
+<p>这样，在IO读写的时候，阻塞的是系统内部的线程，而不是我们的A线程，这样A线程的处理效率会提高，也不用一直在阻塞和继续中徘徊。当然，也就没有阻塞还是非阻塞的区别了。</p>
+<p>JDK 在 linux上面的AIO实现方法是去维护一个线程池（Linux的异步IO接口不给力）。而在 Windows 上面则有 IOCP 的异步IO 黑科技，主要是在IIS上面使用。</p>
+<p>然而，因为从内核缓冲区复制到用户空间这个地方的时间仍然是没有办法避免的，所以 IOCP 比 epoll 的 Eventloop 在性能上其实并没有太大优势，只是说是内核做异步在线程调度上面更有优势，可以节省一些CPU使用。</p>
+<h1 id="JDK实现"><a href="#JDK实现" class="headerlink" title="JDK实现"></a><a name="b327kw"></a>JDK实现</h1><h2 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a><a name="lgkckg"></a>BIO</h2><p>BIO就是同步阻塞IO的实现，就是最传统的<code>java.io</code><span data-type="background" style="background-color:rgb(255, 255, 238)"> </span>包下面的 <span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)">ServerSocket 的写法。</span></span></p>
+<h2 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a><a name="bvyqzk"></a>NIO</h2><p>是同步非阻塞IO的实现，Windows下面使用底层的 select ，Linux 下面使用底层的 epoll<br>也就是普通<code>java.nio</code> 的用法。</p>
+<h2 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a><a name="oqg4fl"></a>AIO</h2><p>AIO是异步IOCP的实现，是 <code>java.nio.channels.Asynchronou*</code> 下面的包的调用<br>在Linux使用JDK自建线程池，在 Windows 下面使用 IOCP，不过据说还是有些 bug</p>
+<h1 id="应用实现"><a href="#应用实现" class="headerlink" title="应用实现"></a><a name="rhxcwg"></a>应用实现</h1><h2 id="Netty"><a href="#Netty" class="headerlink" title="Netty"></a><a name="ksmlne"></a>Netty</h2><p>Netty默认是使用 NIO 底层 （同步非阻塞）。</p>
+<p>但是在应用层面上，使用 Eventloop 的异步实现，即用一个比较小的线程池同时处理用户端的连接、数据复制，解析数据和执行业务代码。通常，Netty 已经帮我们将相关客户端的数据读取和解析（比如解析HTTP请求），我们只需要写具体的业务代码即可。通常，在业务代码中，我们应该尽可能少的使用同步代码，数据库读取也使用异步NIO连接（比如，使用 NIO 客户端 连接 MongoDB 或者 Redis ），从而最大化压缩线程因阻塞而浪费的时间。而确实可能会导致阻塞的耗时操作，也用异步封装成事件，发到另外的大线程池中。这样可以用较少的线程完成较多的任务，同时阻塞的时间尽可能小，以达到性能最大化的目的。</p>
+<p>Netty曾经也尝试过 AIO 作为底层，不过最后因为性能比NIO差，和兼容性的问题而放弃。为什么差我们也可以做一个猜测，就是 Netty 有一个 Eventloop  线程池 ，和操作系统的AIO线程池没有很好兼容，反而增多更多性能损耗。</p>
+<h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a><a name="x3o3ka"></a>Tomcat</h2><p><img src="https://cdn.nlark.com/yuque/0/2018/png/102759/1540816120920-28591d85-ea0a-4a20-b4e6-c1a4a05968b9.png" alt="image.png | left | 827x591"></p>
+<p>Tomcat 默认是使用 NIO 底层（同步非阻塞），并且也是异步实现（Acceptor 和 Poller 和 Netty 的 Eventloop 模型如出一辙），我们跑的 SpringBoot 等等都可以跑在 Tomcat 上面，速度理论上是不错的。</p>
+<p>可惜在 Tomcat 对于每一个请求，将我们整个 Servlet 、管道、监听器、拦截器 所有东西都打包在一起（当然里面全部都是同步的代码），形成一个超级大的 Runable ，发到线程池上面，导致整个处理请求的过程中多处都要同步等待（比如读取数据库，一般使用同步的方式，如 JDBC 是典型的同步应用），而等待的时间是要占着当前线程的，导致同时处理的任务量过大时，Tomcat 性能非常差。</p>
+<p>这也告诉我们，NIO并不是解决所有问题的万能药，如果我们在 Netty 中运行大量会阻塞很久的同步的代码，也会导致 Netty 性能大幅下降。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a><a name="egecfv"></a>其他</h2><p>另外，Nginx 、 Nodejs、Redis 网络底层都是 select 或者 epoll，也就是说，在系统层面，IO是同步非阻塞的，只是在应用的任务调度层面，是异步的。而异步IO阵营可以说是门前冷落了，IOCP 只有 IIS 在大规模使用。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><a name="pmovhv"></a>参考资料</h1><p><a href="https://www.zhihu.com/question/20122137/answer/14049112" target="_blank" rel="noopener">https://www.zhihu.com/question/20122137/answer/14049112</a><br><a href="https://cloud.tencent.com/developer/article/1005481" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1005481</a><br><a href="https://javadoop.com/post/tomcat-nio" target="_blank" rel="noopener">https://javadoop.com/post/tomcat-nio</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-07-17T03:00:11.000Z">2018-07-17</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    9 分钟 读完 (大约 1363 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/07/17/yuque/jdk-proxy/">Java 动态代理机制 （一） JDK Proxy详解</a>
+            
+        </h1>
+        <div class="content">
+            <p>JDK Proxy 代理是可以根据我们的 <strong>接口 Interface </strong>生成类的字节码，从而可以在 Java 中为所欲为的一种技术，包括对象增强（修改成员变量），函数增强（在函数前后执行别的代码），根据接口名执行不同逻辑 等。在 Mybatis 中有典型应用。它的本质是 由 Proxy 生成一个 代理对象，实现我们的接口。<strong>这个对象中有我们的回调函数。</strong>当调用 代理对象的接口方法时，这个对象再<strong>调用我们的回调函数</strong>，我们的回调函数再调用原对象的对应方法。从而实现代理。为了实现代理模式，Proxy 用了另外一种设计模式：命令模式。</p>
+<p>不过，如果我们没有接口，直接是个类，那么 Proxy 将不能用，我们可能需要用 CGLIB 等 ASM 框架进行对类的字节码进行修改。</p>
+<h3 id="用法简介"><a href="#用法简介" class="headerlink" title="用法简介"></a><a name="1od2hq"></a>用法简介</h3><p>定义一个接口和一个实现的对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 规定一个接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IHello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 新建一个对象</span></span><br><span class="line">IHello hello = <span class="keyword">new</span> Hello()&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"Hello!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>不增强时，我们平时调用的话是这样：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hello.sayHello()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出：</span></span><br><span class="line"><span class="comment">// Hello!</span></span><br></pre></td></tr></table></figure></p>
+<p>使用反射调用，可以达到同样的效果：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从类的字节码获取到方法</span></span><br><span class="line">Method method = hello.getClass().getMethod(<span class="string">"sayHello"</span>);</span><br><span class="line"><span class="comment">// 指定一个对象执行</span></span><br><span class="line">method.invoke(hello);</span><br></pre></td></tr></table></figure></p>
+<p>我们使用 JDK 的 Proxy 对对象进行增强：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对这个对象进行增强，三个参数</span></span><br><span class="line">IHello iHello = (IHello) Proxy.newProxyInstance(</span><br><span class="line">                IHello.class.getClassLoader(), <span class="comment">// 类加载器</span></span><br><span class="line">                <span class="keyword">new</span> Class[]&#123;IHello.class&#125;, <span class="comment">// 所有接口</span></span><br><span class="line">                <span class="keyword">new</span> InvocationHandler() &#123;  <span class="comment">// 回调函数 handler 打包成对象，可以用 lambda</span></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">                        System.out.println(<span class="string">"前置通知"</span>);</span><br><span class="line">                        Object rs = method.invoke(hello, args); <span class="comment">// 这里指定由我们的 hello 对象执行</span></span><br><span class="line">                        System.out.println(<span class="string">"后置通知"</span>);</span><br><span class="line">                        <span class="keyword">return</span> rs;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line">iHello.sayHello();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出：</span></span><br><span class="line"><span class="comment">// 前置通知</span></span><br><span class="line"><span class="comment">// Hello!</span></span><br><span class="line"><span class="comment">// 后置通知</span></span><br></pre></td></tr></table></figure>
+<p>我们看到，我们给 Proxy.newProxyInstance 传入了<strong>一个类加载器、一个接口的数组、一个 Handler</strong>。<strong>返回的是一个 动态生成的 Proxy 对象，实现了 IHello 接口</strong></p>
+<p>我们在调用 这个Proxy 对象的 sayHello() 的时候，<strong>实际上调用的是我们 handler 的 invoke 方法</strong>，然后将我们的 method（类比上面的 hello.getClass().getMethod(“sayHello”)） 传入，然后我们在 invoke 方法里面已经指定了由原来的对象执行这个方法，<code>method.invoke(hello, args)</code>，所以整个代理就完成了。</p>
+<h3 id="用法解析"><a href="#用法解析" class="headerlink" title="用法解析"></a><a name="ug8wcc"></a>用法解析</h3><h4 id="方法增强-对象增强"><a href="#方法增强-对象增强" class="headerlink" title="方法增强/对象增强"></a><a name="dygxbp"></a>方法增强/对象增强</h4><p>Proxy 本质上是根据我们的接口生成了一个 Proxy 对象，然后这个对象再调用我们指定的逻辑来实现动态代理的。而在我们的逻辑中，要用 反射的方法 回调真正对象的方法来实现对象增强。<strong>在反射调用的前后，我们还执行别的一些额外的逻辑。</strong><br><strong>为什么要这么增强呢？</strong>这其实是一种AOP的编程方法。 在 SpringMVC 的一些逻辑操作中，我们可以用到它，比如每个方法统一鉴权，日志处理等等，我们可以在一个地方写一次代码，就可以应用到全部方法中。当然 Proxy 还不灵活，默认会对接口的<strong>所有方法</strong>都执行同一个逻辑，所以我们还有 AspectJ 等包来灵活管理。</p>
+<h4 id="根据接口名执行不同方法"><a href="#根据接口名执行不同方法" class="headerlink" title="根据接口名执行不同方法"></a><a name="wwcozd"></a>根据接口名执行不同方法</h4><p>当然，我们也可以<strong>不做对象增强</strong>，而是直接读取我们的接口中的方法名，做一些别的逻辑，比如 在 Mybatis 中，我们只要定义接口，然后经过工厂返回一个 Proxy 对象，我们就可以调用到真正的逻辑代码，读取 map 和 数据库。</p>
+<h3 id="原理解析"><a href="#原理解析" class="headerlink" title="原理解析"></a><a name="fvwvtx"></a>原理解析</h3><p>眼见为实，我们来把经过代理后的对象的类文件导出来，再确认下我们的结论：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(path)) &#123;</span><br><span class="line">    fos.write(classFile);</span><br><span class="line">    fos.flush();</span><br><span class="line">    System.out.println(<span class="string">"代理类class文件写入成功"</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    System.out.println(<span class="string">"写文件错误"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了简洁起见，这里删掉了对 Object代理 的 一些方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> $<span class="title">Proxy0</span> <span class="keyword">extends</span> <span class="title">Proxy</span> <span class="keyword">implements</span> <span class="title">IHello</span> </span>&#123; <span class="comment">// 实现原接口，是代理模式的核心</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m3;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            m3 = Class.forName(<span class="string">"test.ProxyTest$IHello"</span>).getMethod(<span class="string">"sayHello"</span>); <span class="comment">// 调用了 getMethod 方法</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchMethodException var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchMethodError(var2.getMessage());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NoClassDefFoundError(var3.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> $Proxy0(InvocationHandler var1) <span class="keyword">throws</span>  &#123;</span><br><span class="line">        <span class="keyword">super</span>(var1); <span class="comment">// 把我们的 Handler 传进来了</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// super(var1) 方法的代码，非本文件</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">Proxy</span><span class="params">(InvocationHandler h)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(h);</span><br><span class="line">        <span class="keyword">this</span>.h = h;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span> <span class="keyword">throws</span>  </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 这里回调我们传入的 handler 类</span></span><br><span class="line">            <span class="keyword">super</span>.h.invoke(<span class="keyword">this</span>, m3, (Object[])<span class="keyword">null</span>); <span class="comment">// 因为我们的接口没有参数，所以这里传null</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var2;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UndeclaredThrowableException(var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// super.h.invoke 方法就是我们自己定义的 Handler 的 invoke 方法</span></span><br><span class="line">    <span class="comment">// 如果有其他方法，就直接由生成器复制即可</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>这其实是命令模式的设计模式，我们先传入一个回调函数，Proxy 被调用时，调用我们的的回调函数（对象）</strong></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><a name="ft2oxn"></a>参考资料</h3><p><a href="https://www.cnblogs.com/gonjan-blog/p/6685611.html" target="_blank" rel="noopener">https://www.cnblogs.com/gonjan-blog/p/6685611.html</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-07-13T09:56:30.000Z">2018-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    30 分钟 读完 (大约 4481 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/07/13/yuque/stream/">Java Stream 解析和使用技巧</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="Stream简介"><a href="#Stream简介" class="headerlink" title="Stream简介"></a><a name="7t3kir"></a>Stream简介</h3><p>Stream是一种为lambda设计的一种操作流水线。创建一个Stream之后，你可以添加你想要的多个中间操作到流水线中，然后使用终结操作，原始数据就会通过你设计的Stream流水线，输出给终结操作，然后输出数据。</p>
+<p>所以，看本文之前，请确保你已经对 lambda 已经足够了解。<br>lambda解析：<a href="https://yuque.com/page/luan.ma/lambda/" target="_blank" rel="noopener">https://yuque.com/page/luan.ma/lambda/</a></p>
+<h4 id="Stream的类型"><a href="#Stream的类型" class="headerlink" title="Stream的类型"></a><a name="xks3vn"></a>Stream的类型</h4><p>Stream有分普通流和数值流，之间没有继承关系，普通流用一个泛型表示流中的数据结构类型，如Stream<string><br>数值流主要是避免重复的装箱拆箱，统一用原始数值类型（无法应用泛型指定类型），int long double，我们在做终结操作的时候需要统一装箱 .box() 转成普通流</string></p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1530006249827-5288b1e9-7a3f-44c2-8d5d-2308a085cb5c.png" alt="image.png | left | 553x196"></p>
+<h4 id="Stream的生命周期"><a href="#Stream的生命周期" class="headerlink" title="Stream的生命周期"></a><a name="3rlekl"></a>Stream的生命周期</h4><p>创建流 -&gt; 中间操作 -&gt; 终结操作</p>
+<h4 id="Stream的特点"><a href="#Stream的特点" class="headerlink" title="Stream的特点"></a><a name="2mbuqf"></a>Stream的特点</h4><ul>
+<li>无存储。<em>stream</em>不是一种数据结构，它只是某种数据源的一个视图，数据源可以是一个数组，Java容器或I/O channel等。</li>
+<li>为函数式编程而生。对<em>stream</em>的任何修改都不会修改背后的数据源，比如对<em>stream</em>执行过滤操作并不会删除被过滤的元素，而是会产生一个不包含被过滤元素的新<em>stream</em>。</li>
+<li>惰式执行。<em>stream</em>上的操作（中间操作）并不会立即执行，只有等到用户真正需要结果的时候（终结操作）才会执行。</li>
+<li>可消费性。<em>stream</em>只能被“消费”一次，一旦遍历过就会失效（终结操作就是消费操作），就像容器的迭代器那样，想要再次遍历必须重新生成。</li>
+</ul>
+<p>区分中间操作和结束操作最简单的方法，就是看方法的返回值，返回值为<em>stream</em>的大都是中间操作，否则是结束操作。</p>
+<h3 id="创建流"><a href="#创建流" class="headerlink" title="创建流"></a><a name="hotume"></a>创建流</h3><hr>
+<ol>
+<li>从 Colletion <ol>
+<li>.stream() </li>
+<li>.parallelStream()</li>
+</ol>
+</li>
+<li>从数组<ol>
+<li>Arrays.stream(T array) </li>
+<li>Stream.of()</li>
+</ol>
+</li>
+<li>从输入流<ol>
+<li><span data-type="color" style="color:rgb(50, 50, 50)"><span data-type="background" style="background-color:rgb(255, 255, 255)">BufferedReader.lines()</span></span></li>
+</ol>
+</li>
+<li>从目录树<ol>
+<li>Files.walk(Paths.get(“C:\“))</li>
+</ol>
+</li>
+<li>创建各种数值流<ol>
+<li>Random.ints()</li>
+<li>IntStream.of()</li>
+<li><span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)">IntStream.range()</span></span></li>
+<li>…Stream.***()</li>
+</ol>
+</li>
+<li>自己创建流（可创建无穷流）<ol>
+<li>Stream.generate() 丢进一个类似迭代器的东西即可</li>
+<li>Stream.iterate(0, n -&gt; n + 3).limit(10). forEach(x -&gt; System.out.print(x + “ “)); 创建一个自己迭代的流</li>
+</ol>
+</li>
+</ol>
+<h3 id="中间操作"><a href="#中间操作" class="headerlink" title="中间操作"></a><a name="fng4ur"></a>中间操作</h3><hr>
+<ol>
+<li>并行化<ol>
+<li>.parallel()</li>
+</ol>
+</li>
+<li>装箱操作<ol>
+<li>.boxed() 把数值流转回普通流，才能执行终结操作</li>
+</ol>
+</li>
+<li>转换操作<ol>
+<li>一对一普通转换 .map()</li>
+<li>一对多转换 .flatMap() 本</li>
+</ol>
+</li>
+</ol>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1530006500269-b956f73a-06a2-43f2-954a-3dc7ad4a968a.png" alt="image.png | left | 284x267"><br>质上是把每个对象转换成流，流会自动合并<br>        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;List&lt;Integer&gt;&gt; stream = Stream.of(Arrays.asList(<span class="number">1</span>,<span class="number">2</span>), Arrays.asList(<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>));</span><br><span class="line">stream.flatMap(list -&gt; list.stream())</span><br><span class="line">    .forEach(i -&gt; System.out.println(i));</span><br></pre></td></tr></table></figure></p>
+<pre><code>3. 直接转成 数值流 .mapToInt .flatMapToInt
+</code></pre><ol start="4">
+<li>排序操作 .sorted</li>
+<li>对每一个对象操作 .peek</li>
+<li>保留前n项 .limit()<br> 无穷流必须执行限流操作，否则将进入死循环</li>
+<li>去掉前n项 .skip()</li>
+<li>筛选操作 .filter()<br> true留，false被删除</li>
+</ol>
+<h3 id="终结操作"><a href="#终结操作" class="headerlink" title="终结操作"></a><a name="bgw4nk"></a>终结操作</h3><hr>
+<p>终结操作后Stream将会被消费完成，不能再执行中间操作</p>
+<ol>
+<li>转数组 .toArray()<ol>
+<li>stream.toArray(String[]::new)</li>
+</ol>
+</li>
+<li>转 Collection/String .collect()</li>
+<li>forEach 逐一消费所有项目<br> 无法提前结束循环，只能用return提前结束当前循环</li>
+<li>两两结合操作 .reduce()<ol>
+<li>.max</li>
+<li>.min</li>
+<li>.findFirst</li>
+<li>.findAny </li>
+</ol>
+</li>
+<li>match 检查<ol>
+<li>allMatch：Stream 中全部元素符合传入的 predicate，返回 true</li>
+<li>anyMatch：Stream 中只要有一个元素符合传入的 predicate，返回 true</li>
+<li>noneMatch：Stream 中没有一个元素符合传入的 predicate，返回 true</li>
+</ol>
+</li>
+</ol>
+<h4 id="reduce操作"><a href="#reduce操作" class="headerlink" title="reduce操作"></a><a name="xa2ezh"></a>reduce操作</h4><p><em>reduce</em>操作可以实现从一组元素中<strong>生成一个值</strong>，<code>sum()</code>、<code>max()</code>、<code>min()</code>、<code>count()</code>等都是<em>reduce</em>操作，将他们单独设为函数只是因为常用。<code>reduce()</code>的方法定义有三种重写形式：</p>
+<ul>
+<li><code>Optional&lt;T&gt; reduce(BinaryOperator&lt;T&gt; accumulator)</code></li>
+<li><code>T reduce(T identity, BinaryOperator&lt;T&gt; accumulator)</code></li>
+<li><code>&lt;U&gt; U reduce(U identity, BiFunction&lt;U,? super T,U&gt; accumulator, BinaryOperator&lt;U&gt; combiner)</code></li>
+</ul>
+<p>虽然函数定义越来越长，但语义不曾改变，多的参数只是为了指明初始值（参数<em>identity</em>），或者是指定并行执行时多个部分结果的合并方式（参数<em>combiner</em>）。<code>reduce()</code>最常用的场景就是从一堆值中生成一个值。用这么复杂的函数去求一个最大或最小值，你是不是觉得设计者有病。其实不然，因为“大”和“小”或者“求和”有时会有不同的语义。而<em>Optional</em>是（一个）值的容器，可以避免null值的问题，下面会提到。</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1530067501704-ec0d3578-9a46-47f7-bede-4964cffade78.png" alt="image.png | left | 366x154"></p>
+<p>需求：<em>从一组单词中找出最长的单词</em>。这里“大”的含义就是“长”。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 找出最长的单词</span></span><br><span class="line">Stream&lt;String&gt; stream = Stream.of(<span class="string">"I"</span>, <span class="string">"love"</span>, <span class="string">"you"</span>, <span class="string">"too"</span>);</span><br><span class="line">Optional&lt;String&gt; longest = stream.reduce((s1, s2) -&gt; s1.length()&gt;=s2.length() ? s1 : s2);</span><br><span class="line"><span class="comment">//Optional&lt;String&gt; longest = stream.max((s1, s2) -&gt; s1.length()-s2.length());</span></span><br><span class="line">System.out.println(longest.get());</span><br></pre></td></tr></table></figure>
+<p>需求：<em>求出一组单词的长度之和</em>。这是个“求和”操作，操作对象输入类型是<em>String</em>，而结果类型是<em>Integer</em>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求单词长度之和</span></span><br><span class="line">Stream&lt;String&gt; stream = Stream.of(<span class="string">"I"</span>, <span class="string">"love"</span>, <span class="string">"you"</span>, <span class="string">"too"</span>);</span><br><span class="line">Integer lengthSum = stream.reduce(<span class="number">0</span>,　<span class="comment">// 初始值　// (1)</span></span><br><span class="line">        (sum, str) -&gt; sum+str.length(), <span class="comment">// 累加器 // (2)</span></span><br><span class="line">        (a, b) -&gt; a+b);　<span class="comment">// 部分和拼接器，并行执行时才会用到 // (3)</span></span><br><span class="line"><span class="comment">// int lengthSum = stream.mapToInt(str -&gt; str.length()).sum();</span></span><br><span class="line">System.out.println(lengthSum);</span><br></pre></td></tr></table></figure>
+<h4 id="Collect操作"><a href="#Collect操作" class="headerlink" title="Collect操作"></a><a name="1rcwrh"></a>Collect操作</h4><p>Collect是终结操作的一个函数，最为强大，不仅可以将流转化成各种数据结构，也可以再补充中间操作不能进行许多操作。</p>
+<p>收集器（<em>Collector</em>）是为<code>Stream.collect()</code>方法量身打造的工具接口（类）。考虑一下将一个<em>Stream</em>转换成一个容器（或者<em>Map</em>）需要做哪些工作？我们至少需要两样东西：</p>
+<ol>
+<li>目标容器是什么？是<em>ArrayList</em>还是<em>HashSet</em>，或者是个<em>TreeMap</em>。</li>
+<li>新元素如何添加到容器中？是<code>List.add()</code>还是<code>Map.put()</code>。</li>
+</ol>
+<p>如果并行的进行规约，还需要告诉<em>collect()</em> 3. 多个部分结果如何合并成一个。</p>
+<p>结合以上分析，<em>collect()方法定义为</em><em><code><r> R collect(Supplier<r> supplier, BiConsumer&lt;R,? super T&gt; accumulator, BiConsumer&lt;R,R&gt; combiner)</r></r></code></em><em>，三个参数依次对应上述三条分析。不过每次调用</em>collect()<em>都要传入这三个参数太麻烦，收集器</em>Collector就是对这三个参数的简单封装,所以<em>collect()的另一定义为</em><em><code>&lt;R,A&gt; R collect(Collector&lt;? super T,A,R&gt; collector)</code></em><em>。Collectors</em>工具类可通过静态方法生成各种常用的Collector。</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1530070950791-e45c7024-812f-4697-8761-af9c27716ae9.png" alt="image.png | left | 327x129"></p>
+<p><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">举例来说，如果要将</span></span><em>Stream</em><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">规约成</span></span><em>List</em><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">可以通过如下两种方式实现：</span></span><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = stream.collect(ArrayList::<span class="keyword">new</span>, ArrayList::add, ArrayList::addAll);<span class="comment">// 方式１</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>常用的转 Collection / String</strong>，Collectors为辅助类</p>
+<ol>
+<li>转list stream.collect(Collectors.toList()); </li>
+<li>转set stream.collect(Collectors.toSet()); </li>
+<li>转其他 stream.collect(Collectors.toCollection(Stack::new)); </li>
+<li>转String stream.collect(Collectors.joining()).toString();</li>
+</ol>
+<p><strong>转 map</strong></p>
+<p>前面已经说过<em>Stream</em>背后依赖于某种数据源，数据源可以是数组、容器等，但不能是<em>Map</em>。反过来从<em>Stream</em>生成<em>Map</em>是可以的，但我们要想清楚<em>Map</em>的<em>key</em>和<em>value</em>分别代表什么，根本原因是我们要想清楚要干什么。通常在三种情况下<code>collect()</code>的结果会是<em>Map</em>：</p>
+<ol>
+<li>使用<code>Collectors.toMap()</code>生成的收集器，用户需要指定如何生成<em>Map</em>的<em>key</em>和<em>value</em>。</li>
+<li>使用<code>Collectors.partitioningBy()</code>生成的收集器，对元素进行二分区操作时用到。</li>
+<li>使用<code>Collectors.groupingBy()</code>生成的收集器，对元素做<em>group</em>操作时用到。</li>
+</ol>
+<p>情况1：使用<code>toMap()</code>生成的收集器，这种情况是最直接的，前面例子中已提到，这是和<code>Collectors.toCollection()</code>并列的方法。如下代码展示将学生列表转换成由&lt;学生，GPA&gt;组成的<em>Map</em>。。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用toMap()统计学生GPA</span></span><br><span class="line">Map&lt;Student, Double&gt; studentToGPA =</span><br><span class="line">     students.stream().collect(Collectors.toMap(Functions.identity(),<span class="comment">// 如何生成key</span></span><br><span class="line">                                     student -&gt; computeGPA(student)));<span class="comment">// 如何生成value</span></span><br><span class="line"><span class="comment">// Functions.identity() 是一个接口默认方法，return x-&gt;x，即它本身，在这里是 student -&gt; student</span></span><br></pre></td></tr></table></figure>
+<p>情况2：使用<code>partitioningBy()</code>生成的收集器，这种情况适用于将<code>Stream</code>中的元素依据某个二值逻辑（满足条件，或不满足）分成互补相交的两部分，比如男女性别、成绩及格与否等。下列代码展示将学生分成成绩及格或不及格的两部分。拉出来之后用 get(true) 和 get(false) 拉出去两个列表。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Partition students into passing and failing</span></span><br><span class="line">Map&lt;Boolean, List&lt;Student&gt;&gt; passingFailing = students.stream()</span><br><span class="line">         .collect(Collectors.partitioningBy(s -&gt; s.getGrade() &gt;= PASS_THRESHOLD));</span><br></pre></td></tr></table></figure>
+<p>情况3：使用<code>groupingBy()</code>生成的收集器，这是比较灵活的一种情况。跟SQL中的<em>group by</em>语句类似，这里的<em>groupingBy()也是按照某个属性对数据进行分组，属性相同的元素会被对应到</em>Map的同一个<em>key</em>上。下列代码展示将员工按照部门进行分组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Group employees by department</span></span><br><span class="line">Map&lt;Department, List&lt;Employee&gt;&gt; byDept = employees.stream()</span><br><span class="line">            .collect(Collectors.groupingBy(Employee::getDepartment));</span><br></pre></td></tr></table></figure>
+<p>以上只是分组的最基本用法，有些时候仅仅分组是不够的。在SQL中使用<em>group by</em>是为了协助其他查询，比如<em>1. 先将员工按照部门分组，2. 然后统计每个部门员工的人数</em>。Java类库设计者也考虑到了这种情况，增强版的<code>groupingBy()</code>能够满足这种需求。增强版的<code>groupingBy()</code>允许我们对元素分组之后再执行某种运算，比如求和、计数、平均值、类型转换等。这种先将元素分组的收集器叫做<strong>上游收集器</strong>，之后执行其他运算的收集器叫做<strong>下游收集器</strong>(<em>downstream Collector</em>)。我们可以简单理解，下游收集器就是对map 的 values  做了一个 forEach</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用下游收集器统计每个部门的人数</span></span><br><span class="line">Map&lt;Department, Integer&gt; totalByDept = employees.stream()</span><br><span class="line">                    .collect(Collectors.groupingBy(Employee::getDepartment,</span><br><span class="line">                    <span class="comment">// 变成 Map&lt;Department, List&lt;Employee&gt;&gt;</span></span><br><span class="line">                    <span class="comment">// 对每一个 List&lt;Employee&gt; 执行</span></span><br><span class="line">                                                   Collectors.counting()));<span class="comment">// 下游收集器</span></span><br></pre></td></tr></table></figure>
+<p>上面代码的逻辑是不是越看越像SQL？高度非结构化。还有更狠的，下游收集器还可以包含更下游的收集器，这绝不是为了炫技而增加的把戏，而是实际场景需要。考虑将员工按照部门分组的场景，如果<em>我们想得到每个员工的名字（字符串），而不是一个个</em>Employee<em>对象</em>，可通过如下方式做到：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 按照部门对员工分布组，并只保留员工的名字</span></span><br><span class="line">Map&lt;Department, List&lt;String&gt;&gt; byDept = employees.stream()</span><br><span class="line">                .collect(Collectors.groupingBy(Employee::getDepartment,</span><br><span class="line">                        <span class="comment">// Map&lt;Department, Stream&lt;Employee&gt;&gt;</span></span><br><span class="line">                        <span class="comment">// 对每一个 Stream&lt;Employee&gt; ，执行 mapping，会遍历流中每一个数据</span></span><br><span class="line">                        Collectors.mapping(Employee::getName,<span class="comment">// 下游收集器</span></span><br><span class="line">                        <span class="comment">// 得到一个 Map&lt;Department, Stream&lt;String&gt;&gt;</span></span><br><span class="line">                                Collectors.toList())));<span class="comment">// 更下游的收集器</span></span><br><span class="line">                        <span class="comment">// 得到 Map&lt;Department, List&lt;String&gt;&gt; </span></span><br><span class="line">                        <span class="comment">// Map的key不用管，自动只处理 value 的 stream</span></span><br></pre></td></tr></table></figure>
+<h3 id="Optional容器"><a href="#Optional容器" class="headerlink" title="Optional容器"></a><a name="2s0gui"></a>Optional容器</h3><hr>
+<ol>
+<li><p>一般用法：</p>
+<ol>
+<li>新建一个 可空 Optional，ifPresent非空则执行 xxx 操作<br><span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)"><em>Optional.ofNullable</em></span></span><span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)">(text).ifPresent(System.out::println);</span></span></li>
+<li>从reduce等stream终结函数返回</li>
+</ol>
+</li>
+<li><p>检查Optional是否为空，一般和三元符配合使用，可同时照顾到非空和空<br>isPresent()?1:0;</p>
+</li>
+<li>orElse() 用法，取值，如果为空，则为默认值（默认值马上获得，传入的是真实值）<br>String name = Optional.ofNullable(nullName).orElse(“john”);</li>
+<li>orElseGet() 取值，如果为空，则为默认值，默认值为一个获取方法<br>Optional.ofNullable(text).orElseGet(this::getMyDefault);<br>当容器内的值为null时，orElse() 和 orElseGet() 完全相同，当容器内值不为 null 时，则 orElseGet() 不会执行相关的函数</li>
+<li>.filter() 过滤，如果.filter()内容为真，则返回内容，如果为假，则容器内为空。支持链式操作<br> boolean is2017 = yearOptional.filter(y -&gt; y == 2017).isPresent();</li>
+<li>.map() 转换，不用判断非空<br> int size = listOptional .map(List::size).orElse(0);</li>
+<li>.flatMap() 多层 Optional 自动拆开</li>
+</ol>
+<h3 id="Stream-底层实现"><a href="#Stream-底层实现" class="headerlink" title="Stream 底层实现"></a><a name="p875wl"></a>Stream 底层实现</h3><p>Stream实际上是一个流水线（Pipelines），那么他的链式调用+惰性执行的原理是什么呢？</p>
+<p>所谓流水线，就是先装配，后启动，一次完成。而不是一步一步迭代实现，这样最大的弊端是没有办法应对复杂的数据结构。效率也十分低</p>
+<p>我们举个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; test = Arrays.asList(&quot;liu&quot;,&quot;zhang&quot;,&quot;huang&quot;,&quot;chen&quot;,&quot;lix&quot;,&quot;fuc&quot;);</span><br><span class="line"></span><br><span class="line">Stream&lt;String&gt; t = test.stream();</span><br><span class="line">Stream&lt;String&gt; t2 = t.skip(2);</span><br><span class="line">Stream&lt;String&gt; t3 = t2.map(x -&gt; x.substring(2));</span><br><span class="line">Stream&lt;String&gt; t4 = t3.sorted();</span><br><span class="line">String t5 = t4.max(String::compareTo).orElse(&quot;&quot;);</span><br></pre></td></tr></table></figure>
+<p>这是一组流水线Stream拆开来生成多个Stream变量。我们知道，Stream实际上是一个接口，那么，我们调用了这些函数之后，到底返回了一个什么对象呢？我们直接用 IDE 告诉我们答案</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1530083608010-9f9792df-354e-4084-a898-1eb5fd9a1a2a.png" alt="image.png | left | 461x400"></p>
+<p>可以看到，首先这里有一个双向链表的结构，每次中间操作，都会增加一个新的 AbstractPipeline，然后记录第一个  AbstractPipeline 和 上一个  AbstractPipeline，上一个  AbstractPipeline 也会记录当前新增的  AbstractPipeline。</p>
+<p>而另一方面，根据增加的操作不同，也会有不同的 AbstractPipeline 子类，包括 ReferencePipeline, SliceOps, SortedOps, StatelessOp 等等，只是实现的层级不同，我们稍后在纠结这些。</p>
+<p>并且，这些实现类内部会有一个 核心的逻辑方法<code>opWrapSink(int flags, Sink&lt;P_OUT&gt; sink</code>，会把逻辑打包成一个 Sink 对象，这个 Sink 对象还接收另外一个 Sink 对象作为构造函数参数。</p>
+<p>我们拿 .filter() 举例，内置了一个函数会返回 Sink 对象，目前还是惰性执行，所以没有立刻生成：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Stream&lt;P_OUT&gt; <span class="title">filter</span><span class="params">(Predicate&lt;? <span class="keyword">super</span> P_OUT&gt; predicate)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(predicate);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> StatelessOp&lt;P_OUT, P_OUT&gt;(<span class="keyword">this</span>, StreamShape.REFERENCE,</span><br><span class="line">                                     StreamOpFlag.NOT_SIZED) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function">Sink&lt;P_OUT&gt; <span class="title">opWrapSink</span><span class="params">(<span class="keyword">int</span> flags, Sink&lt;P_OUT&gt; sink)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> Sink.ChainedReference&lt;P_OUT, P_OUT&gt;(sink) &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">begin</span><span class="params">(<span class="keyword">long</span> size)</span> </span>&#123;</span><br><span class="line">                        downstream.begin(-<span class="number">1</span>);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(P_OUT u)</span> </span>&#123;</span><br><span class="line">                        <span class="keyword">if</span> (predicate.test(u))</span><br><span class="line">                            downstream.accept(u);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>Sink对象源码，我们最关注的是构造函数，可以看到它又藏了另外一个 sink</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ChainedReference</span>&lt;<span class="title">T</span>, <span class="title">E_OUT</span>&gt; <span class="keyword">implements</span> <span class="title">Sink</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">        <span class="keyword">protected</span> <span class="keyword">final</span> Sink&lt;? <span class="keyword">super</span> E_OUT&gt; downstream;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ChainedReference</span><span class="params">(Sink&lt;? <span class="keyword">super</span> E_OUT&gt; downstream)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.downstream = Objects.requireNonNull(downstream);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">begin</span><span class="params">(<span class="keyword">long</span> size)</span> </span>&#123;</span><br><span class="line">            downstream.begin(size);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">end</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            downstream.end();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">cancellationRequested</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> downstream.cancellationRequested();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>当我们走到终结操作的时候，会先执行一个这样的操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">final</span> &lt;P_IN&gt; <span class="function">Sink&lt;P_IN&gt; <span class="title">wrapSink</span><span class="params">(Sink&lt;E_OUT&gt; sink)</span> </span>&#123;</span><br><span class="line">    Objects.requireNonNull(sink);</span><br><span class="line">    <span class="comment">// 检查非空</span></span><br><span class="line">    <span class="keyword">for</span> ( <span class="meta">@SuppressWarnings</span>(<span class="string">"rawtypes"</span>) AbstractPipeline p=AbstractPipeline.<span class="keyword">this</span>; p.depth &gt; <span class="number">0</span>; p=p.previousStage) &#123;</span><br><span class="line">        <span class="comment">// 从后向前调用每个AbstractPipeline的opwrapSink，然后每个 Sink 藏着上一个 Sink</span></span><br><span class="line">        sink = p.opWrapSink(p.previousStage.combinedFlags, sink);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (Sink&lt;P_IN&gt;) sink;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好了，千辛万苦，我们终于得到了这么一个 Sink，这个 Sink 保存了所有的中间流操作和最后一个 reduce 规约操作的所有操作对象。也就是说，我们的流水线建成了。</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1530085731625-036cc5b0-4904-45f3-87f8-eb3b50de5199.png" alt="image.png | left | 493x326"></p>
+<p>拿到这个 Sink 之后，我们就可以愉快的进行迭代了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AbstractPipelie.copyInto()</span></span><br><span class="line"><span class="keyword">final</span> &lt;P_IN&gt; <span class="function"><span class="keyword">void</span> <span class="title">copyInto</span><span class="params">(Sink&lt;P_IN&gt; wrappedSink, Spliterator&lt;P_IN&gt; spliterator)</span> </span>&#123;</span><br><span class="line">    Objects.requireNonNull(wrappedSink);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!StreamOpFlag.SHORT_CIRCUIT.isKnown(getStreamAndOpFlags())) &#123;</span><br><span class="line">        wrappedSink.begin(spliterator.getExactSizeIfKnown());<span class="comment">// 调用遍历前钩子，通知数据大小</span></span><br><span class="line">        spliterator.forEachRemaining(wrappedSink);<span class="comment">// 迭代器</span></span><br><span class="line">        wrappedSink.end();<span class="comment">// 调用遍历后钩子</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        copyIntoWithCancel(wrappedSink, spliterator);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>遍历调用 Sink的begin() 钩子，主要是用来准备数据结构，每个Sink的begin都会递归调用下游的begin<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SliceOps</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">begin</span><span class="params">(<span class="keyword">long</span> size)</span> </span>&#123;</span><br><span class="line">    downstream.begin(calcSize(size, skip, m));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>调用 forEachRemaining() 方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Spliterators</span></span><br><span class="line"><span class="keyword">if</span> ((a = array).length &gt;= (hi = fence) &amp;&amp;</span><br><span class="line">    (i = index) &gt;= <span class="number">0</span> &amp;&amp; i &lt; (index = hi)) &#123;</span><br><span class="line">    <span class="keyword">do</span> &#123; action.accept((T)a[i]); &#125; <span class="keyword">while</span> (++i &lt; hi);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 就是这么简单粗暴，把 Stream 里面的东西一个一个调用 Sink 里面的 accept 方法</span></span><br><span class="line"><span class="comment">// 然后，这个东西又会调用下游的 accept</span></span><br><span class="line"><span class="comment">// SliceOps</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(T t)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (m &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            m--;</span><br><span class="line">            downstream.accept(t);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        n--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 这里，我们可以看到，切割操作就是有的元素不往下传，就gg了，往下传就继续下面的 accept()</span></span><br></pre></td></tr></table></figure></p>
+<p>最后调用 end() 方法封口，同样是递归调用<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SotedOps()</span></span><br><span class="line"><span class="comment">// Sort有他的特殊性，不能在 accept 的时候一个一个执行，只能在封口的时候，再排序</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">end</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    list.sort(comparator); <span class="comment">// 排序</span></span><br><span class="line">    downstream.begin(list.size()); <span class="comment">// 通知下游准备</span></span><br><span class="line">    <span class="keyword">if</span> (!cancellationWasRequested) &#123; <span class="comment">// 下游Sink不包含短路操作</span></span><br><span class="line">        list.forEach(downstream::accept); <span class="comment">// 把元素继续一个一个丢给下游</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (T t : list) &#123; <span class="comment">//把元素一个一个拉出来</span></span><br><span class="line">            <span class="keyword">if</span> (downstream.cancellationRequested()) <span class="keyword">break</span>;<span class="comment">// 每次都调用cancellationRequested()询问是否可以结束处理。</span></span><br><span class="line">            downstream.accept(t); <span class="comment">//否则，把这个交给下游</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    downstream.end(); <span class="comment">// 调用下游的 end()函数</span></span><br><span class="line">    list = <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 来看下它的其他两个操作，可以看到，他并没有调用下游操作，而是直接拦截了，等到 end 的时候再通知下游</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">begin</span><span class="params">(<span class="keyword">long</span> size)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 创建一个存放排序元素的列表</span></span><br><span class="line">    list = (size &gt;= <span class="number">0</span>) ? <span class="keyword">new</span> ArrayList&lt;T&gt;((<span class="keyword">int</span>) size) : <span class="keyword">new</span> ArrayList&lt;T&gt;();</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(T t)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Sorted的违规操作，</span></span><br><span class="line">    list.add(t);<span class="comment">// 1. 使用当前Sink包装动作处理t，只是简单的将元素添加到中间列表当中</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>经过这些处理之后，会被丢进 reduce 操作 或者是 collect 操作收集 流中的数据。</p>
+<p>关于并且流时候的情况，调用了 Fork/Join 框架，比较复杂，以后再更。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><a name="y1f3zv"></a>参考资料</h3><p><a href="https://github.com/CarpenterLee/JavaLambdaInternals" target="_blank" rel="noopener">深入理解Java函数式编程和Streams API</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-06-26T07:29:56.000Z">2018-06-26</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    19 分钟 读完 (大约 2886 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/06/26/yuque/lambda/">Java Lambda 解析和使用技巧</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="lambda是包着一个函数的对象"><a href="#lambda是包着一个函数的对象" class="headerlink" title="lambda是包着一个函数的对象"></a><a name="gc1tzc"></a>lambda是包着一个函数的对象</h3><p>lambda表达式非常简洁优雅。是把动态语言的特性嫁接到静态语言的一个典范。</p>
+<p>在java中，我更加愿意认为lambda实际上是是包着一个函数的对象，我们在使用lambda表达式的时候，实际上定义了一个闭包的函数对象，这是lambda最大的意义所在。在过去，我们在函数之间传递一个函数，必须手动把它包装成类的对象，并用接口加以规范。现在，我们可以直接用lambda自动生成一个这样的对象。</p>
+<p>如果你用过 Javascript/Python，你可以把刚刚定义的函数当做对象传给别的函数。现在，你用 lambda 也可以在 java 的里面传参时把函数用lambda形式“打包”传给别的函数，并且符合强类型的面向对象要求。</p>
+<p>我们先用面向对象的方法理解 lambda 函数，他首先是一个对象，但是不需要我们手动new，他的类型是 一个接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是 Runnable 接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在以前，我们可能要这样创建一个 Runnable 对象（当然也可以用匿名内部类）</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">taskClass</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"test"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Runnable task = <span class="keyword">new</span> taskClass();</span><br><span class="line"><span class="comment">// 对象可以使用接口的方法</span></span><br><span class="line">task.run(); <span class="comment">// 输出 test</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 现在，有了 lambda，系统用了些黑魔法，自动实例化了类，并且给我们创建好了对象</span></span><br><span class="line"><span class="comment">// 其实，这个task不是内部类而真的是一个私有的函数，是的，编译器就是可以为所欲为</span></span><br><span class="line">Runnable task = () -&gt; &#123;</span><br><span class="line">    System.out.println(<span class="string">"test"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 你可以表面地理解成，系统把 小括号 和 大括号的内容，复制粘贴到上面去了</span></span><br></pre></td></tr></table></figure>
+<p>看到这里，你可能会问，系统依据什么来创建这个函数对象呢？如果一个接口里面有许多方法，我们的lambda表达式应该应用到（复制、粘贴到）哪个方法上面呢？lambda的输出类型怎么定义呢？</p>
+<p>答案就是，这种接口，有且只能有一个抽象方法，系统会自动找到这一个方法（虽然这样看起来有些随意）作为创建这个函数对象的模板。</p>
+<h3 id="lambda传参数和返回值"><a href="#lambda传参数和返回值" class="headerlink" title="lambda传参数和返回值"></a><a name="adg7hg"></a>lambda传参数和返回值</h3><p>和 Runnable 接口一样，JDK还给我们带来了几个比较常见的接口：如 Consumer 接口 和 Supplier 接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个接口的特点是，有一个参数，无返回值</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Consumer</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">accept</span><span class="params">(T t)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用 lambda创建一个 consumer 对象</span></span><br><span class="line">Consumer&lt;String&gt; consumer = (String item) -&gt; &#123;</span><br><span class="line">    System.out.println(item);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个接口的特点是,无参数，有返回值</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Supplier</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">T <span class="title">get</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用 lambda 创建一个 supplier 对象</span></span><br><span class="line">Supplier&lt;String&gt; supplier = () -&gt; &#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="string">"test"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>java.util.function 下有大量JDK8带来的接口</p>
+<ul>
+<li><code>Predicate&lt;T&gt;</code> – a boolean-valued property of an object | 输入T，返回 boolean</li>
+<li><code>Consumer&lt;T&gt;</code> – an action to be performed on an object | 输入 T，返回void</li>
+<li><code>Function&lt;T,R&gt;</code> – a function transforming a T to a R | 输入 T 返回 R</li>
+<li><code>Supplier&lt;T&gt;</code> – provide an instance of a T (such as a factory) | 输入() 返回T </li>
+<li><code>UnaryOperator&lt;T&gt;</code> – a function from T to T | 输入 T 返回 T</li>
+<li><code>BinaryOperator&lt;T&gt;</code> – a function from (T, T) to T | 输入 (T,T) 返回 T</li>
+<li><code>IntSupplier</code> 等基础数值非泛型接口</li>
+</ul>
+<p>我们在使用的时候，只用关心接口下面的唯一抽象方法的输入值和返回值即可，不用太关心名字</p>
+<h3 id="lambda-的语法糖"><a href="#lambda-的语法糖" class="headerlink" title="lambda 的语法糖"></a><a name="t1siet"></a>lambda 的语法糖</h3><ol>
+<li>如果函数体只有一行，不需要大括号</li>
+<li>如果函数的参数只有一个，不需要小括号</li>
+<li>如果函数的参数可以由上下文推导，则不需要写参数类型</li>
+<li>如果函数体只有一行，不用写 return</li>
+</ol>
+<p>这四个比较好理解，比如，这样写是合法的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Consumer&lt;String&gt; consumer = item -&gt; System.out.println(item);</span><br><span class="line">Supplier&lt;String&gt; supplier = () -&gt; <span class="string">"test"</span>;</span><br></pre></td></tr></table></figure></p>
+<ol start="5">
+<li>还有我个人感觉做的比较随意的 双冒号 :: 语法糖，这种<span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">形式叫做方法引用（</span></span><em>method references</em><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">）</span></span></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">引用静态方法</th>
+<th style="text-align:left"><code>Integer::sum</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">引用某个对象的方法</td>
+<td style="text-align:left"><code>list::add</code></td>
+</tr>
+<tr>
+<td style="text-align:left">引用某个类的方法</td>
+<td style="text-align:left"><code>String::length</code></td>
+</tr>
+<tr>
+<td style="text-align:left">引用构造方法</td>
+<td style="text-align:left"><code>HashMap::new</code></td>
+</tr>
+</tbody>
+</table>
+<p>比如，原来我们这么写<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Consumer&lt;String&gt; consumer = item -&gt; System.out.println(item);</span><br></pre></td></tr></table></figure></p>
+<p>现在用双冒号语法可以这么写，这样写也有好处，让你看起来这更像是传了一个方法进去<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Consumer&lt;String&gt; consumer = System.out::println;</span><br></pre></td></tr></table></figure></p>
+<h3 id="lambda局部变量使用机制"><a href="#lambda局部变量使用机制" class="headerlink" title="lambda局部变量使用机制"></a><a name="pzniao"></a>lambda局部变量使用机制</h3><p>lambda中使用上下文定义的<strong>局部变量</strong>，必须是 final的，当然，如果你忘了加final，编译器会帮你自动加上。<br>当然，如果是类变量则没有这个限制</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String x = <span class="string">"Hello "</span>; <span class="comment">// 如果下文有 lambda 使用了 x，这句等价于 final String x = "Hello "</span></span><br><span class="line">x = <span class="string">"test"</span>; <span class="comment">// 这句非法，无法通过编译</span></span><br><span class="line">Function&lt;String,String&gt; func1 = y -&gt; y+x; </span><br><span class="line">System.out.println(func1.apply(<span class="string">"luan.ma"</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="lambda底层实现"><a href="#lambda底层实现" class="headerlink" title="lambda底层实现"></a><a name="m5nbin"></a>lambda底层实现</h3><p>Lambda表达式通过invokedynamic指令实现，书写Lambda表达式不会产生新的类。他在 class 文件中是一个私有函数<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainLambda</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">new</span> Thread(</span><br><span class="line">				() -&gt; System.out.println(<span class="string">"Lambda Thread run()"</span>)</span><br><span class="line">			).start();;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// javap -c -p MainLambda.class</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainLambda</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(java.lang.String[])</span></span>;</span><br><span class="line">    Code:</span><br><span class="line">       0: new           #2                  // class java/lang/Thread</span><br><span class="line">       <span class="number">3</span>: dup</span><br><span class="line">       4: invokedynamic #3,  0              // InvokeDynamic #0:run:()Ljava/lang/Runnable; /*使用invokedynamic指令调用*/</span><br><span class="line">       9: invokespecial #4                  // Method java/lang/Thread."&lt;init&gt;":(Ljava/lang/Runnable;)V</span><br><span class="line">      12: invokevirtual #5                  // Method java/lang/Thread.start:()V</span><br><span class="line">      <span class="number">15</span>: <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> lambda$main$<span class="number">0</span>();  <span class="comment">/*Lambda表达式被封装成主类的私有方法*/</span></span><br><span class="line">    Code:</span><br><span class="line">       0: getstatic     #6                  // Field java/lang/System.out:Ljava/io/PrintStream;</span><br><span class="line">       3: ldc           #7                  // String Lambda Thread run()</span><br><span class="line">       5: invokevirtual #8                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V</span><br><span class="line">       <span class="number">8</span>: <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以，在使用层面，lambda中的 this 就是主类的 this，和主类的函数没有太大区别。而匿名内部类或者是内部类在使用中则要注意this的指向问题。</p>
+<h3 id="JDK-数据结构中使用-lambda"><a href="#JDK-数据结构中使用-lambda" class="headerlink" title="JDK 数据结构中使用 lambda"></a><a name="bzk1pb"></a>JDK 数据结构中使用 lambda</h3><hr>
+<p>JDK中的数据结构</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1530001321687-9e26ef17-7fd6-4549-b2be-2a61e8398463.png" alt="image.png | left | 747x309"></p>
+<p>加入的 支持 lambda 的方法列表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">接口名</th>
+<th style="text-align:left">Java8新加入的方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Collection</td>
+<td style="text-align:left">removeIf() spliterator() stream() parallelStream() forEach()</td>
+</tr>
+<tr>
+<td style="text-align:left">List</td>
+<td style="text-align:left">replaceAll() sort()</td>
+</tr>
+<tr>
+<td style="text-align:left">Map</td>
+<td style="text-align:left">getOrDefault() forEach() replaceAll() putIfAbsent() remove() replace() computeIfAbsent() computeIfPresent() compute() merge()</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Collection-stream-方法"><a href="#Collection-stream-方法" class="headerlink" title="Collection: stream()方法"></a><a name="wotlap"></a>Collection: stream()方法</h4><p>这是最强大的支持lambda的方法，List所有lambda方法在 stream()中都可以完成，而且支持 set 和 queue<br>他还有一个可以自动多线程拆分、执行的兄弟 .<span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">parallelStream()</span></span></p>
+<h4 id="Tips-上下限通配查看方法"><a href="#Tips-上下限通配查看方法" class="headerlink" title="Tips: 上下限通配查看方法"></a><a name="7tuxxm"></a>Tips: 上下限通配查看方法</h4><p>看之前，我先说一下方法里面各种上下限通配的查看方法：<br><code>&lt;? extends T&gt;</code>用于方法返回，参数类型上界是T，因此子类不能随意传入，只读<br><code>&lt;? super T&gt;</code> 用于方法传入，参数的类型下界是 T，因此若传出只能是 Object 类型<br><code>&lt;T&gt;</code> 既要传入，又要返回<br><code>?</code> 既不能传入，也不能返回</p>
+<h4 id="list-forEach-方法：void-forEach-Consumer-lt-super-E-gt-action"><a href="#list-forEach-方法：void-forEach-Consumer-lt-super-E-gt-action" class="headerlink" title="list: forEach()方法：void forEach(Consumer&lt;? super E&gt; action)"></a><a name="y1btfw"></a>list: forEach()方法：<span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">void forEach(Consumer&lt;? super E&gt; action)</span></span></h4><p>作用是对容器中的每个元素执行action指定的动作，其中Consumer是个函数接口，里面只有一个待实现方法void accept(T t)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(<span class="string">"I"</span>, <span class="string">"love"</span>, <span class="string">"you"</span>, <span class="string">"too"</span>));</span><br><span class="line">list.forEach( str -&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span>(str.length()&gt;<span class="number">3</span>)</span><br><span class="line">            System.out.println(str);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>遍历，并对每一项执行一个函数。forEach方法和原来的for()遍历，看起来更加简洁</p>
+<h4 id="list-removeIf-方法-boolean-removeIf-Predicate-lt-super-E-gt-filter"><a href="#list-removeIf-方法-boolean-removeIf-Predicate-lt-super-E-gt-filter" class="headerlink" title="list: removeIf()方法 boolean removeIf(Predicate&lt;? super E&gt; filter)"></a><a name="6a6nva"></a>list: removeIf()方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">boolean removeIf(Predicate&lt;? super E&gt; filter)</span></span></h4><p>删除容器中所有满足filter指定条件的元素，其中Predicate是一个函数接口，里面只有一个待实现方法boolean test(T t)。传统，我们需要要迭代器来迭代删除数据，现在有了 removeIf 函数，我们可以传入一个 返回值 为 true 或者 false d lambda 表达式，如果 true，那么元素就会被删除</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.removeIf(str -&gt; str.length()&gt;<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="list-replaceAll-方法-void-replaceAll-UnaryOperator-operator"><a href="#list-replaceAll-方法-void-replaceAll-UnaryOperator-operator" class="headerlink" title="list: replaceAll()方法 void replaceAll(UnaryOperator operator)"></a><a name="pfkcic"></a>list: replaceAll()方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">void replaceAll(UnaryOperator<e> operator)</e></span></span></h4><p>对数据集合的每个数据执行一个方法。在之前，我们需要遍历，get出来，转换，再set回去，现在我们可以直接用 lambda 实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">list.replaceAll(str -&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span>(str.length()&gt;<span class="number">3</span>)</span><br><span class="line">        <span class="keyword">return</span> str.toUpperCase();</span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="list-sort-方法-void-sort-Comparator-lt-super-E-gt-c"><a href="#list-sort-方法-void-sort-Comparator-lt-super-E-gt-c" class="headerlink" title="list: sort()方法 void sort(Comparator&lt;? super E&gt; c)"></a><a name="hl1goc"></a>list: sort()方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">void sort(Comparator&lt;? super E&gt; c)</span></span></h4><p>排序方法，输入两个对象，返回一个int值，根据正负来确定排序位置<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.sort((str1, str2) -&gt; str1.length()-str2.length());</span><br></pre></td></tr></table></figure></p>
+<h4 id="map-forEach-方法-void-forEach-BiConsumer-lt-super-K-super-V-gt-action"><a href="#map-forEach-方法-void-forEach-BiConsumer-lt-super-K-super-V-gt-action" class="headerlink" title="map: forEach()方法 void forEach(BiConsumer&lt;? super K,? super V&gt; action)"></a><a name="ix8kge"></a>map: forEach()方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">void forEach(BiConsumer&lt;? super K,? super V&gt; action)</span></span></h4><p>作用是对Map中的每个映射执行action指定的操作，其中BiConsumer是一个函数接口，里面有一个待实现方法void accept(T t, U u)。<br>原来的方法非常繁琐，现在变得非常简单<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.forEach((k, v) -&gt; System.out.println(k + <span class="string">"="</span> + v));</span><br></pre></td></tr></table></figure></p>
+<h4 id="map-replaceAll-方法-replaceAll-BiFunction-lt-super-K-super-V-extends-V-gt-function"><a href="#map-replaceAll-方法-replaceAll-BiFunction-lt-super-K-super-V-extends-V-gt-function" class="headerlink" title="map: replaceAll()方法 replaceAll(BiFunction&lt;? super K,? super V,? extends V&gt; function)"></a><a name="e5swld"></a>map: replaceAll()方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">replaceAll(BiFunction&lt;? super K,? super V,? extends V&gt; function)</span></span></h4><p><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">作用是对</span></span><code>Map</code><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">中的每个映射执行</span></span><code>function</code><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">指定的操作，并用</span></span><code>function</code><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">的执行结果替换原来的</span></span><code>value</code><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">，其中</span></span><code>BiFunction</code><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">是一个函数接口，里面有一个待实现方法</span></span><code>R apply(T t, U u)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.replaceAll((k, v) -&gt; v.toUpperCase());</span><br></pre></td></tr></table></figure>
+<h4 id="map-merge-方法-merge-K-key-V-value-BiFunction-lt-super-V-super-V-extends-V-gt-remappingFunction"><a href="#map-merge-方法-merge-K-key-V-value-BiFunction-lt-super-V-super-V-extends-V-gt-remappingFunction" class="headerlink" title="map: merge()方法 merge(K key, V value, BiFunction&lt;? super V,? super V,? extends V&gt; remappingFunction)"></a><a name="spnssg"></a>map: merge()方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">merge(K key, V value, BiFunction&lt;? super V,? super V,? extends V&gt; remappingFunction)</span></span></h4><ol>
+<li>如果<code>Map</code>中<code>key</code>对应的映射不存在或者为<code>null</code>，则将<code>value</code>（不能是<code>null</code>）关联到<code>key</code>上；</li>
+<li>否则执行<code>remappingFunction</code>，如果执行结果非<code>null</code>则用该结果跟<code>key</code>关联，否则在<code>Map</code>中删除<code>key</code>的映射．</li>
+</ol>
+<p>传入的是key, value，以及一个备选方案：有两个值要如何处理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.merge(key, newMsg, (v1, v2) -&gt; v1+v2);</span><br></pre></td></tr></table></figure>
+<h4 id="map-compute-方法-compute-K-key-BiFunction-lt-super-K-super-V-extends-V-gt-remappingFunction"><a href="#map-compute-方法-compute-K-key-BiFunction-lt-super-K-super-V-extends-V-gt-remappingFunction" class="headerlink" title="map: compute() 方法 compute(K key, BiFunction&lt;? super K,? super V,? extends V&gt; remappingFunction)"></a><a name="3qnxhd"></a>map: compute() 方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">compute(K key, BiFunction&lt;? super K,? super V,? extends V&gt; remappingFunction)</span></span></h4><p>把<code>remappingFunction</code>的计算结果关联到<code>key</code>上，如果计算结果为<code>null</code>，则在<code>Map</code>中删除<code>key</code>的映射．</p>
+<p>传入key， value由旧值的函数计算得到</p>
+<p>要实现上述<code>merge()</code>方法中错误信息拼接的例子，使用<code>compute()</code>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.compute(key, (k,v) -&gt; v==<span class="keyword">null</span> ? newMsg : v.concat(newMsg));</span><br></pre></td></tr></table></figure>
+<h4 id="map-computeIfAbsent-方法-V-computeIfAbsent-K-key-Function-lt-super-K-extends-V-gt-mappingFunction"><a href="#map-computeIfAbsent-方法-V-computeIfAbsent-K-key-Function-lt-super-K-extends-V-gt-mappingFunction" class="headerlink" title="map: computeIfAbsent()方法 V computeIfAbsent(K key, Function&lt;? super K,? extends V&gt; mappingFunction)"></a><a name="e93qbd"></a>map: computeIfAbsent()方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">V computeIfAbsent(K key, Function&lt;? super K,? extends V&gt; mappingFunction)</span></span></h4><p>只有在当前<code>Map</code>中<strong>不存在</strong><strong><code>key</code></strong><strong>值的映射或映射值为</strong><strong><code>null</code></strong><strong>时</strong>，才调用<code>mappingFunction</code>，并在<code>mappingFunction</code>执行结果非<code>null</code>时，将结果跟<code>key</code>关联．</p>
+<p>不存在才加，存在直接跳过</p>
+<p><code>Function</code>是一个函数接口，里面有一个待实现方法<code>R apply(T t)</code>．</p>
+<p><code>computeIfAbsent()</code>常用来对<code>Map</code>的某个<code>key</code>值建立初始化映射．比如我们要实现一个多值映射，<code>Map</code>的定义可能是<code>Map&lt;K,Set&lt;V&gt;&gt;</code>，要向<code>Map</code>中放入新值，可通过如下代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Integer, Set&lt;String&gt;&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"><span class="comment">// Java7及以前的实现方式</span></span><br><span class="line"><span class="keyword">if</span>(map.containsKey(<span class="number">1</span>))&#123;</span><br><span class="line">    map.get(<span class="number">1</span>).add(<span class="string">"one"</span>);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    Set&lt;String&gt; valueSet = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">    valueSet.add(<span class="string">"one"</span>);</span><br><span class="line">    map.put(<span class="number">1</span>, valueSet);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Java8的实现方式</span></span><br><span class="line">map.computeIfAbsent(<span class="number">1</span>, v -&gt; <span class="keyword">new</span> HashSet&lt;String&gt;()).add(<span class="string">"yi"</span>);</span><br></pre></td></tr></table></figure>
+<p>使用<code>computeIfAbsent()</code>将条件判断和添加操作合二为一，使代码更加简洁．</p>
+<h4 id="map-computeIfPresent-方法-V-computeIfPresent-K-key-BiFunction-lt-super-K-super-V-extends-V-gt-remappingFunction"><a href="#map-computeIfPresent-方法-V-computeIfPresent-K-key-BiFunction-lt-super-K-super-V-extends-V-gt-remappingFunction" class="headerlink" title="map: computeIfPresent()方法 V computeIfPresent(K key, BiFunction&lt;? super K,? super V,? extends V&gt; remappingFunction)"></a><a name="x1wkyz"></a>map: computeIfPresent()方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">V computeIfPresent(K key, BiFunction&lt;? super K,? super V,? extends V&gt; remappingFunction)</span></span></h4><p>只有在当前<code>Map</code>中<strong>存在</strong><strong><code>key</code></strong><strong>值的映射且非</strong><strong><code>null</code></strong><strong>时</strong>，才调用<code>remappingFunction</code>，如果<code>remappingFunction</code>执行结果为<code>null</code>，则删除<code>key</code>的映射，否则使用该结果替换<code>key</code>原来的映射．</p>
+<p>不存在直接跳过，存在才插进去</p>
+<p>这个函数的功能跟如下代码是等效的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java7及以前跟computeIfPresent()等效的代码</span></span><br><span class="line"><span class="keyword">if</span> (map.get(key) != <span class="keyword">null</span>) &#123;</span><br><span class="line">    V oldValue = map.get(key);</span><br><span class="line">    V newValue = remappingFunction.apply(key, oldValue);</span><br><span class="line">    <span class="keyword">if</span> (newValue != <span class="keyword">null</span>)</span><br><span class="line">        map.put(key, newValue);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        map.remove(key);</span><br><span class="line">    <span class="keyword">return</span> newValue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><a name="471ssv"></a>参考资料</h3><p><a href="https://github.com/CarpenterLee/JavaLambdaInternals" target="_blank" rel="noopener">深入理解Java函数式编程和Streams API</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-06-26T06:09:43.000Z">2018-06-26</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    23 分钟 读完 (大约 3439 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/06/26/yuque/hashmap/">一步一步查看 HashMap 源码</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a><a name="hu0rag"></a>概览</h2><p>本文使用 JDK1.8,<br>我们先借助IDE对HashMap储存key-value的结构有个大致的了解<br>先生成一个有100个数据的map，key是我自定义的对象，value是一个随机 Integer，然后用 IDE 透视：</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1530106911519-98fc434c-62c3-4262-ac65-b5f19c8c3c61.png" alt="image.png | left | 385x192"></p>
+<p>可以看到，最主要的是table，和一些设置的数值。<br>map最核心的结构是 table，是一个node的数组，node里面存着 key和value，而node本身是一个链表。或者是一个红黑树的节点 TreeNode。</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1530106480489-9e5ec110-8748-4577-a934-4c4ec567851b.png" alt="image.png | left | 480x435"></p>
+<p>我们用图直观的看一下：</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1529915531228-11fb7529-d2b1-48fc-bfc8-a65697fda608.png" alt="image.png | left | 747x358"></p>
+<p>这个样例的map的生成方法在扩展5，读完本文，你或许也可以做一个高度碰撞的HashMap。</p>
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a><a name="0h5ayw"></a>构造函数</h2><p>我们常用的 HashMap 构造方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 无参构造方法</span></span><br><span class="line">HashMap&lt;String, String&gt; map1 = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line"><span class="comment">// 含参数构造方法</span></span><br><span class="line">HashMap&lt;String, String&gt; map2 = <span class="keyword">new</span> HashMap&lt;String, String&gt;(<span class="number">16</span>);</span><br><span class="line">HashMap&lt;String, String&gt; map3 = <span class="keyword">new</span> HashMap&lt;String, String&gt;(<span class="number">16</span>,<span class="number">0.75F</span>);</span><br></pre></td></tr></table></figure></p>
+<p>查看源代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HashMap 类定义</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HashMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">Map</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;, <span class="title">Cloneable</span>, <span class="title">Serializable</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">// <span class="title">HashMap</span> 构造函数</span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">HashMap</span>() </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.loadFactor = DEFAULT_LOAD_FACTOR; <span class="comment">// all other fields defaulted</span></span><br><span class="line">    <span class="comment">// note: 设置 loadFactor 为 0.75 ，没啥好说的</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// HashMap 含参构造函数 (int)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(initialCapacity, DEFAULT_LOAD_FACTOR);</span><br><span class="line">    <span class="comment">// note: 执行下面一个函数，附带的 第二个参数 为 0.75</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// HashMap 含参构造函数 (int, float)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal initial capacity: "</span> +</span><br><span class="line">                                           initialCapacity);</span><br><span class="line">    <span class="comment">// note: 良好的检查，负数第一时间抛出错误</span></span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &gt; MAXIMUM_CAPACITY)</span><br><span class="line">        initialCapacity = MAXIMUM_CAPACITY;</span><br><span class="line">    <span class="comment">// note: 防止超过最大容量，最大容量值为 2^30</span></span><br><span class="line">    <span class="keyword">if</span> (loadFactor &lt;= <span class="number">0</span> || Float.isNaN(loadFactor))</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal load factor: "</span> +</span><br><span class="line">                                           loadFactor);</span><br><span class="line">    <span class="comment">// note: 检查 loadFactor 大于0，且不为 NaN</span></span><br><span class="line">    <span class="keyword">this</span>.loadFactor = loadFactor;</span><br><span class="line">    <span class="keyword">this</span>.threshold = tableSizeFor(initialCapacity);</span><br><span class="line">    <span class="comment">// note:调用了 tableSizeFor(initialCapacity) ，</span></span><br><span class="line">    <span class="comment">// 根据 initialCapacity 计算 threshold</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>用到了几个变量，下面提到可以再回来找</p>
+<div class="bi-table"><br>  <table><br>    <colgroup><br>      <col width="auto"><br>      <col width="auto"><br>    </colgroup><br>    <tbody><br>      <tr height="34px"><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">K</div><br>        </td><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">key的泛型类型</div><br>        </td><br>      </tr><br>      <tr height="34px"><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">V</div><br>        </td><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">value的泛型类型</div><br>        </td><br>      </tr><br>      <tr height="34px"><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">float loadFactor</div><br>          <div data-type="p"></div><br>        </td><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">负载因子，默认是0.75</div><br>        </td><br>      </tr><br>      <tr height="34px"><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">int initialCapacity</div><br>        </td><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">初始容量，用来计算 threshold</div><br>        </td><br>      </tr><br>      <tr height="34px"><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">int threshold</div><br>        </td><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">扩容门槛，默认是0</div><br>          <div data-type="p">如果 HashMap 内数据超过 threshold * loadFactor</div><br>          <div data-type="p">则会进行扩容操作。</div><br>        </td><br>      </tr><br>    </tbody><br>  </table><br></div>
+
+<p>无参数的构造方法比较平常，构造函数为其设置了 loadFactor ，而另外两个构造函数则设置了 initialCapacity 和 自定的 loadFactor。当传入  initialCapacity 之后，通过一个函数，我们最终计算出最重要的 threshold 属性。来看下这个函数，主要是通过位运算，让 threshold 始终是 2 的 平方数（方便扩容时重新落位）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns a power of two size for the given target capacity.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">tableSizeFor</span><span class="params">(<span class="keyword">int</span> cap)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = cap - <span class="number">1</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">1</span>; </span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">2</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">4</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">8</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">16</span>;</span><br><span class="line">    <span class="keyword">return</span> (n &lt; <span class="number">0</span>) ? <span class="number">1</span> : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里有个技巧，如果 HashMap 大小已知，则建议预设好threshold和loadFactor。防止map多次扩容（默认为0）。<br>如现有100个数据，为防止扩容，则先计算扩容临界值 100/loadFactor(默认0.75) = 133，则 initialCapacity 应设置为 2 ^ 8 = 256</p>
+<h2 id="put-方法"><a href="#put-方法" class="headerlink" title="put()方法"></a><a name="abm1mu"></a>put()方法</h2><p>平时用法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.put(<span class="string">"test"</span>,<span class="string">"test"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>debug之，note里面如果不知道变量是什么，可以查看代码下方的变量表<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> putVal(hash(key), key, value, <span class="keyword">false</span>, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// note：这里先执行了 hash() 方法</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">    <span class="comment">// 一般情况，使用 对象的 HashCode 计算</span></span><br><span class="line">    <span class="comment">// 算法是 hash = hashcode ^ (hashcode &gt;&gt;&gt; 16)</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回第一个方法，执行 putVal()方法</span></span><br><span class="line"><span class="comment">// 返回：如果被替换，返回旧值。如果未被替换，返回null</span></span><br><span class="line"><span class="function"><span class="keyword">final</span> V <span class="title">putVal</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">boolean</span> onlyIfAbsent,</span></span></span><br><span class="line"><span class="function"><span class="params">                   <span class="keyword">boolean</span> evict)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 特别注意 hash = hash(key.hashCode)，并非原来的 hashCode</span></span><br><span class="line">        Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="keyword">int</span> n, i;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> ((tab = table) == <span class="keyword">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">            n = (tab = resize()).length;</span><br><span class="line">        <span class="comment">// 检查table有无初始化，第一次运行会到这里，进行 resize() 操作</span></span><br><span class="line">        <span class="comment">// 这个操作后面会讲，这里这用来初始化 table 数组</span></span><br><span class="line">        <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="keyword">null</span>)</span><br><span class="line">            tab[i] = newNode(hash, key, value, <span class="keyword">null</span>);</span><br><span class="line">        <span class="comment">// 用i = (n - 1) &amp; hash 计算 node 应该放在哪个槽位</span></span><br><span class="line">        <span class="comment">// 这是一种对 hash 取余数的方法，取的结果会分布在 table 的长度之内</span></span><br><span class="line">        <span class="comment">// 如果这个地方是 null</span></span><br><span class="line">        <span class="comment">// 那么，把key,value包装成 node，存入table[i]</span></span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 如果这个地方原来已经有一个 node </span></span><br><span class="line">            Node&lt;K,V&gt; e; K k;</span><br><span class="line">            <span class="keyword">if</span> (p.hash == hash &amp;&amp; <span class="comment">// note: 先检查旧的新的node的hash是否相等</span></span><br><span class="line">                ((k = p.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">            <span class="comment">// note: 检查旧key和和key的hashcode是否相等 ，或者旧key和新key是 equal 的</span></span><br><span class="line">                e = p;</span><br><span class="line">            <span class="comment">// note: 直接用新的node替换掉旧的node，跳转到 if (e != null)</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (p <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">                e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(<span class="keyword">this</span>, tab, hash, key, value);</span><br><span class="line">            <span class="comment">// note: 如果旧的note已经升级为 TreeNode ，那么用红黑树的方法来做</span></span><br><span class="line">            <span class="comment">// 默认情况下，有多个node都在一个槽位的情况，是用链表的数据结构</span></span><br><span class="line">            <span class="comment">// 但如果同一个槽位有超过8个node，则会升级为红黑树</span></span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 这是默认情况的分支，有多个 node 都在同一个槽位，但是 hashcode 不相同</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> binCount = <span class="number">0</span>; ; ++binCount) &#123;</span><br><span class="line">                    <span class="comment">// 写一个死循环</span></span><br><span class="line">                    <span class="keyword">if</span> ((e = p.next) == <span class="keyword">null</span>) &#123;</span><br><span class="line">                        <span class="comment">// 一直到达 p.next 为 null</span></span><br><span class="line">                        p.next = newNode(hash, key, value, <span class="keyword">null</span>);</span><br><span class="line">                        <span class="comment">// 插入一个新 node</span></span><br><span class="line">                        <span class="keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD - <span class="number">1</span>) <span class="comment">// -1 for 1st</span></span><br><span class="line">                            treeifyBin(tab, hash);</span><br><span class="line">                        <span class="comment">// 如果超过红黑树转换阈值，则转换为红黑树</span></span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// 如果多个 node 的链表中，有一个 node 是和新node的key是一样的</span></span><br><span class="line">                    <span class="comment">// 结束循环，跳转到下面 if (e != null)</span></span><br><span class="line">                    <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                        ((k = e.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="comment">// p = p.next 遍历链表</span></span><br><span class="line">                    p = e;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123; <span class="comment">// existing mapping for key</span></span><br><span class="line">                <span class="comment">// 从上面跳转而来，判断是否要用新值替换旧值</span></span><br><span class="line">                V oldValue = e.value;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> (!onlyIfAbsent || oldValue == <span class="keyword">null</span>)</span><br><span class="line">                <span class="comment">// 用新值替换掉旧值，if判断可以设置不替换</span></span><br><span class="line">                    e.value = value;</span><br><span class="line">                <span class="comment">// 钩子，没啥用</span></span><br><span class="line">                afterNodeAccess(e);</span><br><span class="line">                <span class="keyword">return</span> oldValue;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ++modCount;</span><br><span class="line">        <span class="keyword">if</span> (++size &gt; threshold)</span><br><span class="line">        <span class="comment">// 判断是否需要扩容</span></span><br><span class="line">            resize();</span><br><span class="line">        <span class="comment">// 钩子，没啥用</span></span><br><span class="line">        afterNodeInsertion(evict);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里用到了一些变量</p>
+<div class="bi-table"><br>  <table><br>    <colgroup><br>      <col width="auto"><br>      <col width="auto"><br>    </colgroup><br>    <tbody><br>      <tr height="34px"><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">key</div><br>        </td><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">put方法的传入 key 值</div><br>        </td><br>      </tr><br>      <tr height="34px"><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">value</div><br>        </td><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">put方法传入的 value 值</div><br>        </td><br>      </tr><br>      <tr height="34px"><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">hashcode</div><br>        </td><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">对象的hashcode</div><br>        </td><br>      </tr><br>      <tr height="34px"><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">hash</div><br>        </td><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">对hashcode进行了二次计算，缩小了hashcode的大小</div><br>          <div data-type="p">hash方法的意义在于，使得hashcode更加均匀，使hash值的位值在高低位上尽量分布均匀</div><br>        </td><br>      </tr><br>      <tr height="34px"><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">Node&lt;K,V&gt; implements Map.Entry&lt;K,V&gt;</div><br>        </td><br>        <td rowspan="1" colspan="1"><pre data-syntax="java"><code class="language-java">static class Node&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; {<br>    final int hash;<br>    final K key;<br>    V value;<br>    Node&lt;K,V&gt; next;<br><br>    Node(int hash, K key, V value, Node&lt;K,V&gt; next) {<br>        this.hash = hash;<br>        this.key = key;<br>        this.value = value;<br>        this.next = next;<br>    }<br></code></pre><br>          <div data-type="p"></div><br>          <div data-type="p">key/value结构将被包装成Node这个数据结构</div><br>        </td><br>      </tr><br>      <tr height="34px"><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">Node&lt;K,V&gt;[] table</div><br>        </td><br>        <td rowspan="1" colspan="1"><br>          <div data-type="p">存放数据的Node的数组</div><br>        </td><br>      </tr><br>    </tbody><br>  </table><br></div>
+
+<p>hash和槽位的算法：<br><span data-type="color" style="color:rgb(26, 26, 26)"><span data-type="background" style="background-color:rgb(255, 255, 255)">高16bit不变，低16bit和高16bit做了一个异或，可以在资源消耗比较低的情况下，打乱一下 hash，让计算出来的槽位下标更加均匀。通过hashCode()的高16位异或低16位实现的：</span></span><code>(h = k.hashCode()) ^ (h &gt;&gt;&gt; 16)</code><span data-type="color" style="color:rgb(26, 26, 26)"><span data-type="background" style="background-color:rgb(255, 255, 255)">，主要是从速度、功效、质量来考虑的，这么做可以在bucket的n比较小的时候，也能保证考虑到高低bit都参与到hash的计算中，同时不会有太大的开销</span></span></p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1529994464889-970160fc-068f-404d-b64c-2eac9daf7889.png" alt="image.png | left | 586x336"></p>
+<h2 id="get-方法"><a href="#get-方法" class="headerlink" title="get()方法"></a><a name="mzq3bk"></a>get()方法</h2><p>平时用法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.get(<span class="string">"test"</span>);</span><br></pre></td></tr></table></figure>
+<p>源码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    Node&lt;K,V&gt; e;</span><br><span class="line">    <span class="keyword">return</span> (e = getNode(hash(key), key)) == <span class="keyword">null</span> ? <span class="keyword">null</span> : e.value;</span><br><span class="line">    <span class="comment">// 计算 hash，调用 getNode 方法取出 node，返回 node.value</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">final</span> Node&lt;K,V&gt; <span class="title">getNode</span><span class="params">(<span class="keyword">int</span> hash, Object key)</span> </span>&#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first, e; <span class="keyword">int</span> n; K k;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) != <span class="keyword">null</span> &amp;&amp; (n = tab.length) &gt; <span class="number">0</span> &amp;&amp;</span><br><span class="line">        (first = tab[(n - <span class="number">1</span>) &amp; hash]) != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 获取到hash对应槽位的node</span></span><br><span class="line">        <span class="keyword">if</span> (first.hash == hash &amp;&amp; <span class="comment">// always check first node</span></span><br><span class="line">            ((k = first.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">        <span class="comment">// 检查 hashcode 是否相同，相同返回 这个 node，不相同继续遍历链表</span></span><br><span class="line">            <span class="keyword">return</span> first;</span><br><span class="line">        <span class="keyword">if</span> ((e = first.next) != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 判断红黑树的情况</span></span><br><span class="line">            <span class="keyword">if</span> (first <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">                <span class="keyword">return</span> ((TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key);</span><br><span class="line">            <span class="comment">// 遍历链表，取出hashcode相同的node</span></span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                    ((k = e.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">                    <span class="keyword">return</span> e;</span><br><span class="line">            &#125; <span class="keyword">while</span> ((e = e.next) != <span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="resize-方法"><a href="#resize-方法" class="headerlink" title="resize()方法"></a><a name="aaxfiy"></a>resize()方法</h2><p>这是一个 HashMap 的私有方法，是非常重要的方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> Node&lt;K,V&gt;[] resize() &#123;</span><br><span class="line">        Node&lt;K,V&gt;[] oldTab = table;</span><br><span class="line">        <span class="comment">// 暂存原来的 table </span></span><br><span class="line">        <span class="keyword">int</span> oldCap = (oldTab == <span class="keyword">null</span>) ? <span class="number">0</span> : oldTab.length;</span><br><span class="line">        <span class="comment">// 暂存原来的长度，为null说明是刚刚初始化，table还没有新建</span></span><br><span class="line">        <span class="keyword">int</span> oldThr = threshold;</span><br><span class="line">        <span class="comment">// 暂存原来的threshold</span></span><br><span class="line">        <span class="keyword">int</span> newCap, newThr = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (oldCap &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 原来的 table 已经初始化走这里，是正常扩容</span></span><br><span class="line">            <span class="keyword">if</span> (oldCap &gt;= MAXIMUM_CAPACITY) &#123;</span><br><span class="line">                <span class="comment">// 超过最大值，不再扩容，碰撞的几率会增加</span></span><br><span class="line">                threshold = Integer.MAX_VALUE;</span><br><span class="line">                <span class="keyword">return</span> oldTab;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> ((newCap = oldCap &lt;&lt; <span class="number">1</span>) &lt; MAXIMUM_CAPACITY &amp;&amp;</span><br><span class="line">                     oldCap &gt;= DEFAULT_INITIAL_CAPACITY)    </span><br><span class="line">                <span class="comment">// 扩容两倍（原理见后）</span></span><br><span class="line">                newThr = oldThr &lt;&lt; <span class="number">1</span>; <span class="comment">// double threshold</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (oldThr &gt; <span class="number">0</span>) <span class="comment">// initial capacity was placed in threshold</span></span><br><span class="line">            <span class="comment">// 尚未初始化，但已经指定了初始大小</span></span><br><span class="line">            newCap = oldThr;</span><br><span class="line">        <span class="keyword">else</span> &#123;               <span class="comment">// zero initial threshold signifies using defaults</span></span><br><span class="line">            <span class="comment">// 默认初始化，用默认值计算 threshold 和 newThr</span></span><br><span class="line">            newCap = DEFAULT_INITIAL_CAPACITY;</span><br><span class="line">            newThr = (<span class="keyword">int</span>)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果没计算 newThr，现在再补算一次</span></span><br><span class="line">        <span class="keyword">if</span> (newThr == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">float</span> ft = (<span class="keyword">float</span>)newCap * loadFactor;</span><br><span class="line">            newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (<span class="keyword">float</span>)MAXIMUM_CAPACITY ?</span><br><span class="line">                      (<span class="keyword">int</span>)ft : Integer.MAX_VALUE);</span><br><span class="line">        &#125;</span><br><span class="line">        threshold = newThr;</span><br><span class="line">        <span class="meta">@SuppressWarnings</span>(&#123;<span class="string">"rawtypes"</span>,<span class="string">"unchecked"</span>&#125;)</span><br><span class="line">            Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])<span class="keyword">new</span> Node[newCap];</span><br><span class="line">        table = newTab;</span><br><span class="line">        <span class="comment">// 更新table，是一个空的table，容量是原来的两倍</span></span><br><span class="line">        <span class="keyword">if</span> (oldTab != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 如果原来有数据，走这里，遍历旧的table，拉出来重新插入</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; oldCap; ++j) &#123;</span><br><span class="line">                Node&lt;K,V&gt; e;</span><br><span class="line">                <span class="keyword">if</span> ((e = oldTab[j]) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="comment">// 原槽位存到e，并且不为空走这里</span></span><br><span class="line">                    oldTab[j] = <span class="keyword">null</span>;</span><br><span class="line">                    <span class="comment">// 清空原槽位，等回收</span></span><br><span class="line">                    <span class="keyword">if</span> (e.next == <span class="keyword">null</span>)</span><br><span class="line">                    <span class="comment">// 如果这里不是链表（只有一个节点），直接重新落位</span></span><br><span class="line">                        newTab[e.hash &amp; (newCap - <span class="number">1</span>)] = e;</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span> (e <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">                    <span class="comment">// 如果是红黑树，单独的分裂逻辑</span></span><br><span class="line">                        ((TreeNode&lt;K,V&gt;)e).split(<span class="keyword">this</span>, newTab, j, oldCap);</span><br><span class="line">                    <span class="keyword">else</span> &#123; <span class="comment">// preserve order</span></span><br><span class="line">                        <span class="comment">// 原来是链表</span></span><br><span class="line">                        Node&lt;K,V&gt; loHead = <span class="keyword">null</span>, loTail = <span class="keyword">null</span>;</span><br><span class="line">                        Node&lt;K,V&gt; hiHead = <span class="keyword">null</span>, hiTail = <span class="keyword">null</span>;</span><br><span class="line">                        Node&lt;K,V&gt; next;</span><br><span class="line">                        <span class="keyword">do</span> &#123;</span><br><span class="line">                            next = e.next;</span><br><span class="line">                            <span class="comment">// 遍历链表</span></span><br><span class="line">                            <span class="keyword">if</span> ((e.hash &amp; oldCap) == <span class="number">0</span>) &#123;</span><br><span class="line">                                <span class="comment">// 槽位未变，挂到loTail临时链表</span></span><br><span class="line">                                <span class="keyword">if</span> (loTail == <span class="keyword">null</span>)</span><br><span class="line">                                    loHead = e;</span><br><span class="line">                                <span class="keyword">else</span></span><br><span class="line">                                    loTail.next = e;</span><br><span class="line">                                loTail = e;</span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="keyword">else</span> &#123;</span><br><span class="line">                                <span class="comment">// 槽位变成原槽位+oldCap</span></span><br><span class="line">                                <span class="comment">// 挂到 hiTail 临时链表</span></span><br><span class="line">                                <span class="keyword">if</span> (hiTail == <span class="keyword">null</span>)</span><br><span class="line">                                    hiHead = e;</span><br><span class="line">                                <span class="keyword">else</span></span><br><span class="line">                                    hiTail.next = e;</span><br><span class="line">                                hiTail = e;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125; <span class="keyword">while</span> ((e = next) != <span class="keyword">null</span>);</span><br><span class="line">                        <span class="comment">// 把原链表分裂成两个链表，然后分别扔到对应的槽位</span></span><br><span class="line">                        <span class="keyword">if</span> (loTail != <span class="keyword">null</span>) &#123;</span><br><span class="line">                            loTail.next = <span class="keyword">null</span>;</span><br><span class="line">                            newTab[j] = loHead;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">if</span> (hiTail != <span class="keyword">null</span>) &#123;</span><br><span class="line">                            hiTail.next = <span class="keyword">null</span>;</span><br><span class="line">                            newTab[j + oldCap] = hiHead;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果原来没有数据，直接返回</span></span><br><span class="line">        <span class="keyword">return</span> newTab;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>两倍扩容的算法<br>因为是两倍扩容，n-1 永远 是 1 组成，所以重新计算槽位时，要么是在前面 加个 0，要么是前面加个1</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1529995263382-aa76da9d-0b64-499a-979f-6b2cb3c86921.png" alt="image.png | left | 586x336"></p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1529995099397-5b986449-3f3f-4867-ab55-75147e1cf3c0.png" alt="image.png | left | 727x67"></p>
+<p>如果是加0，那么槽位不动，如果是加1，那么等于移动了一个原容量</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1529995376543-ee09bc1e-0f08-4d43-a9a8-b3ddb64d8ddb.png" alt="image.png | left | 520x91"></p>
+<p>移动的过程相当于全部重新插入，所以是比较费时的</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1529995435694-23c26101-4f04-408b-8f72-676828f93abd.png" alt="image.png | left | 621x353"></p>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a><a name="et5avy"></a>扩展</h2><h3 id="扩展1：Hashcode的计算规则"><a href="#扩展1：Hashcode的计算规则" class="headerlink" title="扩展1：Hashcode的计算规则"></a><a name="z4z2bi"></a>扩展1：Hashcode的计算规则</h3><p>HashMap中，hash由hashcode计算得出，那么对象的hashcode如何计算呢？</p>
+<ol>
+<li>Object类的hashCode.返回对象的内存地址经过处理后的结构，由于每个对象的内存地址都不一样，所以哈希码也不一样。这个是native方法，这个取决于JVM的设计，一般是某种地址的偏移。</li>
+<li>String类的hashCode.根据String类包含的字符串的内容，根据一种特殊算法返回哈希码，只要字符串的内容相同，返回的哈希码也相同。</li>
+<li>Integer等包装类，返回的哈希码就是Integer对象里所包含的那个整数的数值，例如Integer i1=new Integer(100),i1.hashCode的值就是100 。由此可见，2个一样大小的Integer对象，返回的哈希码也一样。</li>
+<li>int，char这样的基础类，它们没有hashCode，如果需要存储时，将进行自动装箱操作，计算方法同上。</li>
+</ol>
+<h3 id="扩展2：HashMap与HashTable的主要区别"><a href="#扩展2：HashMap与HashTable的主要区别" class="headerlink" title="扩展2：HashMap与HashTable的主要区别"></a><a name="9e6git"></a>扩展2：HashMap与HashTable的主要区别</h3><p>他们的主要区别其实就是Table加了线程同步保护</p>
+<ol>
+<li>HashTable线程更加安全，代价就是因为它粗暴的添加了同步锁，所以会有性能损失。</li>
+<li>有更好的concurrentHashMap可以替代HashTable</li>
+</ol>
+<h3 id="扩展3：自定义对象作为-key-有什么要求"><a href="#扩展3：自定义对象作为-key-有什么要求" class="headerlink" title="扩展3：自定义对象作为 key 有什么要求"></a><a name="b3ftdr"></a>扩展3：自定义对象作为 key 有什么要求</h3><p>必须要重写equals方法和hashCode方法，且放入map之后不要再修改对象<br>重写hashCode方法，可以使用 Objects.hash(item1, item2, item3) 来多并一<br>如果不重写，则相同内容的两个对象，如果内存地址不同，则会在map中有两个node<br>最要命的是，你重新new一个自定义对象查询时(get())，如果内存地址和 map 内的 node 的内存地址不一致，将找不到你之前存的，内容一样的 node</p>
+<h3 id="扩展4：HashSet-和-HashMap有什么异同"><a href="#扩展4：HashSet-和-HashMap有什么异同" class="headerlink" title="扩展4：HashSet 和 HashMap有什么异同"></a><a name="g3ywkx"></a>扩展4：HashSet 和 HashMap有什么异同</h3><p>HashSet实际上用的是HashMap，HashSet的值是HashMap的key，HashSet在HashMap中的value是 new Object()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HashSet add方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> map.put(e, PRESENT)==<span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// PRESENT定义为</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object PRESENT = <span class="keyword">new</span> Object();</span><br><span class="line"><span class="comment">// HashSet contains方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> map.containsKey(o);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="扩展5：生成一个高度碰撞的HashMap"><a href="#扩展5：生成一个高度碰撞的HashMap" class="headerlink" title="扩展5：生成一个高度碰撞的HashMap"></a><a name="xnhfpn"></a>扩展5：生成一个高度碰撞的HashMap</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Random random = <span class="keyword">new</span> Random();</span><br><span class="line">        Map&lt;EasyCollision, Integer&gt; map = Stream.generate(random::nextInt).</span><br><span class="line">                limit(<span class="number">100</span>).collect(Collectors.toMap(EasyCollision::<span class="keyword">new</span>, Function.identity()));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">EasyCollision</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Integer hashSource;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">EasyCollision</span><span class="params">(Integer hashSource)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.hashSource = hashSource;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (o == <span class="keyword">null</span> || getClass() != o.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            EasyCollision that = (EasyCollision) o;</span><br><span class="line">            <span class="keyword">return</span> Objects.equals(hashSource, that.hashSource);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> hashSource % <span class="number">15</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"EasyCollision&#123;"</span> +</span><br><span class="line">                    <span class="string">"hashSource="</span> + hashSource +</span><br><span class="line">                    <span class="string">'&#125;'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><a name="b8msis"></a>参考资料</h2><p><a href="http://yikun.github.io/2015/04/01/Java-HashMap%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/" target="_blank" rel="noopener">Java HashMap工作原理及实现</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Your name">
+                    
+                    <p class="is-size-4 is-block">
+                        Your name
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Your title
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Your location</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        26
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        12
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/ppoffice">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/ppoffice">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/技术实战/">
+            <span class="level-start">
+                <span class="level-item">技术实战</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/技术笔记/">
+            <span class="level-start">
+                <span class="level-item">技术笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/教程/">
+            <span class="level-start">
+                <span class="level-item">教程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/日志/">
+            <span class="level-start">
+                <span class="level-item">日志</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/项目/">
+            <span class="level-start">
+                <span class="level-item">项目</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Java-核心/" style="font-size: 15px;">Java 核心</a> <a href="/tags/Netty/" style="font-size: 10px;">Netty</a> <a href="/tags/SSH/" style="font-size: 12.5px;">SSH</a> <a href="/tags/SSM/" style="font-size: 17.5px;">SSM</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Spring/" style="font-size: 12.5px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10px;">Spring Boot</a> <a href="/tags/Spring-MVC/" style="font-size: 10px;">Spring MVC</a> <a href="/tags/小小商城/" style="font-size: 20px;">小小商城</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/语雀/" style="font-size: 10px;">语雀</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/25/hello-world/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Hello World">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-25T14:20:07.426Z">2018-11-25</time></div>
+                    <a href="/2018/11/25/hello-world/" class="has-link-black-ter is-size-6">Hello World</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/05/yuque/yuque2blog/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="教程：静态博客使用语雀编辑器">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-05T02:38:56.000Z">2018-10-05</time></div>
+                    <a href="/2018/10/05/yuque/yuque2blog/" class="has-link-black-ter is-size-6">教程：静态博客使用语雀编辑器</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/教程/">教程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/jinrishici/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="今日诗词 API - 诗词实时智能推荐">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T06:44:19.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/jinrishici/" class="has-link-black-ter is-size-6">今日诗词 API - 诗词实时智能推荐</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/项目/">项目</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/hexo-yuque/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="博客更新为 Hexo 静态博客 + 语雀">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T02:53:21.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/hexo-yuque/" class="has-link-black-ter is-size-6">博客更新为 Hexo 静态博客 + 语雀</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/日志/">日志</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/08/26/yuque/netty-flow/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Netty 处理流程简析（附流程图）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-26T15:21:09.000Z">2018-08-26</time></div>
+                    <a href="/2018/08/26/yuque/netty-flow/" class="has-link-black-ter is-size-6">Netty 处理流程简析（附流程图）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Hexo/">
+                        <span class="level-start">
+                            <span class="level-item">Hexo</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Java-核心/">
+                        <span class="level-start">
+                            <span class="level-item">Java 核心</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Netty/">
+                        <span class="level-start">
+                            <span class="level-item">Netty</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSH/">
+                        <span class="level-start">
+                            <span class="level-item">SSH</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSM/">
+                        <span class="level-start">
+                            <span class="level-item">SSM</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">6</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Servlet/">
+                        <span class="level-start">
+                            <span class="level-item">Servlet</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring/">
+                        <span class="level-start">
+                            <span class="level-item">Spring</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-Boot/">
+                        <span class="level-start">
+                            <span class="level-item">Spring Boot</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-MVC/">
+                        <span class="level-start">
+                            <span class="level-item">Spring MVC</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/小小商城/">
+                        <span class="level-start">
+                            <span class="level-item">小小商城</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">10</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/网络/">
+                        <span class="level-start">
+                            <span class="level-item">网络</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/语雀/">
+                        <span class="level-start">
+                            <span class="level-item">语雀</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/25/hello-world/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Hello World">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-25T14:20:07.426Z">2018-11-25</time></div>
+                    <a href="/2018/11/25/hello-world/" class="has-link-black-ter is-size-6">Hello World</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/05/yuque/yuque2blog/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="教程：静态博客使用语雀编辑器">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-05T02:38:56.000Z">2018-10-05</time></div>
+                    <a href="/2018/10/05/yuque/yuque2blog/" class="has-link-black-ter is-size-6">教程：静态博客使用语雀编辑器</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/教程/">教程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/jinrishici/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="今日诗词 API - 诗词实时智能推荐">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T06:44:19.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/jinrishici/" class="has-link-black-ter is-size-6">今日诗词 API - 诗词实时智能推荐</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/项目/">项目</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/hexo-yuque/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="博客更新为 Hexo 静态博客 + 语雀">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T02:53:21.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/hexo-yuque/" class="has-link-black-ter is-size-6">博客更新为 Hexo 静态博客 + 语雀</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/日志/">日志</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/08/26/yuque/netty-flow/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Netty 处理流程简析（附流程图）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-26T15:21:09.000Z">2018-08-26</time></div>
+                    <a href="/2018/08/26/yuque/netty-flow/" class="has-link-black-ter is-size-6">Netty 处理流程简析（附流程图）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Hexo/">
+                        <span class="level-start">
+                            <span class="level-item">Hexo</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Java-核心/">
+                        <span class="level-start">
+                            <span class="level-item">Java 核心</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Netty/">
+                        <span class="level-start">
+                            <span class="level-item">Netty</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSH/">
+                        <span class="level-start">
+                            <span class="level-item">SSH</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSM/">
+                        <span class="level-start">
+                            <span class="level-item">SSM</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">6</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Servlet/">
+                        <span class="level-start">
+                            <span class="level-item">Servlet</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring/">
+                        <span class="level-start">
+                            <span class="level-item">Spring</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-Boot/">
+                        <span class="level-start">
+                            <span class="level-item">Spring Boot</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-MVC/">
+                        <span class="level-start">
+                            <span class="level-item">Spring MVC</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/小小商城/">
+                        <span class="level-start">
+                            <span class="level-item">小小商城</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">10</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/网络/">
+                        <span class="level-start">
+                            <span class="level-item">网络</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/语雀/">
+                        <span class="level-start">
+                            <span class="level-item">语雀</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="Hexo" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2018 John Doe&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

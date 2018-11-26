@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Java Lambda 解析和使用技巧 - Hexo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="lambda是包着一个函数的对象lambda表达式非常简洁优雅。是把动态语言的特性嫁接到静态语言的一个典范。 在java中，我更加愿意认为lambda实际上是是包着一个函数的对象，我们在使用lambda表达式的时候，实际上定义了一个闭包的函数对象，这是lambda最大的意义所在。在过去，我们在函数之间传递一个函数，必须手动把它包装成类的对象，并用接口加以规范。现在，我们可以直接用lambda自动生">
+<meta name="keywords" content="Java 核心">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Lambda 解析和使用技巧">
+<meta property="og:url" content="http://yoursite.com/2018/06/26/yuque/lambda/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="lambda是包着一个函数的对象lambda表达式非常简洁优雅。是把动态语言的特性嫁接到静态语言的一个典范。 在java中，我更加愿意认为lambda实际上是是包着一个函数的对象，我们在使用lambda表达式的时候，实际上定义了一个闭包的函数对象，这是lambda最大的意义所在。在过去，我们在函数之间传递一个函数，必须手动把它包装成类的对象，并用接口加以规范。现在，我们可以直接用lambda自动生">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.yuque.com/yuque/0/2018/png/102759/1530001321687-9e26ef17-7fd6-4549-b2be-2a61e8398463.png">
+<meta property="og:updated_time" content="2018-11-25T16:02:14.221Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java Lambda 解析和使用技巧">
+<meta name="twitter:description" content="lambda是包着一个函数的对象lambda表达式非常简洁优雅。是把动态语言的特性嫁接到静态语言的一个典范。 在java中，我更加愿意认为lambda实际上是是包着一个函数的对象，我们在使用lambda表达式的时候，实际上定义了一个闭包的函数对象，这是lambda最大的意义所在。在过去，我们在函数之间传递一个函数，必须手动把它包装成类的对象，并用接口加以规范。现在，我们可以直接用lambda自动生">
+<meta name="twitter:image" content="https://cdn.yuque.com/yuque/0/2018/png/102759/1530001321687-9e26ef17-7fd6-4549-b2be-2a61e8398463.png">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="Java Lambda 解析和使用技巧" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-06-26T07:29:56.000Z">2018-06-26</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    19 分钟 读完 (大约 2886 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Java Lambda 解析和使用技巧
+            
+        </h1>
+        <div class="content">
+            <h3 id="lambda是包着一个函数的对象"><a href="#lambda是包着一个函数的对象" class="headerlink" title="lambda是包着一个函数的对象"></a><a name="gc1tzc"></a>lambda是包着一个函数的对象</h3><p>lambda表达式非常简洁优雅。是把动态语言的特性嫁接到静态语言的一个典范。</p>
+<p>在java中，我更加愿意认为lambda实际上是是包着一个函数的对象，我们在使用lambda表达式的时候，实际上定义了一个闭包的函数对象，这是lambda最大的意义所在。在过去，我们在函数之间传递一个函数，必须手动把它包装成类的对象，并用接口加以规范。现在，我们可以直接用lambda自动生成一个这样的对象。</p>
+<p>如果你用过 Javascript/Python，你可以把刚刚定义的函数当做对象传给别的函数。现在，你用 lambda 也可以在 java 的里面传参时把函数用lambda形式“打包”传给别的函数，并且符合强类型的面向对象要求。</p>
+<p>我们先用面向对象的方法理解 lambda 函数，他首先是一个对象，但是不需要我们手动new，他的类型是 一个接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是 Runnable 接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在以前，我们可能要这样创建一个 Runnable 对象（当然也可以用匿名内部类）</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">taskClass</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"test"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Runnable task = <span class="keyword">new</span> taskClass();</span><br><span class="line"><span class="comment">// 对象可以使用接口的方法</span></span><br><span class="line">task.run(); <span class="comment">// 输出 test</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 现在，有了 lambda，系统用了些黑魔法，自动实例化了类，并且给我们创建好了对象</span></span><br><span class="line"><span class="comment">// 其实，这个task不是内部类而真的是一个私有的函数，是的，编译器就是可以为所欲为</span></span><br><span class="line">Runnable task = () -&gt; &#123;</span><br><span class="line">    System.out.println(<span class="string">"test"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 你可以表面地理解成，系统把 小括号 和 大括号的内容，复制粘贴到上面去了</span></span><br></pre></td></tr></table></figure>
+<p>看到这里，你可能会问，系统依据什么来创建这个函数对象呢？如果一个接口里面有许多方法，我们的lambda表达式应该应用到（复制、粘贴到）哪个方法上面呢？lambda的输出类型怎么定义呢？</p>
+<p>答案就是，这种接口，有且只能有一个抽象方法，系统会自动找到这一个方法（虽然这样看起来有些随意）作为创建这个函数对象的模板。</p>
+<h3 id="lambda传参数和返回值"><a href="#lambda传参数和返回值" class="headerlink" title="lambda传参数和返回值"></a><a name="adg7hg"></a>lambda传参数和返回值</h3><p>和 Runnable 接口一样，JDK还给我们带来了几个比较常见的接口：如 Consumer 接口 和 Supplier 接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个接口的特点是，有一个参数，无返回值</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Consumer</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">accept</span><span class="params">(T t)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用 lambda创建一个 consumer 对象</span></span><br><span class="line">Consumer&lt;String&gt; consumer = (String item) -&gt; &#123;</span><br><span class="line">    System.out.println(item);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个接口的特点是,无参数，有返回值</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Supplier</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">T <span class="title">get</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用 lambda 创建一个 supplier 对象</span></span><br><span class="line">Supplier&lt;String&gt; supplier = () -&gt; &#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="string">"test"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>java.util.function 下有大量JDK8带来的接口</p>
+<ul>
+<li><code>Predicate&lt;T&gt;</code> – a boolean-valued property of an object | 输入T，返回 boolean</li>
+<li><code>Consumer&lt;T&gt;</code> – an action to be performed on an object | 输入 T，返回void</li>
+<li><code>Function&lt;T,R&gt;</code> – a function transforming a T to a R | 输入 T 返回 R</li>
+<li><code>Supplier&lt;T&gt;</code> – provide an instance of a T (such as a factory) | 输入() 返回T </li>
+<li><code>UnaryOperator&lt;T&gt;</code> – a function from T to T | 输入 T 返回 T</li>
+<li><code>BinaryOperator&lt;T&gt;</code> – a function from (T, T) to T | 输入 (T,T) 返回 T</li>
+<li><code>IntSupplier</code> 等基础数值非泛型接口</li>
+</ul>
+<p>我们在使用的时候，只用关心接口下面的唯一抽象方法的输入值和返回值即可，不用太关心名字</p>
+<h3 id="lambda-的语法糖"><a href="#lambda-的语法糖" class="headerlink" title="lambda 的语法糖"></a><a name="t1siet"></a>lambda 的语法糖</h3><ol>
+<li>如果函数体只有一行，不需要大括号</li>
+<li>如果函数的参数只有一个，不需要小括号</li>
+<li>如果函数的参数可以由上下文推导，则不需要写参数类型</li>
+<li>如果函数体只有一行，不用写 return</li>
+</ol>
+<p>这四个比较好理解，比如，这样写是合法的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Consumer&lt;String&gt; consumer = item -&gt; System.out.println(item);</span><br><span class="line">Supplier&lt;String&gt; supplier = () -&gt; <span class="string">"test"</span>;</span><br></pre></td></tr></table></figure></p>
+<ol start="5">
+<li>还有我个人感觉做的比较随意的 双冒号 :: 语法糖，这种<span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">形式叫做方法引用（</span></span><em>method references</em><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">）</span></span></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">引用静态方法</th>
+<th style="text-align:left"><code>Integer::sum</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">引用某个对象的方法</td>
+<td style="text-align:left"><code>list::add</code></td>
+</tr>
+<tr>
+<td style="text-align:left">引用某个类的方法</td>
+<td style="text-align:left"><code>String::length</code></td>
+</tr>
+<tr>
+<td style="text-align:left">引用构造方法</td>
+<td style="text-align:left"><code>HashMap::new</code></td>
+</tr>
+</tbody>
+</table>
+<p>比如，原来我们这么写<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Consumer&lt;String&gt; consumer = item -&gt; System.out.println(item);</span><br></pre></td></tr></table></figure></p>
+<p>现在用双冒号语法可以这么写，这样写也有好处，让你看起来这更像是传了一个方法进去<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Consumer&lt;String&gt; consumer = System.out::println;</span><br></pre></td></tr></table></figure></p>
+<h3 id="lambda局部变量使用机制"><a href="#lambda局部变量使用机制" class="headerlink" title="lambda局部变量使用机制"></a><a name="pzniao"></a>lambda局部变量使用机制</h3><p>lambda中使用上下文定义的<strong>局部变量</strong>，必须是 final的，当然，如果你忘了加final，编译器会帮你自动加上。<br>当然，如果是类变量则没有这个限制</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String x = <span class="string">"Hello "</span>; <span class="comment">// 如果下文有 lambda 使用了 x，这句等价于 final String x = "Hello "</span></span><br><span class="line">x = <span class="string">"test"</span>; <span class="comment">// 这句非法，无法通过编译</span></span><br><span class="line">Function&lt;String,String&gt; func1 = y -&gt; y+x; </span><br><span class="line">System.out.println(func1.apply(<span class="string">"luan.ma"</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="lambda底层实现"><a href="#lambda底层实现" class="headerlink" title="lambda底层实现"></a><a name="m5nbin"></a>lambda底层实现</h3><p>Lambda表达式通过invokedynamic指令实现，书写Lambda表达式不会产生新的类。他在 class 文件中是一个私有函数<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainLambda</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">new</span> Thread(</span><br><span class="line">				() -&gt; System.out.println(<span class="string">"Lambda Thread run()"</span>)</span><br><span class="line">			).start();;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// javap -c -p MainLambda.class</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainLambda</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(java.lang.String[])</span></span>;</span><br><span class="line">    Code:</span><br><span class="line">       0: new           #2                  // class java/lang/Thread</span><br><span class="line">       <span class="number">3</span>: dup</span><br><span class="line">       4: invokedynamic #3,  0              // InvokeDynamic #0:run:()Ljava/lang/Runnable; /*使用invokedynamic指令调用*/</span><br><span class="line">       9: invokespecial #4                  // Method java/lang/Thread."&lt;init&gt;":(Ljava/lang/Runnable;)V</span><br><span class="line">      12: invokevirtual #5                  // Method java/lang/Thread.start:()V</span><br><span class="line">      <span class="number">15</span>: <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> lambda$main$<span class="number">0</span>();  <span class="comment">/*Lambda表达式被封装成主类的私有方法*/</span></span><br><span class="line">    Code:</span><br><span class="line">       0: getstatic     #6                  // Field java/lang/System.out:Ljava/io/PrintStream;</span><br><span class="line">       3: ldc           #7                  // String Lambda Thread run()</span><br><span class="line">       5: invokevirtual #8                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V</span><br><span class="line">       <span class="number">8</span>: <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以，在使用层面，lambda中的 this 就是主类的 this，和主类的函数没有太大区别。而匿名内部类或者是内部类在使用中则要注意this的指向问题。</p>
+<h3 id="JDK-数据结构中使用-lambda"><a href="#JDK-数据结构中使用-lambda" class="headerlink" title="JDK 数据结构中使用 lambda"></a><a name="bzk1pb"></a>JDK 数据结构中使用 lambda</h3><hr>
+<p>JDK中的数据结构</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1530001321687-9e26ef17-7fd6-4549-b2be-2a61e8398463.png" alt="image.png | left | 747x309"></p>
+<p>加入的 支持 lambda 的方法列表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">接口名</th>
+<th style="text-align:left">Java8新加入的方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Collection</td>
+<td style="text-align:left">removeIf() spliterator() stream() parallelStream() forEach()</td>
+</tr>
+<tr>
+<td style="text-align:left">List</td>
+<td style="text-align:left">replaceAll() sort()</td>
+</tr>
+<tr>
+<td style="text-align:left">Map</td>
+<td style="text-align:left">getOrDefault() forEach() replaceAll() putIfAbsent() remove() replace() computeIfAbsent() computeIfPresent() compute() merge()</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Collection-stream-方法"><a href="#Collection-stream-方法" class="headerlink" title="Collection: stream()方法"></a><a name="wotlap"></a>Collection: stream()方法</h4><p>这是最强大的支持lambda的方法，List所有lambda方法在 stream()中都可以完成，而且支持 set 和 queue<br>他还有一个可以自动多线程拆分、执行的兄弟 .<span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">parallelStream()</span></span></p>
+<h4 id="Tips-上下限通配查看方法"><a href="#Tips-上下限通配查看方法" class="headerlink" title="Tips: 上下限通配查看方法"></a><a name="7tuxxm"></a>Tips: 上下限通配查看方法</h4><p>看之前，我先说一下方法里面各种上下限通配的查看方法：<br><code>&lt;? extends T&gt;</code>用于方法返回，参数类型上界是T，因此子类不能随意传入，只读<br><code>&lt;? super T&gt;</code> 用于方法传入，参数的类型下界是 T，因此若传出只能是 Object 类型<br><code>&lt;T&gt;</code> 既要传入，又要返回<br><code>?</code> 既不能传入，也不能返回</p>
+<h4 id="list-forEach-方法：void-forEach-Consumer-lt-super-E-gt-action"><a href="#list-forEach-方法：void-forEach-Consumer-lt-super-E-gt-action" class="headerlink" title="list: forEach()方法：void forEach(Consumer&lt;? super E&gt; action)"></a><a name="y1btfw"></a>list: forEach()方法：<span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">void forEach(Consumer&lt;? super E&gt; action)</span></span></h4><p>作用是对容器中的每个元素执行action指定的动作，其中Consumer是个函数接口，里面只有一个待实现方法void accept(T t)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(<span class="string">"I"</span>, <span class="string">"love"</span>, <span class="string">"you"</span>, <span class="string">"too"</span>));</span><br><span class="line">list.forEach( str -&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span>(str.length()&gt;<span class="number">3</span>)</span><br><span class="line">            System.out.println(str);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>遍历，并对每一项执行一个函数。forEach方法和原来的for()遍历，看起来更加简洁</p>
+<h4 id="list-removeIf-方法-boolean-removeIf-Predicate-lt-super-E-gt-filter"><a href="#list-removeIf-方法-boolean-removeIf-Predicate-lt-super-E-gt-filter" class="headerlink" title="list: removeIf()方法 boolean removeIf(Predicate&lt;? super E&gt; filter)"></a><a name="6a6nva"></a>list: removeIf()方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">boolean removeIf(Predicate&lt;? super E&gt; filter)</span></span></h4><p>删除容器中所有满足filter指定条件的元素，其中Predicate是一个函数接口，里面只有一个待实现方法boolean test(T t)。传统，我们需要要迭代器来迭代删除数据，现在有了 removeIf 函数，我们可以传入一个 返回值 为 true 或者 false d lambda 表达式，如果 true，那么元素就会被删除</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.removeIf(str -&gt; str.length()&gt;<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="list-replaceAll-方法-void-replaceAll-UnaryOperator-operator"><a href="#list-replaceAll-方法-void-replaceAll-UnaryOperator-operator" class="headerlink" title="list: replaceAll()方法 void replaceAll(UnaryOperator operator)"></a><a name="pfkcic"></a>list: replaceAll()方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">void replaceAll(UnaryOperator<e> operator)</e></span></span></h4><p>对数据集合的每个数据执行一个方法。在之前，我们需要遍历，get出来，转换，再set回去，现在我们可以直接用 lambda 实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">list.replaceAll(str -&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span>(str.length()&gt;<span class="number">3</span>)</span><br><span class="line">        <span class="keyword">return</span> str.toUpperCase();</span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="list-sort-方法-void-sort-Comparator-lt-super-E-gt-c"><a href="#list-sort-方法-void-sort-Comparator-lt-super-E-gt-c" class="headerlink" title="list: sort()方法 void sort(Comparator&lt;? super E&gt; c)"></a><a name="hl1goc"></a>list: sort()方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">void sort(Comparator&lt;? super E&gt; c)</span></span></h4><p>排序方法，输入两个对象，返回一个int值，根据正负来确定排序位置<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.sort((str1, str2) -&gt; str1.length()-str2.length());</span><br></pre></td></tr></table></figure></p>
+<h4 id="map-forEach-方法-void-forEach-BiConsumer-lt-super-K-super-V-gt-action"><a href="#map-forEach-方法-void-forEach-BiConsumer-lt-super-K-super-V-gt-action" class="headerlink" title="map: forEach()方法 void forEach(BiConsumer&lt;? super K,? super V&gt; action)"></a><a name="ix8kge"></a>map: forEach()方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">void forEach(BiConsumer&lt;? super K,? super V&gt; action)</span></span></h4><p>作用是对Map中的每个映射执行action指定的操作，其中BiConsumer是一个函数接口，里面有一个待实现方法void accept(T t, U u)。<br>原来的方法非常繁琐，现在变得非常简单<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.forEach((k, v) -&gt; System.out.println(k + <span class="string">"="</span> + v));</span><br></pre></td></tr></table></figure></p>
+<h4 id="map-replaceAll-方法-replaceAll-BiFunction-lt-super-K-super-V-extends-V-gt-function"><a href="#map-replaceAll-方法-replaceAll-BiFunction-lt-super-K-super-V-extends-V-gt-function" class="headerlink" title="map: replaceAll()方法 replaceAll(BiFunction&lt;? super K,? super V,? extends V&gt; function)"></a><a name="e5swld"></a>map: replaceAll()方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">replaceAll(BiFunction&lt;? super K,? super V,? extends V&gt; function)</span></span></h4><p><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">作用是对</span></span><code>Map</code><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">中的每个映射执行</span></span><code>function</code><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">指定的操作，并用</span></span><code>function</code><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">的执行结果替换原来的</span></span><code>value</code><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">，其中</span></span><code>BiFunction</code><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">是一个函数接口，里面有一个待实现方法</span></span><code>R apply(T t, U u)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.replaceAll((k, v) -&gt; v.toUpperCase());</span><br></pre></td></tr></table></figure>
+<h4 id="map-merge-方法-merge-K-key-V-value-BiFunction-lt-super-V-super-V-extends-V-gt-remappingFunction"><a href="#map-merge-方法-merge-K-key-V-value-BiFunction-lt-super-V-super-V-extends-V-gt-remappingFunction" class="headerlink" title="map: merge()方法 merge(K key, V value, BiFunction&lt;? super V,? super V,? extends V&gt; remappingFunction)"></a><a name="spnssg"></a>map: merge()方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">merge(K key, V value, BiFunction&lt;? super V,? super V,? extends V&gt; remappingFunction)</span></span></h4><ol>
+<li>如果<code>Map</code>中<code>key</code>对应的映射不存在或者为<code>null</code>，则将<code>value</code>（不能是<code>null</code>）关联到<code>key</code>上；</li>
+<li>否则执行<code>remappingFunction</code>，如果执行结果非<code>null</code>则用该结果跟<code>key</code>关联，否则在<code>Map</code>中删除<code>key</code>的映射．</li>
+</ol>
+<p>传入的是key, value，以及一个备选方案：有两个值要如何处理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.merge(key, newMsg, (v1, v2) -&gt; v1+v2);</span><br></pre></td></tr></table></figure>
+<h4 id="map-compute-方法-compute-K-key-BiFunction-lt-super-K-super-V-extends-V-gt-remappingFunction"><a href="#map-compute-方法-compute-K-key-BiFunction-lt-super-K-super-V-extends-V-gt-remappingFunction" class="headerlink" title="map: compute() 方法 compute(K key, BiFunction&lt;? super K,? super V,? extends V&gt; remappingFunction)"></a><a name="3qnxhd"></a>map: compute() 方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">compute(K key, BiFunction&lt;? super K,? super V,? extends V&gt; remappingFunction)</span></span></h4><p>把<code>remappingFunction</code>的计算结果关联到<code>key</code>上，如果计算结果为<code>null</code>，则在<code>Map</code>中删除<code>key</code>的映射．</p>
+<p>传入key， value由旧值的函数计算得到</p>
+<p>要实现上述<code>merge()</code>方法中错误信息拼接的例子，使用<code>compute()</code>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.compute(key, (k,v) -&gt; v==<span class="keyword">null</span> ? newMsg : v.concat(newMsg));</span><br></pre></td></tr></table></figure>
+<h4 id="map-computeIfAbsent-方法-V-computeIfAbsent-K-key-Function-lt-super-K-extends-V-gt-mappingFunction"><a href="#map-computeIfAbsent-方法-V-computeIfAbsent-K-key-Function-lt-super-K-extends-V-gt-mappingFunction" class="headerlink" title="map: computeIfAbsent()方法 V computeIfAbsent(K key, Function&lt;? super K,? extends V&gt; mappingFunction)"></a><a name="e93qbd"></a>map: computeIfAbsent()方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">V computeIfAbsent(K key, Function&lt;? super K,? extends V&gt; mappingFunction)</span></span></h4><p>只有在当前<code>Map</code>中<strong>不存在</strong><strong><code>key</code></strong><strong>值的映射或映射值为</strong><strong><code>null</code></strong><strong>时</strong>，才调用<code>mappingFunction</code>，并在<code>mappingFunction</code>执行结果非<code>null</code>时，将结果跟<code>key</code>关联．</p>
+<p>不存在才加，存在直接跳过</p>
+<p><code>Function</code>是一个函数接口，里面有一个待实现方法<code>R apply(T t)</code>．</p>
+<p><code>computeIfAbsent()</code>常用来对<code>Map</code>的某个<code>key</code>值建立初始化映射．比如我们要实现一个多值映射，<code>Map</code>的定义可能是<code>Map&lt;K,Set&lt;V&gt;&gt;</code>，要向<code>Map</code>中放入新值，可通过如下代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Integer, Set&lt;String&gt;&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"><span class="comment">// Java7及以前的实现方式</span></span><br><span class="line"><span class="keyword">if</span>(map.containsKey(<span class="number">1</span>))&#123;</span><br><span class="line">    map.get(<span class="number">1</span>).add(<span class="string">"one"</span>);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    Set&lt;String&gt; valueSet = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">    valueSet.add(<span class="string">"one"</span>);</span><br><span class="line">    map.put(<span class="number">1</span>, valueSet);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Java8的实现方式</span></span><br><span class="line">map.computeIfAbsent(<span class="number">1</span>, v -&gt; <span class="keyword">new</span> HashSet&lt;String&gt;()).add(<span class="string">"yi"</span>);</span><br></pre></td></tr></table></figure>
+<p>使用<code>computeIfAbsent()</code>将条件判断和添加操作合二为一，使代码更加简洁．</p>
+<h4 id="map-computeIfPresent-方法-V-computeIfPresent-K-key-BiFunction-lt-super-K-super-V-extends-V-gt-remappingFunction"><a href="#map-computeIfPresent-方法-V-computeIfPresent-K-key-BiFunction-lt-super-K-super-V-extends-V-gt-remappingFunction" class="headerlink" title="map: computeIfPresent()方法 V computeIfPresent(K key, BiFunction&lt;? super K,? super V,? extends V&gt; remappingFunction)"></a><a name="x1wkyz"></a>map: computeIfPresent()方法 <span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgba(27, 31, 35, 0.05)">V computeIfPresent(K key, BiFunction&lt;? super K,? super V,? extends V&gt; remappingFunction)</span></span></h4><p>只有在当前<code>Map</code>中<strong>存在</strong><strong><code>key</code></strong><strong>值的映射且非</strong><strong><code>null</code></strong><strong>时</strong>，才调用<code>remappingFunction</code>，如果<code>remappingFunction</code>执行结果为<code>null</code>，则删除<code>key</code>的映射，否则使用该结果替换<code>key</code>原来的映射．</p>
+<p>不存在直接跳过，存在才插进去</p>
+<p>这个函数的功能跟如下代码是等效的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java7及以前跟computeIfPresent()等效的代码</span></span><br><span class="line"><span class="keyword">if</span> (map.get(key) != <span class="keyword">null</span>) &#123;</span><br><span class="line">    V oldValue = map.get(key);</span><br><span class="line">    V newValue = remappingFunction.apply(key, oldValue);</span><br><span class="line">    <span class="keyword">if</span> (newValue != <span class="keyword">null</span>)</span><br><span class="line">        map.put(key, newValue);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        map.remove(key);</span><br><span class="line">    <span class="keyword">return</span> newValue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><a name="471ssv"></a>参考资料</h3><p><a href="https://github.com/CarpenterLee/JavaLambdaInternals" target="_blank" rel="noopener">深入理解Java函数式编程和Streams API</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Java-核心/">Java 核心</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2018/07/13/yuque/stream/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Java Stream 解析和使用技巧</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2018/06/26/yuque/hashmap/">
+                <span class="level-item">一步一步查看 HashMap 源码</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Your name">
+                    
+                    <p class="is-size-4 is-block">
+                        Your name
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Your title
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Your location</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        26
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        12
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/ppoffice">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/ppoffice">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/技术实战/">
+            <span class="level-start">
+                <span class="level-item">技术实战</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/技术笔记/">
+            <span class="level-start">
+                <span class="level-item">技术笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/教程/">
+            <span class="level-start">
+                <span class="level-item">教程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/日志/">
+            <span class="level-start">
+                <span class="level-item">日志</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/项目/">
+            <span class="level-start">
+                <span class="level-item">项目</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Java-核心/" style="font-size: 15px;">Java 核心</a> <a href="/tags/Netty/" style="font-size: 10px;">Netty</a> <a href="/tags/SSH/" style="font-size: 12.5px;">SSH</a> <a href="/tags/SSM/" style="font-size: 17.5px;">SSM</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Spring/" style="font-size: 12.5px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10px;">Spring Boot</a> <a href="/tags/Spring-MVC/" style="font-size: 10px;">Spring MVC</a> <a href="/tags/小小商城/" style="font-size: 20px;">小小商城</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/语雀/" style="font-size: 10px;">语雀</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/25/hello-world/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Hello World">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-25T14:20:07.426Z">2018-11-25</time></div>
+                    <a href="/2018/11/25/hello-world/" class="has-link-black-ter is-size-6">Hello World</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/05/yuque/yuque2blog/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="教程：静态博客使用语雀编辑器">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-05T02:38:56.000Z">2018-10-05</time></div>
+                    <a href="/2018/10/05/yuque/yuque2blog/" class="has-link-black-ter is-size-6">教程：静态博客使用语雀编辑器</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/教程/">教程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/jinrishici/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="今日诗词 API - 诗词实时智能推荐">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T06:44:19.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/jinrishici/" class="has-link-black-ter is-size-6">今日诗词 API - 诗词实时智能推荐</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/项目/">项目</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/hexo-yuque/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="博客更新为 Hexo 静态博客 + 语雀">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T02:53:21.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/hexo-yuque/" class="has-link-black-ter is-size-6">博客更新为 Hexo 静态博客 + 语雀</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/日志/">日志</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/08/26/yuque/netty-flow/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Netty 处理流程简析（附流程图）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-26T15:21:09.000Z">2018-08-26</time></div>
+                    <a href="/2018/08/26/yuque/netty-flow/" class="has-link-black-ter is-size-6">Netty 处理流程简析（附流程图）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Hexo/">
+                        <span class="level-start">
+                            <span class="level-item">Hexo</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Java-核心/">
+                        <span class="level-start">
+                            <span class="level-item">Java 核心</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Netty/">
+                        <span class="level-start">
+                            <span class="level-item">Netty</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSH/">
+                        <span class="level-start">
+                            <span class="level-item">SSH</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSM/">
+                        <span class="level-start">
+                            <span class="level-item">SSM</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">6</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Servlet/">
+                        <span class="level-start">
+                            <span class="level-item">Servlet</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring/">
+                        <span class="level-start">
+                            <span class="level-item">Spring</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-Boot/">
+                        <span class="level-start">
+                            <span class="level-item">Spring Boot</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-MVC/">
+                        <span class="level-start">
+                            <span class="level-item">Spring MVC</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/小小商城/">
+                        <span class="level-start">
+                            <span class="level-item">小小商城</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">10</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/网络/">
+                        <span class="level-start">
+                            <span class="level-item">网络</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/语雀/">
+                        <span class="level-start">
+                            <span class="level-item">语雀</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/25/hello-world/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Hello World">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-25T14:20:07.426Z">2018-11-25</time></div>
+                    <a href="/2018/11/25/hello-world/" class="has-link-black-ter is-size-6">Hello World</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/05/yuque/yuque2blog/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="教程：静态博客使用语雀编辑器">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-05T02:38:56.000Z">2018-10-05</time></div>
+                    <a href="/2018/10/05/yuque/yuque2blog/" class="has-link-black-ter is-size-6">教程：静态博客使用语雀编辑器</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/教程/">教程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/jinrishici/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="今日诗词 API - 诗词实时智能推荐">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T06:44:19.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/jinrishici/" class="has-link-black-ter is-size-6">今日诗词 API - 诗词实时智能推荐</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/项目/">项目</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/hexo-yuque/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="博客更新为 Hexo 静态博客 + 语雀">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T02:53:21.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/hexo-yuque/" class="has-link-black-ter is-size-6">博客更新为 Hexo 静态博客 + 语雀</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/日志/">日志</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/08/26/yuque/netty-flow/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Netty 处理流程简析（附流程图）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-26T15:21:09.000Z">2018-08-26</time></div>
+                    <a href="/2018/08/26/yuque/netty-flow/" class="has-link-black-ter is-size-6">Netty 处理流程简析（附流程图）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Hexo/">
+                        <span class="level-start">
+                            <span class="level-item">Hexo</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Java-核心/">
+                        <span class="level-start">
+                            <span class="level-item">Java 核心</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Netty/">
+                        <span class="level-start">
+                            <span class="level-item">Netty</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSH/">
+                        <span class="level-start">
+                            <span class="level-item">SSH</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSM/">
+                        <span class="level-start">
+                            <span class="level-item">SSM</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">6</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Servlet/">
+                        <span class="level-start">
+                            <span class="level-item">Servlet</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring/">
+                        <span class="level-start">
+                            <span class="level-item">Spring</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-Boot/">
+                        <span class="level-start">
+                            <span class="level-item">Spring Boot</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-MVC/">
+                        <span class="level-start">
+                            <span class="level-item">Spring MVC</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/小小商城/">
+                        <span class="level-start">
+                            <span class="level-item">小小商城</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">10</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/网络/">
+                        <span class="level-start">
+                            <span class="level-item">网络</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/语雀/">
+                        <span class="level-start">
+                            <span class="level-item">语雀</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="Java Lambda 解析和使用技巧" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2018 John Doe&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

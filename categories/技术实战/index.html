@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>分类: 技术实战 - Hexo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/categories/技术实战/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="Hexo" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    <div class="card-content">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/categories">分类</a></li>
+            
+            <li class="is-active"><a href="#" aria-current="page">技术实战</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-05-31T03:33:20.000Z">2018-05-31</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/技术实战/">技术实战</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 784 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/05/31/yuque/ssm-aop-verification/">SSM开发 - 对 SpringMVC 传入参数 进行参数校验 （使用自定义AOP切面+自定义参数注解）</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="提要"><a href="#提要" class="headerlink" title="提要"></a><a name="655nvq"></a>提要</h2><p>　　本文是 小小商城-SSM版的 细节详解系列 之一，项目 github：<a href="https://github.com/xenv/S-mall-ssm" target="_blank" rel="noopener">https://github.com/xenv/S-mall-ssm</a> 本文代码大部分在 github 中 可以找到。</p>
+<p>　　参数校验就是对用户 GET 或者 POST 传进来的参数进行校验是否合法。最简单的方法就是在每个控制器方法中，一个一个用 if 校验，但是这样效率很低。</p>
+<p>　　那么，还有没有别的方法呢？SpringMVC官方推荐是使用 hibernate-validate 校验框架，但是使用起来可以说是很麻烦了，还要针对 每个 实体，再写校验器，工作量巨大。</p>
+<p>　　在此，我用 自定义AOP切面 的方法，结合 自定义参数注解，非常方便的就实现了简单的参数校验（这里以非空校验为例），实现的效果如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"search"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">search</span><span class="params">(String keyword, @Nullable String sort, Model model)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　对于 sort 参数，访问的时候可能并不一定会传进来，我们使用 @Nullable 进行标记（这个是我们定义的注解），否则将默认进行 非 null 检测，这样就可以大大减少空指针错误发生的几率。</p>
+<p>　　有些朋友可能会问，为什么不使用SpringMVC的拦截器，而是要用 AOP 的方法呢，这里我画个图给大家解释一下：</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1527737631859-9160dfb0-39c3-4d07-b488-ab58b6022f43.png" alt="微信截图_20180302172936.png | left | 827x210"></p>
+<p>如果是用拦截器，拦截器会在函数调用前就拦截，这样我们就没有办法做数据校验了，而AOP切点则在函数调用后，函数体调用前可以拦截，那么我们用AOP做校验就非常合适。</p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><a name="khqddi"></a>具体实现</h2><h3 id="1-定义参数注解-（这里我只弄了个-Nullable-可空，其他不加这个默认非空）"><a href="#1-定义参数注解-（这里我只弄了个-Nullable-可空，其他不加这个默认非空）" class="headerlink" title="1.定义参数注解 （这里我只弄了个 Nullable 可空，其他不加这个默认非空）"></a><a name="oriohi"></a>1.定义参数注解 （这里我只弄了个 Nullable 可空，其他不加这个默认非空）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(&#123;PARAMETER&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Nullable &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-配置AOP"><a href="#2-配置AOP" class="headerlink" title="2. 配置AOP"></a><a name="rhmwne"></a>2. 配置AOP</h3><p>具体的不展开讲了，网上很多，Maven两个依赖，Spring和SpringMVC都要加配置，还要加XML的域，就基本配置好了</p>
+<h3 id="3-编写AOP切面"><a href="#3-编写AOP切面" class="headerlink" title="3. 编写AOP切面"></a><a name="9gixtt"></a>3. 编写AOP切面</h3><p><span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)">　　</span></span><a href="https://github.com/xenv/S-mall-ssm/blob/master/src/main/java/tmall/aspect/VerificationAspect.java" title="VerificationAspect.java" target="_blank" rel="noopener">VerificationAspect.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VerificationAspect</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 声明切面 应用在，所有 Controller下的， 以Controller结尾的类中的，所有 public 方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Pointcut</span>(<span class="string">"execution(public * tmall.controller.*.*Controller.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">joinPointInAllController</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 切入点执行前方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> point 切入点</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"joinPointInAllController()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkParameter</span><span class="params">(JoinPoint point)</span> <span class="keyword">throws</span> ParameterException </span>&#123;</span><br><span class="line">        <span class="comment">// 获得切入方法参数</span></span><br><span class="line">        Object[] args = point.getArgs();</span><br><span class="line">        <span class="comment">// 获得切入的方法</span></span><br><span class="line">        Method method = ((MethodSignature) point.getSignature()).getMethod();</span><br><span class="line">        <span class="comment">// 获得所有参数</span></span><br><span class="line">        Parameter[] parameters = method.getParameters();</span><br><span class="line">        <span class="comment">// 保存需要校验的args</span></span><br><span class="line">        ArrayList&lt;Object&gt; argsWithoutNullable = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">// 对没有Nullable注解的参数进行非空校验</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; parameters.length; i++) &#123;</span><br><span class="line">            Parameter parameter = parameters[i];</span><br><span class="line">            Annotation[] annotations = parameter.getDeclaredAnnotationsByType(Nullable.class);</span><br><span class="line">            <span class="keyword">if</span> (annotations.length &lt; <span class="number">1</span>) &#123;</span><br><span class="line">                argsWithoutNullable.add(args[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (Object o : argsWithoutNullable) &#123;</span><br><span class="line">            <span class="keyword">if</span> (o == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> ParameterException(<span class="string">"非法请求,参数不全"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)">　　OK，其实非常简单了。</span></span></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-05-31T03:27:39.000Z">2018-05-31</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/技术实战/">技术实战</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 796 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/05/31/yuque/ssm-auth/">SSM开发 - 配合自定义注解 和 SpringMVC拦截器，实现 方法级粒度 用户鉴权</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="提要"><a href="#提要" class="headerlink" title="提要"></a><a name="73iogp"></a>提要</h2><p>本文是 小小商城-SSM版的 细节详解系列 之一，项目 github：<a href="https://github.com/xenv/S-mall-ssm" target="_blank" rel="noopener">https://github.com/xenv/S-mall-ssm</a> 本文代码大部分在 github 中 可以找到。</p>
+<p><span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)">这篇文章其实和 </span></span><a href="https://yuque.com/page/luan.ma/ssh-auth" target="_blank" rel="noopener">SSH开发 | 配合自定义注解 和 Stratus拦截器，实现 方法级粒度 用户鉴权</a><span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)">  大致一样，只是具体实现有一点区别。</span></span></p>
+<p>有用户系统，就必须有配套的鉴权系统来确保页面不被非法访问。市面上的鉴权系统，最为成熟的就是shiro，但是体量太重，使用也不太方便，对代码的侵入型也比较强，所以我简单使用 自定义注解 和 SpringMVC 拦截器 就实现了一个 简单 的鉴权系统，虽然不及 shiiro 稳定和功能强大，但是也足够使用，并且配置非常简单。</p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><a name="i4lkmi"></a>具体实现</h2><p>原理其实非常简单，我们先在 controller 类和 方法上配置好权限的自定义注解，然后配置一个拦截器读取这些注解，在和 session 里面的 user 比对 权限，判断是否放行即可。</p>
+<p>在配置自定义注解时，我选择了类和方法同时配置，方法如果不配置则使用类的权限配置。</p>
+<h3 id="1-在User实体类中，用enum定义用户组"><a href="#1-在User实体类中，用enum定义用户组" class="headerlink" title="1. 在User实体类中，用enum定义用户组"></a><a name="32h2ty"></a>1. 在User实体类中，用enum定义用户组</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Group&#123;</span><br><span class="line">    unLogin,user,admin,superAdmin;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-定义一个自定义注解"><a href="#2-定义一个自定义注解" class="headerlink" title="2. 定义一个自定义注解"></a><a name="rxvcnm"></a>2. 定义一个自定义注解</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME) <span class="comment">// 运行时可以被获取 </span></span><br><span class="line"><span class="meta">@Target</span>(&#123;METHOD,TYPE&#125;) <span class="comment">//加载类上或者方法上面</span></span><br><span class="line"><span class="meta">@Inherited</span> <span class="comment">//可以子类继承</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Auth &#123;</span><br><span class="line">    User.<span class="function">Group <span class="title">value</span><span class="params">()</span></span>; <span class="comment">//User.Group是一个enum类型，在User实体类中定义</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-在-Controller-类中加入这个自定义注解"><a href="#3-在-Controller-类中加入这个自定义注解" class="headerlink" title="3. 在 Controller 类中加入这个自定义注解"></a><a name="xl88iz"></a>3. 在 Controller 类中加入这个自定义注解</h3><p>比如前台的 Controller 中，可以在 这个 controller 类上面加一个 @Auth(User.Group.unLogin) ，这样该 action 类下面的所有方法 unLogin 用户都可以访问。对于不想要 unLogin 用户 访问 的方法，可以在那个方法上面加上 @Auth(User.Group.user) ，就会覆盖掉  类的权限配置。</p>
+<h3 id="4-配置一个拦截器实现鉴权动作-AuthInterceptor-java"><a href="#4-配置一个拦截器实现鉴权动作-AuthInterceptor-java" class="headerlink" title="4.配置一个拦截器实现鉴权动作 AuthInterceptor.java"></a><a name="0bzago"></a>4.配置一个拦截器实现鉴权动作 <a href="https://github.com/xenv/S-mall-ssm/blob/master/src/main/java/tmall/interceptor/AuthInterceptor.java" title="AuthInterceptor.java" target="_blank" rel="noopener">AuthInterceptor.java</a></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuthInterceptor</span> <span class="keyword">extends</span> <span class="title">HandlerInterceptorAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object o)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!(o <span class="keyword">instanceof</span> HandlerMethod)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        HandlerMethod handler = (HandlerMethod) o;</span><br><span class="line">        <span class="comment">//获取访问页面的权限</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取方法上的注解</span></span><br><span class="line">        Auth authInMethod = ((HandlerMethod) handler).getMethodAnnotation(Auth.class);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取类上的注解</span></span><br><span class="line">        Auth authInClass = ((HandlerMethod) handler).getBean().getClass().getAnnotation(Auth.class);</span><br><span class="line">        <span class="comment">//获取Enum方法的ordinal，根据大小来确定该页面权限</span></span><br><span class="line">        <span class="keyword">int</span> pageRate = authInClass == <span class="keyword">null</span> ? <span class="number">0</span> : authInClass.value().ordinal();</span><br><span class="line">        pageRate = authInMethod == <span class="keyword">null</span> ? pageRate : authInMethod.value().ordinal();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取用户的权限</span></span><br><span class="line">        <span class="keyword">int</span> userRate = <span class="number">0</span>;</span><br><span class="line">        User user = (User) request.getSession().getAttribute(<span class="string">"user"</span>);</span><br><span class="line">        <span class="keyword">if</span> (user != <span class="keyword">null</span>) &#123;</span><br><span class="line">            userRate = user.getGroup().ordinal();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//根据权限决定是否放行</span></span><br><span class="line">        <span class="keyword">if</span> (pageRate &gt; userRate) &#123;</span><br><span class="line">            <span class="keyword">if</span> (userRate == <span class="number">0</span>) &#123;</span><br><span class="line">                response.sendRedirect(<span class="string">"/login?refer=/"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> AuthException(<span class="string">"您已登录，但是没有权限访问这里"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于没有权限的用户，可以跳转到登陆页面或者抛出错误即可</p>
+<h3 id="5-使拦截器生效，在SpringMVC-xml中配置"><a href="#5-使拦截器生效，在SpringMVC-xml中配置" class="headerlink" title="5.使拦截器生效，在SpringMVC.xml中配置"></a><a name="g1qvpd"></a>5.使拦截器生效，在SpringMVC.xml中配置</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:interceptors</span>&gt;</span></span><br><span class="line">    ....</span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"tmall.interceptor.AuthInterceptor"</span>/&gt;</span></span><br><span class="line">    ....</span><br><span class="line"><span class="tag">&lt;/<span class="name">mvc:interceptors</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)">　　OK，大功告成。</span></span></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-05-31T03:18:36.000Z">2018-05-31</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/技术实战/">技术实战</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    9 分钟 读完 (大约 1365 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/05/31/yuque/ssm-baseservice/">SSM开发 - 配合Mybatis，通过泛型实现 BaseService ，抽象增改删查方法</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="提要"><a href="#提要" class="headerlink" title="提要"></a><a name="gvmaeg"></a>提要</h2><p>　　本文是 小小商城-SSM版的 细节详解系列 之一，项目 github：<a href="https://github.com/xenv/S-mall-ssm" target="_blank" rel="noopener">https://github.com/xenv/S-mall-ssm</a> 本文代码大部分在 github 中 可以找到。</p>
+<p>　　这篇文章其实和 <a href="https://yuque.com/page/luan.ma/ssh-baseservice" target="_blank" rel="noopener">SSH开发 | 配合Hibernate，通过泛型实现 BaseService ，抽象增改删查方法</a> 大致一样，只是具体实现有一点区别。</p>
+<p>　　在 SSM 开发中，Service层会有许多重复的，调用 mapper 层的，增改删查的方法。对于重复的方法，我们可以用一个 BaseService 抽象出来。如图所示：</p>
+<div id="bkoomh" data-type="puml" data-display="block" data-align="left" data-src="https://cdn.yuque.com/__puml/94c5c17ca8abeabc136354e6383f0c32.svg" data-width="430" data-height="252" data-text="%40startuml%0A%0AClass%20BaseService%20%7B%0Aadd(Object%20o)%0Aupdate(Object%20o)%0Alist()%0Aget(int%20id)%0Adelete(Object%20o)%0A%7D%0Aclass%20CategoryService%20%7B%0A%7D%0Aclass%20UserService%20%7B%0AisExist(String%20name)%0A%7D%0Aclass%20ProductService%20%7B%0A%7D%0ABaseService%20%3C%7C--%20CategoryService%0ABaseService%20%3C%7C--%20UserService%0ABaseService%20%3C%7C--%20ProductService%0A%40enduml%0A"><img src="https://cdn.yuque.com/__puml/94c5c17ca8abeabc136354e6383f0c32.svg" width="430"></div>
+
+
+<p>　　普通 Service 的增改删查操作统一被抽象到 BaseService，普通Service继承BaseService后，只需实现少量独有的代码即可</p>
+<p>　　这样，在 Controller 层调用的时候，只需直接 categoryService.get(id) 就可以完成获取操作。</p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><a name="plbrru"></a>具体实现</h2><p>　　BaseService实现的难点在于，不知道 继承它的 普通 Service 对应的 mapper和example 是哪个，从而不能获取到相应的 mapper 类（mybatis动态代理过之后的）和example类，那么，怎么来解决这个问题呢？</p>
+<p>　　其实很简单，利用 泛型 ，子类在继承父类的时候实现泛型，初始化时，父类就可以读取到子类的泛型信息，从而实现了 子类 向 父类 传 数据。</p>
+<p>　　父类根据子类携带的实体类信息，把mapper接口变成 mapper 实体，子类在泛型继承的时候，就自动会调用对应mapper，从而做到了抽象的效果。</p>
+<p>　　在 小小商城 项目中，核心实现是这两个文件，<a href="https://github.com/xenv/S-mall-ssm/blob/master/src/main/java/tmall/service/impl/BaseServiceImpl.java" title="BaseServiceImpl.java" target="_blank" rel="noopener">BaseServiceImpl.java</a> 和 <a href="https://github.com/xenv/S-mall-ssm/blob/master/src/main/java/tmall/service/impl/Service4DAOImpl.java" title="Service4DAOImpl.java" target="_blank" rel="noopener">Service4DAOImpl.java</a>下面，我会一步步教大家实现。</p>
+<h3 id="1-初始化时读取子类的泛型信息，获取-mapper实体类-和-example-类"><a href="#1-初始化时读取子类的泛型信息，获取-mapper实体类-和-example-类" class="headerlink" title="1.初始化时读取子类的泛型信息，获取 mapper实体类 和 example 类"></a><a name="rawcmf"></a>1.初始化时读取子类的泛型信息，获取 mapper实体类 和 example 类</h3><p>　　完整实现：<a href="https://github.com/xenv/S-mall-ssm/blob/master/src/main/java/tmall/service/impl/Service4DAOImpl.java" title="Service4DAOImpl.java" target="_blank" rel="noopener">Service4DAOImpl.java</a>，如果不使用通用 mapper （<a href="http://www.cnblogs.com/bukong/p/mybatis-general-mapper.html" target="_blank" rel="noopener">SSM开发 | 实现 Mybatis 的通用 Mapper</a>），则注入的是mybatis 的 SqlSessionTemplate而不是MapperFactory，注入SqlSessionTemplate需要配置 Spring文件 ，具体可参见前面的链接</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Service4DAOImpl</span>&lt;<span class="title">M</span>, <span class="title">E</span>&gt; <span class="keyword">implements</span> <span class="title">Service4DAO</span>, <span class="title">InitializingBean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> MapperFactory mapperFactory;</span><br><span class="line"></span><br><span class="line">    Mapper mapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    加载完 Service 后执行，获取对应 Service 和 Mapper</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterPropertiesSet</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        mapper = getMapper();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Mapper <span class="title">getMapper</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 读取泛型第一个 M 的类型，</span></span><br><span class="line">        ParameterizedType t = (ParameterizedType) (getClass().getGenericSuperclass());</span><br><span class="line">        Class mapperClass = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (t != <span class="keyword">null</span>) &#123;</span><br><span class="line">            mapperClass = (Class) t.getActualTypeArguments()[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> getMapper(mapperClass);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Mapper <span class="title">getMapper</span><span class="params">(Class mapperInterface)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mapperFactory.getMapper(mapperInterface);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> BaseExample <span class="title">getExample</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ParameterizedType t = (ParameterizedType) (getClass().getGenericSuperclass());</span><br><span class="line">        Class exampleClass = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (t != <span class="keyword">null</span>) &#123;</span><br><span class="line">            exampleClass = (Class) t.getActualTypeArguments()[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (BaseExample) exampleClass.newInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　这里其实暗藏一个大坑，就是 SqlSessionTemplate 的注入是在类初始化之后的，这样我们就没有办法使用在构造函数中使用 SqlSessionTemplate，正确的做法是 afterPropertiesSet(…)函数，Spring会自动在全部注入完成后调用这个函数，往这个Service里面注入对应的mapper。Example也是同理的。</p>
+<h3 id="2-实现-BaseService-，抽象增改删查方法"><a href="#2-实现-BaseService-，抽象增改删查方法" class="headerlink" title="2.实现 BaseService ，抽象增改删查方法"></a><a name="gmn2ii"></a>2.实现 BaseService ，抽象增改删查方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseServiceImpl</span>&lt;<span class="title">M</span>, <span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">Service4DAOImpl</span>&lt;<span class="title">M</span>, <span class="title">E</span>&gt; <span class="keyword">implements</span> <span class="title">BaseService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List <span class="title">list</span><span class="params">(Object... paramAndObjects)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BaseExample example = getExample();</span><br><span class="line">        Object criteria = example.createCriteria();</span><br><span class="line">        <span class="keyword">if</span> (paramAndObjects.length % <span class="number">2</span> != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Pagination pagination = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//默认按id排序</span></span><br><span class="line">        example.setOrderByClause(<span class="string">"id desc"</span>);</span><br><span class="line">        <span class="comment">//默认对查询进行两次遍历查询</span></span><br><span class="line">        <span class="keyword">int</span> depth = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; paramAndObjects.length; i += <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (paramAndObjects[i].equals(<span class="string">"order"</span>) &amp;&amp; paramAndObjects[i + <span class="number">1</span>] <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">                example.setOrderByClause(paramAndObjects[i + <span class="number">1</span>].toString());</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (paramAndObjects[i].equals(<span class="string">"depth"</span>) &amp;&amp; paramAndObjects[i + <span class="number">1</span>] <span class="keyword">instanceof</span> Integer) &#123;</span><br><span class="line">                depth = (Integer) paramAndObjects[i + <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (paramAndObjects[i].toString().contains(<span class="string">"_like"</span>) &amp;&amp; paramAndObjects[i + <span class="number">1</span>] <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">                String column = StringUtils.replace(paramAndObjects[i].toString(), <span class="string">"_like"</span>, <span class="string">""</span>);</span><br><span class="line">                criteria.getClass()</span><br><span class="line">                        .getMethod(<span class="string">"and"</span> + StringUtils.capitalize(column) + <span class="string">"Like"</span>, String.class)</span><br><span class="line">                        .invoke(criteria, <span class="string">"%"</span> + paramAndObjects[i + <span class="number">1</span>].toString() + <span class="string">"%"</span>);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (paramAndObjects[i].toString().contains(<span class="string">"_gt"</span>) &amp;&amp; paramAndObjects[i + <span class="number">1</span>] <span class="keyword">instanceof</span> Integer) &#123;</span><br><span class="line">                String column = StringUtils.replace(paramAndObjects[i].toString(), <span class="string">"_gt"</span>, <span class="string">""</span>);</span><br><span class="line">                criteria.getClass()</span><br><span class="line">                        .getMethod(<span class="string">"and"</span> + StringUtils.capitalize(column) + <span class="string">"GreaterThan"</span>, Integer.class)</span><br><span class="line">                        .invoke(criteria, paramAndObjects[i + <span class="number">1</span>]);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (paramAndObjects[i].equals(<span class="string">"pagination"</span>) &amp;&amp; paramAndObjects[i + <span class="number">1</span>] <span class="keyword">instanceof</span> Pagination) &#123;</span><br><span class="line">                pagination = (Pagination) paramAndObjects[i + <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            criteria.getClass()</span><br><span class="line">                    .getMethod(<span class="string">"and"</span> + StringUtils.capitalize(paramAndObjects[i].toString()) + <span class="string">"EqualTo"</span></span><br><span class="line">                            , paramAndObjects[i + <span class="number">1</span>].getClass())</span><br><span class="line">                    .invoke(criteria, paramAndObjects[i + <span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        List list;</span><br><span class="line">        <span class="keyword">if</span> (pagination != <span class="keyword">null</span>) &#123;</span><br><span class="line">            PageHelper.offsetPage(pagination.getStart(), pagination.getCount());</span><br><span class="line">            list = mapper.selectByExample(example, depth);</span><br><span class="line">            pagination.setTotal((<span class="keyword">int</span>) <span class="keyword">new</span> PageInfo&lt;&gt;(list).getTotal());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            list = mapper.selectByExample(example, depth);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">add</span><span class="params">(BasePOJO object)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mapper.insert(object);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(BasePOJO object)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        mapper.updateByPrimaryKey(object);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> BasePOJO <span class="title">get</span><span class="params">(<span class="keyword">int</span> id)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BasePOJO object = (BasePOJO) mapper.selectByPrimaryKey(id);</span><br><span class="line">        <span class="keyword">if</span> (object == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchObjectException(<span class="string">"访问的id不存在或已经被删除"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> object;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@see</span> BaseService</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(BasePOJO object)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        object.setDeleteAt(<span class="keyword">new</span> Date());</span><br><span class="line">        mapper.updateByPrimaryKey(object);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　这里节选了项目里的文件的一部分代码，我们先看 update(Object object) ，我们直接调用 mapper 的 update 方法即可</p>
+<p>　　在list方法中，我又对example的使用进行进一步抽象，这样，我们在调用的时候，就可以顺带指定分页、顺序、搜索条件等，更加方便</p>
+<h3 id="3-普通Service-附带-上-泛型-信息，继承-BaseService"><a href="#3-普通Service-附带-上-泛型-信息，继承-BaseService" class="headerlink" title="3.普通Service 附带 上 泛型 信息，继承 BaseService"></a><a name="otpuad"></a>3.普通Service 附带 上 泛型 信息，继承 BaseService</h3><p>　　以ProductService为例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductServiceImpl</span> <span class="keyword">extends</span> <span class="title">BaseServiceImpl</span>&lt;<span class="title">ProductMapper</span>,<span class="title">ProductExample</span>&gt; <span class="keyword">implements</span> <span class="title">ProductService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　无需再写任何代码，只需要加上泛型信息即可获取完整的BaseService的所有功能。</p>
+<h3 id="4-在-Controller-中调用"><a href="#4-在-Controller-中调用" class="headerlink" title="4. 在 Controller 中调用"></a><a name="sg4bop"></a>4. 在 Controller 中调用</h3><pre><code>例如，注入ProductService之后，直接可以调用 BaseService 的 list 方法
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">productService.list(<span class="string">"cid"</span>,category.getId(),<span class="string">"order"</span>,handleSort(sort),<span class="string">"stock_gt"</span>,<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p>OK，大功告成。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-05-31T02:59:56.000Z">2018-05-31</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/技术实战/">技术实战</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    20 分钟 读完 (大约 3024 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/05/31/yuque/mybatis-general-mapper/">SSM开发 - 实现 Mybatis 的通用 Mapper</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="提要"><a href="#提要" class="headerlink" title="提要"></a><a name="0039gg"></a>提要</h1><p>　　本文是 小小商城-SSM版的 细节详解系列 之一，项目 github：<a href="https://github.com/xenv/S-mall-ssm" target="_blank" rel="noopener">https://github.com/xenv/S-mall-ssm</a> 本文代码大部分在 github 中 可以找到。</p>
+<p>　　中小型项目使用 Mybatis 如何减少 mapper 的工作量？市面上已经有一款产品 ，叫”通用mapper”，但是我使用之后有点失望。一个是它侵入型极强，要改掉 mybatis 的 factory，数据库的名字和列名都要改成指定格式，错一个也不行。另外，还不支持关联查询，可谓是有点鸡肋了。于是，就有了我这么一个通用 mapper 的实现，可以让 Mybatis 像 Hibernate 一样使用。只要配置好自定义注解，用 mybatis-generator 生成好代码，就可以自动处理 各种关联查询（一对多、多对一自动插入），还提供接口修改遍历填充关联查询的深度，支持手写的扩展mappper接入到填充系统。</p>
+<p>　　那么，这套系统到底是如何工作的呢？我做了一个示意图来说明 Category 表 下面的情况，其他表同理。 （mybatis-generator 隔离手写代码和机器代码请参考我写的文章：<a href="https://yuque.com/page/luan.ma/mybatis-generator-insulate" target="_blank" rel="noopener">SSM开发 | 合理配置 mybatis-generator，隔离机器生成代码和额外增加代码</a>）</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1527736368523-34d25329-c00a-4893-bfc3-4bf31969368d.png" alt="微信截图_20180302131655.png | left | 827x463"></p>
+<p>　　当服务层调用的时候，通用 mapper 会先查询 服务器层指定的 CategoryMapper，从数据库拿到数据。然后通用 mapper 调用 MapperCore 对 拿到的Category进行一对多和多对一对象的填充。最后填充完的 category 对象将会返回给服务层。</p>
+<p>　　一对多和多对一如何配置呢？这需要我们在 extension 类中 用自定义注解配置，然后机器生成的 Category 类 将继承 我们的 extension，因此 我们 最终拿到的 category 就是 有关联对象变量的 对象了。</p>
+<p>　　那么，我们如何知道 一对多 多对一 的对象应该由哪个 mapper 来填充呢，那么我们就需要在 category 类上指定好 对应的 mapper （使用泛型继承）即可，怎么让它自动指定呢？对了，就是用 mybatis-generator 自定义插件。</p>
+<p>　　在看具体实现之前，我假定您已经对 mybatis-generator 、自定义注解、反射有一定的了解。</p>
+<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><a name="nx2pxp"></a>具体实现</h1><h3 id="1-创建-实体-extension-配置一对多、多对一信息"><a href="#1-创建-实体-extension-配置一对多、多对一信息" class="headerlink" title="1.创建 实体 extension 配置一对多、多对一信息"></a><a name="gl97xq"></a>1.创建 实体 extension 配置一对多、多对一信息</h3><p>　　创建extension参见：：<a href="https://yuque.com/page/luan.ma/mybatis-generator-insulate" target="_blank" rel="noopener">SSM开发 | 合理配置 mybatis-generator，隔离机器生成代码和额外增加代码</a> </p>
+<p>　　配置一对多、多对一信息使用自定义 注解，注解的定义在这里 <a href="https://github.com/xenv/S-mall-ssm/tree/master/src/main/java/tmall/annotation/ORMAnnotation" title="ORMAnnotation" target="_blank" rel="noopener">ORMAnnotation</a> 语法和 hibernate 差不多，临时变量不需要再使用注解，enum用了 (var=””)，取消了 OneToOne，因为本质上和 ManyToOne 是一样的，OneToOne还容易弄混。</p>
+<p>　　配置好注解之后，效果是这样的： <a href="https://github.com/xenv/S-mall-ssm/tree/master/src/main/java/tmall/pojo/extension" title="extension" target="_blank" rel="noopener">extension</a> </p>
+<h3 id="2-定义-mybatis-generator-插件，让自动生成的-mapper-和-实体类-带上-泛型-信息，以供通用-mapper-读取"><a href="#2-定义-mybatis-generator-插件，让自动生成的-mapper-和-实体类-带上-泛型-信息，以供通用-mapper-读取" class="headerlink" title="2.定义 mybatis-generator 插件，让自动生成的 mapper 和 实体类 带上 泛型 信息，以供通用 mapper 读取"></a><a name="x5p1ox"></a>2.定义 mybatis-generator 插件，让自动生成的 mapper 和 实体类 带上 泛型 信息，以供通用 mapper 读取</h3><p>　　 自定义 mybatis-generator 插件 参见我的文章：<a href="https://yuque.com/page/luan.ma/mybatis-generator-delete-flag" target="_blank" rel="noopener">SSM开发 | 开发自定义插件，使 mybatis-generator 支持软删除</a></p>
+<p>　　插件代码见：<a href="https://github.com/xenv/S-mall-ssm/blob/master/src/main/java/tmall/util/MBGPlugins/MapperExtendsPlugin.java" title="MapperExtendsPlugin.java" target="_blank" rel="noopener">MapperExtendsPlugin.java</a> <a href="https://github.com/xenv/S-mall-ssm/blob/master/src/main/java/tmall/util/MBGPlugins/POJOExtendsPlugin.java" title="POJOExtendsPlugin.java" target="_blank" rel="noopener">POJOExtendsPlugin.java</a></p>
+<p>　　之后用 mybatis-generator 生成出来的代码，就会是这样的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">undefined</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CategoryMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">Category</span>, <span class="title">CategoryExample</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Category</span> <span class="keyword">extends</span> <span class="title">CategoryExtension</span> <span class="keyword">implements</span> <span class="title">POJOMapper</span>&lt;<span class="title">CategoryMapper</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　这样，我们在填充时，读取这个类的时候，就可以通过反射，拿到 &lt;&gt; 中的内容，比如现在知道了一个 product 对象，里面要我们填充一个 Categorty 类，那么我们先来查 Category 类，知道对应的 Mapper 是 CategoryMapper，对应的 Example 是 CategoryEmaple，那么，我们就可以愉快的调用 CategoryMapper 拿到一个 category ，然后插回 product 即可。</p>
+<h3 id="3-开发通用-mapper-：静态代理-递归填充"><a href="#3-开发通用-mapper-：静态代理-递归填充" class="headerlink" title="3.开发通用 mapper ：静态代理+递归填充"></a><a name="fkqhmk"></a>3.开发通用 mapper ：静态代理+递归填充</h3><p>　　我们先通过拿到 mybatis 自带的 sqlSessionTemplate ，需要在 applicationContext.xml 中 注册一下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"sqlSessionTemplate"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.mybatis.spring.SqlSessionTemplate"</span>&gt;</span><br><span class="line">    &lt;constructor-arg index=<span class="string">"0"</span> ref=<span class="string">"sqlSession"</span>/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<p>　　然后我们开发一个 MapperFactory 工厂类，用来在Service层获取我们的通用 mapper，并且从 SqlSessionTemplate 拿到 CateogoryMapper，塞进通用 mapper 里面，最后返回通用 mapper <a href="https://github.com/xenv/S-mall-ssm/blob/master/src/main/java/tmall/mapper/ORM/MapperFactory.java" title="MapperFactory.java" target="_blank" rel="noopener">MapperFactory.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MapperFactory</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> SqlSessionTemplate sqlSessionTemplate;</span><br><span class="line"><span class="function"><span class="keyword">public</span> Mapper <span class="title">getMapper</span><span class="params">(Class mapperInterface)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Mapper mapper = <span class="keyword">new</span> Mapper();</span><br><span class="line">        mapper.setSqlSessionTemplate(sqlSessionTemplate);</span><br><span class="line">        mapper.setMybatisMapper(mapperInterface);</span><br><span class="line">        <span class="keyword">return</span> mapper;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　通用 mapper 里面其实比较简单，就是直接使用反射做通用具体mapper的静态代理，并且调用 mapperCore 中 的递归填充器  <a href="https://github.com/xenv/S-mall-ssm/blob/master/src/main/java/tmall/mapper/ORM/Mapper.java" title="Mapper.java" target="_blank" rel="noopener">Mapper.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Mapper</span> <span class="keyword">extends</span> <span class="title">Mapper4ORM</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> defaultTraversalDepth = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">selectByPrimaryKey</span><span class="params">(Integer id)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> selectByPrimaryKey(id, defaultTraversalDepth);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">selectByPrimaryKey</span><span class="params">(Integer id, Integer depth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Object object = mapper.getClass().getMethod(<span class="string">"selectByPrimaryKey"</span>, Integer.class).invoke(mapper, id);</span><br><span class="line">        fillOnReading(object, depth);</span><br><span class="line">        <span class="keyword">return</span> object;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insert</span><span class="params">(Object object)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        fillOnWriting(object);</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) mapper.getClass().getMethod(<span class="string">"insert"</span>, object.getClass()).invoke(mapper, object);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insertSelective</span><span class="params">(Object object)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        fillOnWriting(object);</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) mapper.getClass().getMethod(<span class="string">"insertSelective"</span>, Object.class).invoke(mapper, object);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">updateByPrimaryKeySelective</span><span class="params">(Object object)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        fillOnWriting(object);</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) mapper.getClass().</span><br><span class="line">                getMethod(<span class="string">"updateByPrimaryKeySelective"</span>, object.getClass()).invoke(mapper, object);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">updateByPrimaryKey</span><span class="params">(Object object)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        fillOnWriting(object);</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) mapper.getClass().getMethod(<span class="string">"updateByPrimaryKey"</span>, object.getClass()).invoke(mapper, object);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List <span class="title">selectByExample</span><span class="params">(Object example)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> selectByExample(example, defaultTraversalDepth);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List <span class="title">selectByExample</span><span class="params">(Object example, <span class="keyword">int</span> depth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        List result = (List) mapper.getClass().getMethod(<span class="string">"selectByExample"</span>, example.getClass()).invoke(mapper, example);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; result.size(); i++) &#123;</span><br><span class="line">            Object item = result.get(i);</span><br><span class="line">            fillOnReading(item, depth);</span><br><span class="line">            result.set(i, item);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)">最后，我们开发我们核心类，就是开发递归填充器，对一对多、多对一进行读取、处理、回填 </span></span><a href="https://github.com/xenv/S-mall-ssm/blob/master/src/main/java/tmall/mapper/ORM/Mapper4ORM.java" title="Mapper4ORM.java" target="_blank" rel="noopener">Mapper4ORM.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  通用 Mapper | 核心，处理一对多，多对一的插入</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Mapper4ORM</span> </span>&#123;</span><br><span class="line">    Object mapper;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Class mapperInterface;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> SqlSessionTemplate sqlSessionTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setSqlSessionTemplate</span><span class="params">(SqlSessionTemplate sqlSessionTemplate)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.sqlSessionTemplate = sqlSessionTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setMybatisMapper</span><span class="params">(Class mapperInterface)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mapperInterface = mapperInterface;</span><br><span class="line">        mapper = getMapper(mapperInterface);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getMapper</span><span class="params">(Class mapperInterface)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> sqlSessionTemplate.getMapper(mapperInterface);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> BaseExample <span class="title">getExample</span><span class="params">(Class mapperInterface)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ParameterizedType t = (ParameterizedType) mapperInterface.getGenericInterfaces()[<span class="number">0</span>];</span><br><span class="line">        Class exampleClass = (Class) t.getActualTypeArguments()[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">return</span> (BaseExample) exampleClass.newInstance();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Class <span class="title">getMapperInterfaceByPOJO</span><span class="params">(Class POJOClass)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ParameterizedType t = (ParameterizedType) POJOClass.getGenericInterfaces()[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">return</span> (Class) t.getActualTypeArguments()[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取一个类里的，有指定annotation的，所有 Filed</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> objectClass     一个类</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> annotationClass 指定的 annotation</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 所有的 Filed</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">List&lt;Field&gt; <span class="title">getFieldsEquals</span><span class="params">(Class objectClass, Class annotationClass)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (objectClass == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;Field&gt; fields = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (Class temp = objectClass; temp != Object.class; temp = temp.getSuperclass()) &#123;</span><br><span class="line">            fields.addAll(Arrays.asList(temp.getDeclaredFields()));</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;Field&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (Field field : fields) &#123;</span><br><span class="line">            <span class="keyword">if</span> (field.getAnnotation(annotationClass) != <span class="keyword">null</span>)</span><br><span class="line">                result.add(field);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 读取时，处理所有 多对一 的填充</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> object 被填充的对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> depth  当前深度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception 反射异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fillManyToOneOnReading</span><span class="params">(Object object, <span class="keyword">int</span> depth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (object == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Class clazz = object.getClass();</span><br><span class="line">        <span class="comment">// 获取所有 ManyToOne注解的Filed</span></span><br><span class="line">        List&lt;Field&gt; result = getFieldsEquals(clazz, ManyToOne.class);</span><br><span class="line">        <span class="keyword">for</span> (Field field : result) &#123;</span><br><span class="line">            <span class="comment">//获取外键的表名</span></span><br><span class="line">            String joinColumn = field.getAnnotation(JoinColumn.class).name();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//获取要填充对象的mapper</span></span><br><span class="line">            Class targetMapperClass = getMapperInterfaceByPOJO(field.getType());</span><br><span class="line">            Object targetMapper = getMapper(targetMapperClass);</span><br><span class="line">            <span class="comment">//获取外键值</span></span><br><span class="line">            Integer joinColumnValue = (Integer) clazz.</span><br><span class="line">                    getMethod(<span class="string">"get"</span> + StringUtils.capitalize(joinColumn)).invoke(object);</span><br><span class="line">            <span class="keyword">if</span> (joinColumnValue == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//配置查询器example</span></span><br><span class="line">            BaseExample example = getExample(targetMapperClass);</span><br><span class="line">            Object criteria = example.createCriteria();</span><br><span class="line">            <span class="comment">// 配置criteria</span></span><br><span class="line">            criteria.getClass().getMethod(<span class="string">"andIdEqualTo"</span>, Integer.class).invoke(criteria, joinColumnValue);</span><br><span class="line">            <span class="comment">//查询,获取结果列表</span></span><br><span class="line">            List targetResults = (List) targetMapper.getClass().getMethod(<span class="string">"selectByExample"</span>, example.getClass()).</span><br><span class="line">                    invoke(targetMapper, example);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//判断是否为空 ，不为空插入 filed</span></span><br><span class="line">            <span class="keyword">if</span> (targetResults.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                Object targetResult = targetResults.get(<span class="number">0</span>);</span><br><span class="line">                fillOnReading(targetResult, depth - <span class="number">1</span>);</span><br><span class="line">                clazz.getMethod(<span class="string">"set"</span> + StringUtils.capitalize(field.getName()), targetResult.getClass())</span><br><span class="line">                        .invoke(object, targetResult);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 读取时，处理所有 一对多 的填充</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> object 被填充的对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> depth  当前深度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception 反射异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fillOneToManyOnReading</span><span class="params">(Object object, <span class="keyword">int</span> depth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (object == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Class clazz = object.getClass();</span><br><span class="line">        <span class="comment">// 获取所有 ManyToOne注解的Filed</span></span><br><span class="line">        List&lt;Field&gt; result = getFieldsEquals(clazz, OneToMany.class);</span><br><span class="line">        <span class="keyword">for</span> (Field field : result) &#123;</span><br><span class="line">            <span class="comment">//获取外键的表名</span></span><br><span class="line">            String joinColumn = field.getAnnotation(JoinColumn.class).name();</span><br><span class="line">            <span class="comment">//得到其Generic的类型</span></span><br><span class="line">            Type genericType = field.getGenericType();</span><br><span class="line">            ParameterizedType pt = (ParameterizedType) genericType;</span><br><span class="line">            <span class="comment">//得到List泛型里的目标类型对象</span></span><br><span class="line">            Class targetClass = (Class) pt.getActualTypeArguments()[<span class="number">0</span>];</span><br><span class="line">            <span class="comment">//获取要填充对象的mapper</span></span><br><span class="line">            Class targetMapperClass = getMapperInterfaceByPOJO(targetClass);</span><br><span class="line">            Object targetMapper = getMapper(targetMapperClass);</span><br><span class="line">            <span class="comment">//获取外键值</span></span><br><span class="line">            Integer joinColumnValue = (Integer) clazz.</span><br><span class="line">                    getMethod(<span class="string">"getId"</span>).invoke(object);</span><br><span class="line">            <span class="comment">//配置查询器example</span></span><br><span class="line">            BaseExample example = getExample(targetMapperClass);</span><br><span class="line">            Object criteria = example.createCriteria();</span><br><span class="line">            <span class="comment">// 配置criteria</span></span><br><span class="line">            criteria.getClass().getMethod(<span class="string">"and"</span> + StringUtils.capitalize(joinColumn) + <span class="string">"EqualTo"</span>, Integer.class).invoke(criteria, joinColumnValue);</span><br><span class="line">            <span class="comment">//查询,获取结果列表</span></span><br><span class="line">            List targetResults = (List) targetMapper.getClass().getMethod(<span class="string">"selectByExample"</span>, example.getClass()).</span><br><span class="line">                    invoke(targetMapper, example);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; targetResults.size(); i++) &#123;</span><br><span class="line">                Object item = targetResults.get(i);</span><br><span class="line">                fillOnReading(item, depth - <span class="number">1</span>);</span><br><span class="line">                targetResults.set(i, item);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//插入 filed</span></span><br><span class="line">            clazz.getMethod(<span class="string">"set"</span> + StringUtils.capitalize(field.getName()), List.class)</span><br><span class="line">                    .invoke(object, targetResults);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 读取时，处理所有 Enum 的填充</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> object 被填充的对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception 反射异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fillEnumOnReading</span><span class="params">(Object object)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (object == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Class clazz = object.getClass();</span><br><span class="line">        <span class="comment">// 获取所有 ManyToOne注解的Filed</span></span><br><span class="line">        List&lt;Field&gt; result = getFieldsEquals(clazz, Enumerated.class);</span><br><span class="line">        <span class="keyword">for</span> (Field field : result) &#123;</span><br><span class="line">            <span class="comment">//获取Enum对应的，String类型的变量名</span></span><br><span class="line">            String varName = field.getAnnotation(Enumerated.class).<span class="keyword">var</span>();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//获取值</span></span><br><span class="line">            String enumString = (String) clazz.</span><br><span class="line">                    getMethod(<span class="string">"get"</span> + StringUtils.capitalize(varName)).invoke(object);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 转成Enum，插回 filed</span></span><br><span class="line">            Enum resultObj = Enum.valueOf((Class&lt;Enum&gt;) field.getType(), enumString);</span><br><span class="line">            clazz.getMethod(<span class="string">"set"</span> + StringUtils.capitalize(field.getName()), resultObj.getClass())</span><br><span class="line">                    .invoke(object, resultObj);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 写入时，处理所有 Enum 的填充</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> object 被填充的对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception 反射异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fillEnumOnWriting</span><span class="params">(Object object)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (object == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Class clazz = object.getClass();</span><br><span class="line">        <span class="comment">// 获取所有 ManyToOne注解的Filed</span></span><br><span class="line">        List&lt;Field&gt; result = getFieldsEquals(clazz, Enumerated.class);</span><br><span class="line">        <span class="keyword">for</span> (Field field : result) &#123;</span><br><span class="line">            <span class="comment">//获取Enum对应的，String类型的变量名</span></span><br><span class="line">            String varName = field.getAnnotation(Enumerated.class).<span class="keyword">var</span>();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//获取 Enum</span></span><br><span class="line">            Enum enumObj = (Enum) clazz.</span><br><span class="line">                    getMethod(<span class="string">"get"</span> + StringUtils.capitalize(field.getName())).invoke(object);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 转成 String，插回 varName</span></span><br><span class="line">            String enumString = enumObj.name();</span><br><span class="line">            clazz.getMethod(<span class="string">"set"</span> + StringUtils.capitalize(varName), String.class)</span><br><span class="line">                    .invoke(object, enumString);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 写入时，处理所有 ManyToOne 的填充</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> object 被填充的对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception 反射异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fillManyToOneOnWriting</span><span class="params">(Object object)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (object == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Class clazz = object.getClass();</span><br><span class="line">        <span class="comment">// 获取所有 ManyToOne注解的Filed</span></span><br><span class="line">        List&lt;Field&gt; result = getFieldsEquals(clazz, ManyToOne.class);</span><br><span class="line">        <span class="keyword">for</span> (Field field : result) &#123;</span><br><span class="line">            <span class="comment">//获取One端的变量名</span></span><br><span class="line">            String columnName = field.getAnnotation(JoinColumn.class).name();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//获取One的对象</span></span><br><span class="line">            Object targetObj = clazz</span><br><span class="line">                    .getMethod(<span class="string">"get"</span> + StringUtils.capitalize(field.getName()))</span><br><span class="line">                    .invoke(object);</span><br><span class="line">            <span class="keyword">if</span> (targetObj == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//获取 获取 id 值</span></span><br><span class="line">            <span class="keyword">int</span> id = (<span class="keyword">int</span>) targetObj.getClass().</span><br><span class="line">                    getMethod(<span class="string">"getId"</span>).invoke(targetObj);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 插回 columnName</span></span><br><span class="line"></span><br><span class="line">            clazz.getMethod(<span class="string">"set"</span> + StringUtils.capitalize(columnName), Integer.class)</span><br><span class="line">                    .invoke(object, id);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 读取时填充数据，递归调用上面的方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> object 对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> depth 当前递归深度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception 反射异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fillOnReading</span><span class="params">(Object object, <span class="keyword">int</span> depth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (object == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (depth &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 处理 ManyToOne</span></span><br><span class="line">        fillManyToOneOnReading(object, depth);</span><br><span class="line">        <span class="comment">// 处理 OneToMany</span></span><br><span class="line">        fillOneToManyOnReading(object, depth);</span><br><span class="line">        <span class="comment">// 处理 Enumerated</span></span><br><span class="line">        fillEnumOnReading(object);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 写入时填充数据，递归调用上面的方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> object 对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception 反射异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fillOnWriting</span><span class="params">(Object object)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (object == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 处理 Enumerated</span></span><br><span class="line">        fillEnumOnWriting(object);</span><br><span class="line">        <span class="comment">// 处理 ManyToOne</span></span><br><span class="line">        fillManyToOneOnWriting(object);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-在service层调用"><a href="#4-在service层调用" class="headerlink" title="4.在service层调用"></a><a name="mpygix"></a>4.在service层调用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource</span></span><br><span class="line">   <span class="keyword">private</span> MapperFactory mapperFactory;</span><br></pre></td></tr></table></figure>
+<p>　　拿到 mapperFactory ，如果要对CategoryMaper进行填充处理的话，就直接用mapperFactory.getMapper(mapperInterface);即可拿到对应的通用 mapper ，然后和 原来的 mybatis mapper 使用 方法一样。</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a><a name="ga52or"></a>后记</h1><p>　　毫无疑问，这个通用 mapper 还很不完善，效率也比较低，现在的实现只相当于玩具的级别。而且市面上也已经有了一系列 jpa系统实现，这个通用mapper存在的意义也不是十分大。</p>
+<p>　　但是，我们可以通过这个 mapper 理解到泛型、反射的一系列用法，递归的实操中的使用，还可以对mybatis-generator有了更深的理解</p>
+<p>　　这个 mapper 也在我的 小小商城-ssm版中 完整运用了，为此我可以使用 mybatis 而不用写 一行 sql 代码。</p>
+<p>　　时间仓促，涉及到的知识点也太多，文章非常简略，对新手也不是十分友好，在此表示歉意。如果想详细理解这个 通用 mapper ，可以到项目 github 中 查看全部源代码，或者发邮件、留言和我交流 （邮件地址在Github首页）。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-05-31T02:47:48.000Z">2018-05-31</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/技术实战/">技术实战</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 475 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/05/31/yuque/mybatis-generator-delete-flag/">SSM开发 - 开发自定义插件，使 mybatis-generator 支持软删除</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="提要"><a href="#提要" class="headerlink" title="提要"></a><a name="bkwgrv"></a>提要</h1><p>本文是 小小商城-SSM版的 细节详解系列 之一，项目 github：<a href="https://github.com/xenv/S-mall-ssm" target="_blank" rel="noopener">https://github.com/xenv/S-mall-ssm</a> 本文代码大部分在 github 中 可以找到。</p>
+<p>我们在开发的过程中，往往会使用到软删除，即删除时不真正删除还是打标记，但是这样在查询的时候往往会遇到一些麻烦，特别是使用 mybatis-generator 的时候，因为不好自定义生成的 mapper ，这样在查询的时候很容易把已经打标的数据又查出来，非常不安全。</p>
+<p>那么，我们怎么让  mybatis-generator 生成的 mapper 支持软删除呢，还好，我们可以通过开发自定义插件实现。</p>
+<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><a name="4gcatd"></a>具体实现</h1><p><span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)">完整实现代码见：</span></span><a href="https://github.com/xenv/S-mall-ssm/blob/master/src/main/java/tmall/util/MBGPlugins/DeleteAtPlugin.java" title="DeleteAtPlugin.java" target="_blank" rel="noopener">DeleteAtPlugin.java</a></p>
+<ol>
+<li>新建插件类，继承PluginAdapter，重写validate(..)方法，让其直接 return true; 不进行参数校验</li>
+<li>重写 sqlMapExampleWhereClauseElementGenerated(…)方法，这个是 生成selectByExample 部分的 mapper 代码的钩子，我们在合适的地方（我是debug找的），加入一个软删除标记 is null 即可</li>
+<li>重写 sqlMapSelectByPrimaryKeyElementGenerated(…)方法，我们在合适的地方，加入一个软删除标记 is null 即可</li>
+</ol>
+<p>完整代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeleteAtPlugin</span> <span class="keyword">extends</span> <span class="title">PluginAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">sqlMapExampleWhereClauseElementGenerated</span><span class="params">(XmlElement element, IntrospectedTable introspectedTable)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Element child : element.getElements()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (child <span class="keyword">instanceof</span> XmlElement &amp;&amp; ((XmlElement) child).getName().equals(<span class="string">"where"</span>)) &#123;</span><br><span class="line">                TextElement element1 = <span class="keyword">new</span> TextElement(<span class="string">"and deleteAt is NULL"</span>);</span><br><span class="line">                ((XmlElement) child).getElements().add(element1);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">sqlMapSelectByPrimaryKeyElementGenerated</span><span class="params">(XmlElement element, IntrospectedTable introspectedTable)</span> </span>&#123;</span><br><span class="line">        TextElement element1 = <span class="keyword">new</span> TextElement(<span class="string">"and deleteAt is NULL"</span>);</span><br><span class="line">        element.getElements().add(element1);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">validate</span><span class="params">(List&lt;String&gt; list)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>配置mybatis-generator插件</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">generatorConfiguration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context</span> <span class="attr">id</span>=<span class="string">"Mysql"</span>  <span class="attr">targetRuntime</span>=<span class="string">"MyBatis3"</span> &gt;</span></span><br><span class="line">        <span class="comment">&lt;!--给select增加deleteAt is null属性--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span> <span class="attr">type</span>=<span class="string">"tmall.util.MBGPlugins.DeleteAtPlugin"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        ....</span><br><span class="line">    <span class="tag">&lt;/<span class="name">context</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">generatorConfiguration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>在Service删除时候，调用 update方法而不是delete方法 ，使软删除标记不为空即可。</li>
+</ol>
+<p><span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)">OK，大功告成</span></span></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-05-31T02:27:30.000Z">2018-05-31</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/技术实战/">技术实战</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 分钟 读完 (大约 623 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/05/31/yuque/mybatis-generator-insulate/">SSM开发 - 合理配置 mybatis-generator，隔离机器生成代码和额外增加代码</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="提要"><a href="#提要" class="headerlink" title="提要"></a><a name="s14muz"></a>提要</h1><p>　　本文是 小小商城-SSM版的 细节详解系列 之一，项目 github：<a href="https://github.com/xenv/S-mall-ssm" target="_blank" rel="noopener">https://github.com/xenv/S-mall-ssm</a> 本文代码大部分在 github 中 可以找到。</p>
+<p>　　在中小型项目I中，我们常常使用 mybatis-generator 直接生成实体类、mapper、example代码。但是，在实际开发中，我们有可能会需要增加实体类的变量（比如一些前台的临时变量和一对多、多对一变量等等），修改mapper代码，如果在机器生成的代码上面直接修改，那么我们下次修改了数据库，想重新生成的时候就会覆盖掉旧的手写代码了。所以必须要想出一种解决办法来隔离生成代码和额外增加代码。</p>
+<p>　　最简单的方法，就是使用 IDE 的插件，但是这种方法没有普适性，可能换一个IDE就傻眼了，或者在实际部署的时候，也不一定有IDE的环境 ，所以这种做法可行，但是不是太好。</p>
+<p>　　一般的方法，就是 另起炉灶，开一个 Extension 类 / VO 类，再继承机器生成的类。如下图。然而，这种方法意味着 mapper 也要 重写，工作量大不说，还很容易出错，也不容易管理，使用 mybatis-generator 的意义也不是太大。</p>
+<h4 id="传统方式"><a href="#传统方式" class="headerlink" title="传统方式"></a><a name="6i9wmg"></a>传统方式</h4><div id="3yknki" data-type="puml" data-display="block" data-align="left" data-src="https://cdn.yuque.com/__puml/74eaf43630a0e07c7c6394f18715e92d.svg" data-width="385" data-height="288" data-text="%40startuml%0A%0Aobject%20Category%20%7B%0A%E5%88%86%E7%B1%BB%0A(%E6%9C%BA%E5%99%A8%E7%94%9F%E6%88%90)%0A%7D%0A%0Aobject%20CategoryMapper%20%7B%0A%E5%88%86%E7%B1%BBMapper%0A%EF%BC%88%E6%9C%BA%E5%99%A8%E7%94%9F%E6%88%90%EF%BC%89%0A%7D%0A%0Aobject%20CategoryExample%20%7B%0A%E5%88%86%E7%B1%BBExample%0A%EF%BC%88%E6%9C%BA%E5%99%A8%E7%94%9F%E6%88%90%EF%BC%89%0A%7D%0A%0Aobject%20CategoryVO%20%7B%0A%E5%88%86%E7%B1%BB%E6%89%A9%E5%B1%95%0A%EF%BC%88%E6%89%8B%E5%86%99%E4%BB%A3%E7%A0%81%EF%BC%89%0A%7D%0A%0Aobject%20CategoryVOMapper%20%7B%0A%E6%89%A9%E5%B1%95Mapper%0A%EF%BC%88%E6%89%8B%E5%86%99%E4%BB%A3%E7%A0%81%EF%BC%89%0A%7D%0A%0Aobject%20null%20%7B%0A%E6%89%A9%E5%B1%95Example%E6%97%A0%E6%B3%95%E5%86%99%0A%EF%BC%88%E6%89%8B%E5%86%99%E4%BB%A3%E7%A0%81%EF%BC%89%0A%7D%0A%0Aobject%20service%20%7B%0A%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B0%83%E7%94%A8%0A%7D%0A%0ACategory%20%3C%7C-%20CategoryVO%0ACategoryMapper%20%3C%7C-%20CategoryVOMapper%0ACategoryExample%20.%20null%0ACategory%20o--%20CategoryMapper%0ACategoryMapper%20o--%20CategoryExample%0ACategoryVO%20o-%20service%0ACategoryVOMapper%20o-%20service%0A%0A%40enduml%0A"><img src="https://cdn.yuque.com/__puml/74eaf43630a0e07c7c6394f18715e92d.svg" width="385"></div>
+
+
+<p>　　<br>在这里，我提出了一种新的解决方案，如下图：</p>
+<p>　　</p>
+<div id="z45fod" data-type="puml" data-display="block" data-align="left" data-src="https://cdn.yuque.com/__puml/1959be356376783e71792e489b612c9f.svg" data-width="278" data-height="398" data-text="%40startuml%0A%0Aobject%20Category%20%7B%0A%E5%88%86%E7%B1%BB%0A(%E6%9C%BA%E5%99%A8%E7%94%9F%E6%88%90)%0A%7D%0A%0Aobject%20CategoryMapper%20%7B%0A%E5%88%86%E7%B1%BBMapper%0A%EF%BC%88%E6%9C%BA%E5%99%A8%E7%94%9F%E6%88%90%EF%BC%89%0A%7D%0A%0Aobject%20CategoryExample%20%7B%0A%E5%88%86%E7%B1%BBExample%0A%EF%BC%88%E6%9C%BA%E5%99%A8%E7%94%9F%E6%88%90%EF%BC%89%0A%7D%0A%0Aobject%20CategoryExtension%20%7B%0A%E5%88%86%E7%B1%BB%E6%89%A9%E5%B1%95%0A%EF%BC%88%E6%89%8B%E5%86%99%E4%BB%A3%E7%A0%81%EF%BC%89%0A%7D%0A%0Aobject%20CategoryExtensionMapper%20%7B%0A%E6%89%A9%E5%B1%95Mapper%0A%EF%BC%88%E6%89%8B%E5%86%99%E4%BB%A3%E7%A0%81%EF%BC%8C%E5%8F%AF%E4%B8%8D%E5%86%99%EF%BC%89%0A%7D%0A%0A%0Aobject%20service%20%7B%0A%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B0%83%E7%94%A8%0A%7D%0A%0ACategoryExtension%20%3C%7C-%20Category%0ACategory%20o--%20CategoryMapper%0ACategoryMapper%20o--%20CategoryExtensionMapper%0ACategoryExtensionMapper%20o--%20CategoryExample%0ACategory%20o-%20service%0ACategoryMapper%20o-%20service%0ACategoryExtensionMapper%20o-%20service%0ACategoryExample%20o-%20service%0A%0A%0A%40enduml%0A"><img src="https://cdn.yuque.com/__puml/1959be356376783e71792e489b612c9f.svg" width="278"></div>
+
+
+<p>　　这种方法的巧妙之处在于，Service层调用的就是机器直接生成的代码，而让机器的代码去继承我们自己写的代码，这样，mapper不用额外写，example也可以支持，调用的时候又隐藏了 实体扩展类，干净整洁。</p>
+<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><a name="gwtzve"></a>具体实现</h1><p>　　具体实现其实非常简单。小小商城的完整配置见 <a href="https://github.com/xenv/S-mall-ssm/blob/master/src/main/resources/generatorConfig.xml" title="generatorConfig.xml" target="_blank" rel="noopener">generatorConfig.xml</a></p>
+<h4 id="1-修改mybatis-generator设置-，让生成的实体类继承我们手写-Extension"><a href="#1-修改mybatis-generator设置-，让生成的实体类继承我们手写-Extension" class="headerlink" title="1. 修改mybatis-generator设置 ，让生成的实体类继承我们手写 Extension"></a><a name="e4g3ke"></a>1. 修改mybatis-generator设置 ，让生成的实体类继承我们手写 Extension</h4><p>　　mybatis-generator其实支持我们直接去继承指定的类，只要在 table 配置中加入 “rootClass”  一行即可</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">tableName</span>=<span class="string">"category"</span> <span class="attr">domainObjectName</span>=<span class="string">"Category"</span> <span class="attr">enableCountByExample</span>=<span class="string">"false"</span> <span class="attr">enableUpdateByExample</span>=<span class="string">"false"</span> <span class="attr">enableDeleteByExample</span>=<span class="string">"false"</span> <span class="attr">enableSelectByExample</span>=<span class="string">"true"</span> <span class="attr">selectByExampleQueryId</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"rootClass"</span> <span class="attr">value</span>=<span class="string">"tmall.pojo.extension.CategoryExtension"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"my.isgen.usekeys"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"useActualColumnNames"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">generatedKey</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">sqlStatement</span>=<span class="string">"JDBC"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-手动新建-Extension-类，重新生成代码即可"><a href="#2-手动新建-Extension-类，重新生成代码即可" class="headerlink" title="2. 手动新建 Extension 类，重新生成代码即可"></a><a name="qwd4sp"></a>2. 手动新建 Extension 类，重新生成代码即可</h4>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-05-31T02:03:38.000Z">2018-05-31</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/技术实战/">技术实战</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 分钟 读完 (大约 663 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/05/31/yuque/ssh-auth/">SSH开发 - 配合自定义注解 和 Stratus拦截器，实现 方法级粒度 用户鉴权</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="提要"><a href="#提要" class="headerlink" title="提要"></a><a name="ebtsmg"></a>提要</h1><p>本文是 小小商城-SSH版的 细节详解系列 之一，项目 github：<a href="https://github.com/xenv/S-mall-ssh" target="_blank" rel="noopener">https://github.com/xenv/S-mall-ssh</a> 本文代码大部分在 github 中 可以找到。</p>
+<p>有用户系统，就必须有配套的鉴权系统来确保页面不被非法访问。市面上的鉴权系统，最为成熟的就是shiro，但是体量太重，使用也不太方便，对代码的侵入型也比较强，所以我简单使用 自定义注解 和 Stratus拦截器 就实现了一个 简单 的鉴权系统，虽然不及 shiiro 稳定和功能强大，但是也足够使用，并且配置非常简单。</p>
+<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><a name="e8wumx"></a>具体实现</h1><p>原理其实非常简单，先在 action 类和 方法上配置好自定义注解，然后配置一个拦截器读取这些注解，在和 session 里面的 user 比对 权限，判断是否放行即可。</p>
+<p>在配置自定义注解时，我选择了类和方法同时配置，方法如果不配置则使用类的权限配置。</p>
+<ol>
+<li>在User实体类中，用enum定义用户组</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Group&#123;</span><br><span class="line">    unLogin,user,admin,superAdmin;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>定义一个自定义注解</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME) <span class="comment">// 运行时可以被获取 </span></span><br><span class="line"><span class="meta">@Target</span>(&#123;METHOD,TYPE&#125;) <span class="comment">//加载类上或者方法上面</span></span><br><span class="line"><span class="meta">@Inherited</span> <span class="comment">//可以子类继承</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Auth &#123;</span><br><span class="line">    User.<span class="function">Group <span class="title">value</span><span class="params">()</span></span>; <span class="comment">//User.Group是一个enum类型，在User实体类中定义</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><p>在 action 类中加入这个自定义注解</p>
+<p> 比如前台的 Action 中，可以在 action 类上面加一个 @Auth(User.Group.unLogin) ，这样该 action 类下面的所有方法 unLogin 用户都可以访问。对于不想要 unLogin 用户 访问 的方法，可以在那个方法上面加上 @Auth(User.Group.user) ，就会覆盖掉  类的权限配置。</p>
+</li>
+<li><p>配置一个拦截器实现鉴权动作</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuthInterceptor</span> <span class="keyword">extends</span> <span class="title">AbstractInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">intercept</span><span class="params">(ActionInvocation actionInvocation)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//获取访问页面的权限</span></span><br><span class="line">        <span class="comment">//获取方法上的注解</span></span><br><span class="line">        Object action =actionInvocation.getAction();</span><br><span class="line">        String methodName=actionInvocation.getProxy().getMethod();</span><br><span class="line">        Auth authInMethod=action.getClass().getMethod(methodName).getAnnotation(Auth.class);</span><br><span class="line">        <span class="comment">//获取类上的注解</span></span><br><span class="line">        Auth authInClass = action.getClass().getAnnotation(Auth.class);</span><br><span class="line">        <span class="comment">//获取Enum方法的ordinal，根据大小来确定该页面权限</span></span><br><span class="line">        <span class="keyword">int</span> pageRate = authInClass==<span class="keyword">null</span>?<span class="number">0</span>:authInClass.value().ordinal();</span><br><span class="line">        pageRate = authInMethod == <span class="keyword">null</span>?pageRate:authInMethod.value().ordinal();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取用户的权限</span></span><br><span class="line">        <span class="keyword">int</span> userRate = <span class="number">0</span>;</span><br><span class="line">        User user = (User) ActionContext.getContext().getSession().get(<span class="string">"user"</span>);</span><br><span class="line">        <span class="keyword">if</span>(user!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            userRate = user.getGroup().ordinal();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//根据权限决定是否放行</span></span><br><span class="line">        <span class="keyword">if</span>(pageRate&gt;userRate)&#123;</span><br><span class="line">            <span class="keyword">if</span>(userRate == <span class="number">0</span>) &#123;</span><br><span class="line">                ServletActionContext.getResponse().sendRedirect(<span class="string">"/login"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"/noAuth"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>  actionInvocation.invoke();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>使拦截器生效，在struts.xml中配置</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">package</span> name=<span class="string">"basic-struts"</span> extends=<span class="string">"struts-default"</span>&gt;</span><br><span class="line">    &lt;interceptors&gt;</span><br><span class="line">        &lt;interceptor name=<span class="string">"authInterceptor"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"tmall.interceptor.AuthInterceptor"</span> /&gt;</span><br><span class="line"></span><br><span class="line">        &lt;interceptor-stack name=<span class="string">"myInterceptors"</span>&gt;</span><br><span class="line">            &lt;interceptor-ref name=<span class="string">"authInterceptor"</span>/&gt;</span><br><span class="line">            &lt;interceptor-ref name=<span class="string">"defaultStack"</span>/&gt;</span><br><span class="line">        &lt;/interceptor-stack&gt;</span><br><span class="line">    &lt;/interceptors&gt;</span><br><span class="line">    &lt;<span class="keyword">default</span>-interceptor-ref name=<span class="string">"myInterceptors"</span> /&gt;</span><br><span class="line">    &lt;global-results&gt;</span><br><span class="line">        &lt;result name="/noAuth"&gt;/noAuth&lt;/result&gt;</span><br><span class="line">    &lt;/global-results&gt;</span><br><span class="line">&lt;/package&gt;</span><br></pre></td></tr></table></figure>
+<p>OK，大功告成。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-05-31T01:50:08.000Z">2018-05-31</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/技术实战/">技术实战</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 781 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/05/31/yuque/ssh-baseservice/">SSH开发 - 配合Hibernate，通过泛型实现 BaseService ，抽象增改删查方法</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="提要"><a href="#提要" class="headerlink" title="提要"></a><a name="eso2zm"></a>提要</h1><p>本文是 小小商城-SSH版的 细节详解系列 之一，项目 github：<a href="https://github.com/xenv/S-mall-ssh" target="_blank" rel="noopener">https://github.com/xenv/S-mall-ssh</a> 本文代码大部分在 github 中 可以找到</p>
+<p>在 SSH 开发中，Service层会有许多重复的，调用dao层的，增改删查的方法。对于重复的方法，我们可以用一个 BaseService 抽象出来。如图所示</p>
+<div id="bkoomh" data-type="puml" data-display="block" data-align="left" data-src="https://cdn.yuque.com/__puml/94c5c17ca8abeabc136354e6383f0c32.svg" data-width="430" data-height="252" data-text="%40startuml%0A%0AClass%20BaseService%20%7B%0Aadd(Object%20o)%0Aupdate(Object%20o)%0Alist()%0Aget(int%20id)%0Adelete(Object%20o)%0A%7D%0Aclass%20CategoryService%20%7B%0A%7D%0Aclass%20UserService%20%7B%0AisExist(String%20name)%0A%7D%0Aclass%20ProductService%20%7B%0A%7D%0ABaseService%20%3C%7C--%20CategoryService%0ABaseService%20%3C%7C--%20UserService%0ABaseService%20%3C%7C--%20ProductService%0A%40enduml%0A"><img src="https://cdn.yuque.com/__puml/94c5c17ca8abeabc136354e6383f0c32.svg" width="430"></div>
+
+
+<p>普通Service的增改删查操作统一被抽象到 BaseService，普通Service继承BaseService后，只需实现少量独有的代码即可</p>
+<p>这样，在 Action 层调用的时候，只需直接 categoryService.get(id) 就可以完成获取操作。</p>
+<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><a name="ap9qiz"></a>具体实现</h1><p>BaseService实现的难点在于，不知道 继承它的 普通 Service 对应的 实体类 是哪个，从而不能从 Hibernate 中 获取到相应的 数据库查询器，那么，怎么来解决这个问题呢？</p>
+<p>其实很简单，利用 泛型 ，子类在继承父类的时候实现泛型，初始化时，父类就可以读取到子类的泛型信息，从而实现了 子类 向 父类 传 数据。</p>
+<p>父类根据子类携带的实体类信息，初始化 Hibernate 数据库查询器，子类在泛型继承的时候，就自动会调用子类指定的查询器，从而做到了抽象的效果。</p>
+<p><span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)">在 小小商城 项目中，核心实现是这两个文件，</span></span><a href="https://github.com/xenv/S-mall-ssh/blob/master/src/main/java/tmall/service/impl/Service4DAOImpl.java" title="Service4DAOImpl.java" target="_blank" rel="noopener">Service4DAOImpl.java</a><span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)"> 和 </span></span><a href="https://github.com/xenv/S-mall-ssh/blob/master/src/main/java/tmall/service/impl/BaseServiceImpl.java" title="BaseServiceImpl.java" target="_blank" rel="noopener">BaseServiceImpl.java</a><span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)"> 下面，我会一步步教大家实现。</span></span></p>
+<h3 id="初始化时读取子类的泛型信息，创建-Hibernate-查询器"><a href="#初始化时读取子类的泛型信息，创建-Hibernate-查询器" class="headerlink" title="初始化时读取子类的泛型信息，创建 Hibernate 查询器"></a><a name="583kco"></a><strong>初始化时读取子类的泛型信息，创建 Hibernate 查询器</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Service4DAOImpl</span>&lt;<span class="title">P</span>&gt; <span class="keyword">implements</span> <span class="title">Service4DAO</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> DAO dao;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> Class clazz;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Service4DAOImpl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ParameterizedType t = (ParameterizedType) (getClass().getGenericSuperclass());</span><br><span class="line">        <span class="keyword">if</span> (t != <span class="keyword">null</span>) &#123;</span><br><span class="line">            clazz = (Class) t.getActualTypeArguments()[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDao</span><span class="params">(DAO dao)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.dao = dao;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Criteria <span class="title">createCriteria</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getSession().createCriteria(clazz).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Session <span class="title">getSession</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> dao.getSessionFactory().getCurrentSession();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过反射，子类继承该类时，会自动读取到 子类 携带的 实体类 ，然后我们将 hibernate 的 dao 自动注入进来，使用 createCriteria 就可以获取到相应的查询器</p>
+<p>比如 ProductService 中 extends Service4DAOImpl ，我们就可以自动为其创建一个 Product 实体类的查询器了。</p>
+<h3 id="实现-BaseService-，抽象增改删查方法"><a href="#实现-BaseService-，抽象增改删查方法" class="headerlink" title="实现 BaseService ，抽象增改删查方法"></a><a name="5pgals"></a><strong>实现 BaseService ，抽象增改删查方法</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseServiceImpl</span>&lt;<span class="title">P</span>&gt; <span class="keyword">extends</span> <span class="title">Service4DAOImpl</span>&lt;<span class="title">P</span>&gt; <span class="keyword">implements</span> <span class="title">BaseService</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List <span class="title">list</span><span class="params">(Object... paramAndObjects)</span> </span>&#123;</span><br><span class="line">        Criteria c= createCriteria();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(paramAndObjects.length%<span class="number">2</span> !=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;paramAndObjects.length;i+=<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(paramAndObjects[i+<span class="number">1</span>] == <span class="keyword">null</span>)&#123;</span><br><span class="line">                c.add(Restrictions.isNull(paramAndObjects[i].toString()));</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(paramAndObjects[i].equals(<span class="string">"pagination"</span>) &amp;&amp; paramAndObjects[i+<span class="number">1</span>] <span class="keyword">instanceof</span> Pagination) &#123;</span><br><span class="line">                c.setFirstResult(((Pagination)paramAndObjects[i+<span class="number">1</span>]).getStart());</span><br><span class="line">                c.setMaxResults(((Pagination)paramAndObjects[i+<span class="number">1</span>]).getCount());</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(paramAndObjects[i].equals(<span class="string">"desc"</span>) &amp;&amp; paramAndObjects[i+<span class="number">1</span>] <span class="keyword">instanceof</span> String)&#123;</span><br><span class="line">                c.addOrder(Order.desc(paramAndObjects[i+<span class="number">1</span>].toString()));</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(paramAndObjects[i].equals(<span class="string">"asc"</span>) &amp;&amp; paramAndObjects[i+<span class="number">1</span>] <span class="keyword">instanceof</span> String)&#123;</span><br><span class="line">                c.addOrder(Order.asc(paramAndObjects[i+<span class="number">1</span>].toString()));</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(paramAndObjects[i].equals(<span class="string">"max"</span>) &amp;&amp; NumberUtils.isDigits(paramAndObjects[i+<span class="number">1</span>].toString()))&#123;</span><br><span class="line">                c.setMaxResults(Integer.valueOf(paramAndObjects[i+<span class="number">1</span>].toString()));</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(paramAndObjects[i].toString().contains(<span class="string">"_like"</span>) &amp;&amp; paramAndObjects[i+<span class="number">1</span>] <span class="keyword">instanceof</span> String)&#123;</span><br><span class="line">                String keyword = <span class="string">"%"</span>+paramAndObjects[i+<span class="number">1</span>].toString()+<span class="string">"%"</span>;</span><br><span class="line">                c.add(Restrictions.like(StringUtils.removeEnd(paramAndObjects[i].toString(),<span class="string">"_like"</span>),keyword));</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(paramAndObjects[i].toString().contains(<span class="string">"_gt"</span>) &amp;&amp; NumberUtils.isDigits(paramAndObjects[i+<span class="number">1</span>].toString()))&#123;</span><br><span class="line">                c.add(Restrictions.gt(StringUtils.removeEnd(paramAndObjects[i].toString(),<span class="string">"_gt"</span>),paramAndObjects[i+<span class="number">1</span>]));</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            c.add(Restrictions.eq(paramAndObjects[i].toString(),paramAndObjects[i+<span class="number">1</span>]));</span><br><span class="line">        &#125;</span><br><span class="line">        c.addOrder(Order.desc(<span class="string">"id"</span>));</span><br><span class="line">        <span class="keyword">return</span> c.list();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">add</span><span class="params">(Object object)</span> </span>&#123;</span><br><span class="line">        Session session = getSession();</span><br><span class="line">        <span class="keyword">return</span> (Integer)session.save(object);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Object object)</span> </span>&#123;</span><br><span class="line">        Session session = getSession();</span><br><span class="line">        session.update(object);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(Object object)</span> </span>&#123;</span><br><span class="line">        Session session = getSession();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//获取对象的setDeleteAt方法，插入一个时间</span></span><br><span class="line">            Method  setDeleteAt = object.getClass().getMethod(<span class="string">"setDeleteAt"</span>,Date.class);</span><br><span class="line">            setDeleteAt.invoke(object,<span class="keyword">new</span> Date());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        session.update(object);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里节选了项目里的文件的一部分代码，我们先看 update(Object object) ，在获取到 seesion 之后，我们直接调用 update 方法即可</p>
+<p>在list方法中，我又对查询器进行进一步抽象，这样，我们在调用的时候，就可以顺带指定分页、顺序、搜索条件等，更加方便</p>
+<h3 id="普通Service-附带-上-泛型-信息"><a href="#普通Service-附带-上-泛型-信息" class="headerlink" title="普通Service 附带 上 泛型 信息"></a><a name="w5g9qg"></a><strong>普通Service 附带 上 泛型 信息</strong></h3><pre><code>这样，我们直接继承 BaseService 即可，无需再写任何代码
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductServiceImpl</span> <span class="keyword">extends</span> <span class="title">BaseServiceImpl</span> <span class="keyword">implements</span> <span class="title">ProductService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="在-Action-中调用"><a href="#在-Action-中调用" class="headerlink" title="在 Action 中调用"></a><a name="cgbtkl"></a><strong>在 Action 中调用</strong></h3><pre><code>那么，我们应该怎么调用这些 Service 呢，其实非常简单，在注入了 productService 之后，只需直接调用list方法即可
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Action</span>(<span class="string">"category"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">category</span><span class="params">()</span></span>&#123;</span><br><span class="line">    fill(category);</span><br><span class="line">    products = productService.list(<span class="string">"category"</span>,category,handleSort()[<span class="number">0</span>],handleSort()[<span class="number">1</span>],<span class="string">"stock_gt"</span>,<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"categoryPage"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>那么，大功告成，Service 和 Action 都省下了 大量重复的代码。
+</code></pre>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-05-31T01:38:19.000Z">2018-05-31</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/技术实战/">技术实战</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 分钟 读完 (大约 871 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/05/31/yuque/servlet-filter-mapping/">Servlet开发 - 利用 Filter + 反射 处理 URL， 精简 servlet-mapping</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="提要"><a href="#提要" class="headerlink" title="提要"></a><a name="yd8cxf"></a>提要</h1><p>在原生 Servlet 开发中，如果采用一个 url 对应一个 servlet-mapping，那么web.xml将会十分冗长难以维护。其实，我们其实可以通过 Filter + 反射 来 使 一个 servlet 处理 多个 url ，并且根据不同url调用到 servlet 中的不同方法 （类似SpringMVC）</p>
+<p>根据下面的代码实现之后，可以实现 用户访问 /test的时候，就会自动调用 FrontServlet 下面 的 test() 方法，并且根据 该 方法的返回值 来 返回 jsp 文件 或者是 跳转，用户访问 /test2 的时候，就会调用 test2() 方法，以此类推。</p>
+<p>本文是 小小商城-Servlet版的 细节详解系列 之一，项目 github：<a href="https://github.com/xenv/S-mall-servlet/" target="_blank" rel="noopener">https://github.com/xenv/S-mall-servlet/</a> 本文代码大部分在 github 中 可以找到</p>
+<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><a name="w3epgz"></a>具体实现</h1><p>完整的实现代码见：<a href="https://github.com/xenv/S-mall-servlet/blob/master/src/filter/BackServletFilter.java" target="_blank" rel="noopener">https://github.com/xenv/S-mall-servlet/blob/master/src/filter/BackServletFilter.java</a></p>
+<ol>
+<li><p>创建 Filter 文件，implements Filter ，override doFilter 方法 </p>
+</li>
+<li><p>在doFilter 方法中获取 uri</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取根容器目录</span></span><br><span class="line">String contextPath = request.getServletContext().getContextPath();</span><br><span class="line"><span class="comment">//获取完整 uri</span></span><br><span class="line">String uri  = request.getRequestURI();</span><br><span class="line"><span class="comment">//除根 uri 根目录</span></span><br><span class="line">uri = StringUtils.remove(uri,contextPath);</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>根据不同的 uri ，获取到对应的 函数 名，插入到request中，比如，我们简单在这里直接把根目录下的 uri 直接 转成 函数 名</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!(uri.contains(<span class="string">"."</span>) || (uri.lastIndexOf(<span class="string">'/'</span>)&gt;<span class="number">0</span>)))&#123; <span class="comment">// 根目录 不含.的 uri</span></span><br><span class="line">    String method = uri.substring(<span class="number">1</span>);</span><br><span class="line">    request.setAttribute(<span class="string">"method"</span>,method);</span><br><span class="line">    String servletPath = <span class="string">"front.servlet"</span>;</span><br><span class="line">    request.getRequestDispatcher(servletPath).forward(request,response);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//其他请求放行</span></span><br><span class="line">filterChain.doFilter(request,response);</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>根据不同的uri，调用 Servlet，比如，我们简单在这里直接 调用 一个固定的 servlet</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String servletPath = <span class="string">"front.servlet"</span>;</span><br><span class="line">request.getRequestDispatcher(servletPath).forward(request,response);</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>在Servlet中，重写service方法，我们读取 刚刚传进来的 method ，反射调用相关方法，并把  request 和 responce 传进去</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> xception </span>&#123;</span><br><span class="line">    String method = (String)req.getAttribute(<span class="string">"method"</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//利用反射把url中的方法文本转化为方法进行调用</span></span><br><span class="line">    req.setCharacterEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line">    Method m = <span class="keyword">this</span>.getClass().getMethod(method,HttpServletRequest.class,HttpServletResponse.class);</span><br><span class="line">    String redirect = m.invoke(<span class="keyword">this</span>,req,resp).toString();</span><br><span class="line">    <span class="keyword">if</span>(redirect.startsWith(<span class="string">"@"</span>))&#123;</span><br><span class="line">        resp.sendRedirect(redirect.substring(<span class="number">1</span>));</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(redirect.startsWith(<span class="string">"%"</span>))</span><br><span class="line">        resp.getWriter().print(redirect.substring(<span class="number">1</span>));</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        req.getRequestDispatcher(redirect).forward(req, resp);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，我们的method会返回一个String，如果这个String是 @ 开头，那么是跳转，相当于 Springmvc 的 (redirect:) ，如果是 %开头，则是返回纯文本，其他开头则 调用那个 JSP （相当于 Springmvc 的视图定位）</p>
+<p>对于非法访问的情况，可能会出错，我们必须要进行错误处理，这里只是简单一个简单演示</p>
+<ol start="6">
+<li>在具体method中，我们需要接受 request 和 responce，返回String，例如</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">delete</span><span class="params">(HttpServletRequest request , HttpServletResponse response)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> id = Integer.parseInt(request.getParameter(<span class="string">"id"</span>));</span><br><span class="line">    service.delete(id);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"@/admin/category_list"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="7">
+<li>在web.xml配置 filter 和 servlet</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>BackServletFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>filter.BackServletFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>BackServletFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>FrontServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>servlet.FrontServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>FrontServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/front.servlet<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code>这样，用户访问 /test的时候，就会自动调用 Frontservlet 下面 的 test() 方法，并且根据 该 方法的返回值 来 返回 jsp 文件 或者是 跳转
+</code></pre><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><a name="mm65fr"></a>总结</h1><p>用户访问 url ，先到 Filter ，filter 根据 url ，获取相应的 method 和 servlet ，然后 filter 把控制权交给 servlet， serlvet再根据 method 调用 具体的方法，返回要加载 jsp 文件 或者 跳转，这样我们就实现了和 SpringMVC 大致一样的效果。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Your name">
+                    
+                    <p class="is-size-4 is-block">
+                        Your name
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Your title
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Your location</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        26
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        12
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/ppoffice">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/ppoffice">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/技术实战/">
+            <span class="level-start">
+                <span class="level-item">技术实战</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/技术笔记/">
+            <span class="level-start">
+                <span class="level-item">技术笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/教程/">
+            <span class="level-start">
+                <span class="level-item">教程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/日志/">
+            <span class="level-start">
+                <span class="level-item">日志</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/项目/">
+            <span class="level-start">
+                <span class="level-item">项目</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Java-核心/" style="font-size: 15px;">Java 核心</a> <a href="/tags/Netty/" style="font-size: 10px;">Netty</a> <a href="/tags/SSH/" style="font-size: 12.5px;">SSH</a> <a href="/tags/SSM/" style="font-size: 17.5px;">SSM</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Spring/" style="font-size: 12.5px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10px;">Spring Boot</a> <a href="/tags/Spring-MVC/" style="font-size: 10px;">Spring MVC</a> <a href="/tags/小小商城/" style="font-size: 20px;">小小商城</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/语雀/" style="font-size: 10px;">语雀</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/25/hello-world/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Hello World">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-25T14:20:07.426Z">2018-11-25</time></div>
+                    <a href="/2018/11/25/hello-world/" class="has-link-black-ter is-size-6">Hello World</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/05/yuque/yuque2blog/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="教程：静态博客使用语雀编辑器">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-05T02:38:56.000Z">2018-10-05</time></div>
+                    <a href="/2018/10/05/yuque/yuque2blog/" class="has-link-black-ter is-size-6">教程：静态博客使用语雀编辑器</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/教程/">教程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/jinrishici/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="今日诗词 API - 诗词实时智能推荐">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T06:44:19.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/jinrishici/" class="has-link-black-ter is-size-6">今日诗词 API - 诗词实时智能推荐</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/项目/">项目</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/hexo-yuque/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="博客更新为 Hexo 静态博客 + 语雀">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T02:53:21.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/hexo-yuque/" class="has-link-black-ter is-size-6">博客更新为 Hexo 静态博客 + 语雀</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/日志/">日志</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/08/26/yuque/netty-flow/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Netty 处理流程简析（附流程图）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-26T15:21:09.000Z">2018-08-26</time></div>
+                    <a href="/2018/08/26/yuque/netty-flow/" class="has-link-black-ter is-size-6">Netty 处理流程简析（附流程图）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Hexo/">
+                        <span class="level-start">
+                            <span class="level-item">Hexo</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Java-核心/">
+                        <span class="level-start">
+                            <span class="level-item">Java 核心</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Netty/">
+                        <span class="level-start">
+                            <span class="level-item">Netty</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSH/">
+                        <span class="level-start">
+                            <span class="level-item">SSH</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSM/">
+                        <span class="level-start">
+                            <span class="level-item">SSM</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">6</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Servlet/">
+                        <span class="level-start">
+                            <span class="level-item">Servlet</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring/">
+                        <span class="level-start">
+                            <span class="level-item">Spring</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-Boot/">
+                        <span class="level-start">
+                            <span class="level-item">Spring Boot</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-MVC/">
+                        <span class="level-start">
+                            <span class="level-item">Spring MVC</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/小小商城/">
+                        <span class="level-start">
+                            <span class="level-item">小小商城</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">10</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/网络/">
+                        <span class="level-start">
+                            <span class="level-item">网络</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/语雀/">
+                        <span class="level-start">
+                            <span class="level-item">语雀</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/25/hello-world/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Hello World">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-25T14:20:07.426Z">2018-11-25</time></div>
+                    <a href="/2018/11/25/hello-world/" class="has-link-black-ter is-size-6">Hello World</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/05/yuque/yuque2blog/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="教程：静态博客使用语雀编辑器">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-05T02:38:56.000Z">2018-10-05</time></div>
+                    <a href="/2018/10/05/yuque/yuque2blog/" class="has-link-black-ter is-size-6">教程：静态博客使用语雀编辑器</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/教程/">教程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/jinrishici/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="今日诗词 API - 诗词实时智能推荐">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T06:44:19.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/jinrishici/" class="has-link-black-ter is-size-6">今日诗词 API - 诗词实时智能推荐</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/项目/">项目</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/hexo-yuque/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="博客更新为 Hexo 静态博客 + 语雀">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T02:53:21.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/hexo-yuque/" class="has-link-black-ter is-size-6">博客更新为 Hexo 静态博客 + 语雀</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/日志/">日志</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/08/26/yuque/netty-flow/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Netty 处理流程简析（附流程图）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-26T15:21:09.000Z">2018-08-26</time></div>
+                    <a href="/2018/08/26/yuque/netty-flow/" class="has-link-black-ter is-size-6">Netty 处理流程简析（附流程图）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Hexo/">
+                        <span class="level-start">
+                            <span class="level-item">Hexo</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Java-核心/">
+                        <span class="level-start">
+                            <span class="level-item">Java 核心</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Netty/">
+                        <span class="level-start">
+                            <span class="level-item">Netty</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSH/">
+                        <span class="level-start">
+                            <span class="level-item">SSH</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSM/">
+                        <span class="level-start">
+                            <span class="level-item">SSM</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">6</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Servlet/">
+                        <span class="level-start">
+                            <span class="level-item">Servlet</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring/">
+                        <span class="level-start">
+                            <span class="level-item">Spring</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-Boot/">
+                        <span class="level-start">
+                            <span class="level-item">Spring Boot</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-MVC/">
+                        <span class="level-start">
+                            <span class="level-item">Spring MVC</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/小小商城/">
+                        <span class="level-start">
+                            <span class="level-item">小小商城</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">10</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/网络/">
+                        <span class="level-start">
+                            <span class="level-item">网络</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/语雀/">
+                        <span class="level-start">
+                            <span class="level-item">语雀</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="Hexo" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2018 John Doe&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

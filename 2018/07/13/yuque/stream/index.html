@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Java Stream 解析和使用技巧 - Hexo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="Stream简介Stream是一种为lambda设计的一种操作流水线。创建一个Stream之后，你可以添加你想要的多个中间操作到流水线中，然后使用终结操作，原始数据就会通过你设计的Stream流水线，输出给终结操作，然后输出数据。 所以，看本文之前，请确保你已经对 lambda 已经足够了解。lambda解析：https://yuque.com/page/luan.ma/lambda/ Strea">
+<meta name="keywords" content="Java 核心">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Stream 解析和使用技巧">
+<meta property="og:url" content="http://yoursite.com/2018/07/13/yuque/stream/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Stream简介Stream是一种为lambda设计的一种操作流水线。创建一个Stream之后，你可以添加你想要的多个中间操作到流水线中，然后使用终结操作，原始数据就会通过你设计的Stream流水线，输出给终结操作，然后输出数据。 所以，看本文之前，请确保你已经对 lambda 已经足够了解。lambda解析：https://yuque.com/page/luan.ma/lambda/ Strea">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.yuque.com/yuque/0/2018/png/102759/1530006249827-5288b1e9-7a3f-44c2-8d5d-2308a085cb5c.png">
+<meta property="og:image" content="https://cdn.yuque.com/yuque/0/2018/png/102759/1530006500269-b956f73a-06a2-43f2-954a-3dc7ad4a968a.png">
+<meta property="og:image" content="https://cdn.yuque.com/yuque/0/2018/png/102759/1530067501704-ec0d3578-9a46-47f7-bede-4964cffade78.png">
+<meta property="og:image" content="https://cdn.yuque.com/yuque/0/2018/png/102759/1530070950791-e45c7024-812f-4697-8761-af9c27716ae9.png">
+<meta property="og:image" content="https://cdn.yuque.com/yuque/0/2018/png/102759/1530083608010-9f9792df-354e-4084-a898-1eb5fd9a1a2a.png">
+<meta property="og:image" content="https://cdn.yuque.com/yuque/0/2018/png/102759/1530085731625-036cc5b0-4904-45f3-87f8-eb3b50de5199.png">
+<meta property="og:updated_time" content="2018-11-25T16:02:14.219Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java Stream 解析和使用技巧">
+<meta name="twitter:description" content="Stream简介Stream是一种为lambda设计的一种操作流水线。创建一个Stream之后，你可以添加你想要的多个中间操作到流水线中，然后使用终结操作，原始数据就会通过你设计的Stream流水线，输出给终结操作，然后输出数据。 所以，看本文之前，请确保你已经对 lambda 已经足够了解。lambda解析：https://yuque.com/page/luan.ma/lambda/ Strea">
+<meta name="twitter:image" content="https://cdn.yuque.com/yuque/0/2018/png/102759/1530006249827-5288b1e9-7a3f-44c2-8d5d-2308a085cb5c.png">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="Java Stream 解析和使用技巧" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-07-13T09:56:30.000Z">2018-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    30 分钟 读完 (大约 4481 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Java Stream 解析和使用技巧
+            
+        </h1>
+        <div class="content">
+            <h3 id="Stream简介"><a href="#Stream简介" class="headerlink" title="Stream简介"></a><a name="7t3kir"></a>Stream简介</h3><p>Stream是一种为lambda设计的一种操作流水线。创建一个Stream之后，你可以添加你想要的多个中间操作到流水线中，然后使用终结操作，原始数据就会通过你设计的Stream流水线，输出给终结操作，然后输出数据。</p>
+<p>所以，看本文之前，请确保你已经对 lambda 已经足够了解。<br>lambda解析：<a href="https://yuque.com/page/luan.ma/lambda/" target="_blank" rel="noopener">https://yuque.com/page/luan.ma/lambda/</a></p>
+<h4 id="Stream的类型"><a href="#Stream的类型" class="headerlink" title="Stream的类型"></a><a name="xks3vn"></a>Stream的类型</h4><p>Stream有分普通流和数值流，之间没有继承关系，普通流用一个泛型表示流中的数据结构类型，如Stream<string><br>数值流主要是避免重复的装箱拆箱，统一用原始数值类型（无法应用泛型指定类型），int long double，我们在做终结操作的时候需要统一装箱 .box() 转成普通流</string></p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1530006249827-5288b1e9-7a3f-44c2-8d5d-2308a085cb5c.png" alt="image.png | left | 553x196"></p>
+<h4 id="Stream的生命周期"><a href="#Stream的生命周期" class="headerlink" title="Stream的生命周期"></a><a name="3rlekl"></a>Stream的生命周期</h4><p>创建流 -&gt; 中间操作 -&gt; 终结操作</p>
+<h4 id="Stream的特点"><a href="#Stream的特点" class="headerlink" title="Stream的特点"></a><a name="2mbuqf"></a>Stream的特点</h4><ul>
+<li>无存储。<em>stream</em>不是一种数据结构，它只是某种数据源的一个视图，数据源可以是一个数组，Java容器或I/O channel等。</li>
+<li>为函数式编程而生。对<em>stream</em>的任何修改都不会修改背后的数据源，比如对<em>stream</em>执行过滤操作并不会删除被过滤的元素，而是会产生一个不包含被过滤元素的新<em>stream</em>。</li>
+<li>惰式执行。<em>stream</em>上的操作（中间操作）并不会立即执行，只有等到用户真正需要结果的时候（终结操作）才会执行。</li>
+<li>可消费性。<em>stream</em>只能被“消费”一次，一旦遍历过就会失效（终结操作就是消费操作），就像容器的迭代器那样，想要再次遍历必须重新生成。</li>
+</ul>
+<p>区分中间操作和结束操作最简单的方法，就是看方法的返回值，返回值为<em>stream</em>的大都是中间操作，否则是结束操作。</p>
+<h3 id="创建流"><a href="#创建流" class="headerlink" title="创建流"></a><a name="hotume"></a>创建流</h3><hr>
+<ol>
+<li>从 Colletion <ol>
+<li>.stream() </li>
+<li>.parallelStream()</li>
+</ol>
+</li>
+<li>从数组<ol>
+<li>Arrays.stream(T array) </li>
+<li>Stream.of()</li>
+</ol>
+</li>
+<li>从输入流<ol>
+<li><span data-type="color" style="color:rgb(50, 50, 50)"><span data-type="background" style="background-color:rgb(255, 255, 255)">BufferedReader.lines()</span></span></li>
+</ol>
+</li>
+<li>从目录树<ol>
+<li>Files.walk(Paths.get(“C:\“))</li>
+</ol>
+</li>
+<li>创建各种数值流<ol>
+<li>Random.ints()</li>
+<li>IntStream.of()</li>
+<li><span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)">IntStream.range()</span></span></li>
+<li>…Stream.***()</li>
+</ol>
+</li>
+<li>自己创建流（可创建无穷流）<ol>
+<li>Stream.generate() 丢进一个类似迭代器的东西即可</li>
+<li>Stream.iterate(0, n -&gt; n + 3).limit(10). forEach(x -&gt; System.out.print(x + “ “)); 创建一个自己迭代的流</li>
+</ol>
+</li>
+</ol>
+<h3 id="中间操作"><a href="#中间操作" class="headerlink" title="中间操作"></a><a name="fng4ur"></a>中间操作</h3><hr>
+<ol>
+<li>并行化<ol>
+<li>.parallel()</li>
+</ol>
+</li>
+<li>装箱操作<ol>
+<li>.boxed() 把数值流转回普通流，才能执行终结操作</li>
+</ol>
+</li>
+<li>转换操作<ol>
+<li>一对一普通转换 .map()</li>
+<li>一对多转换 .flatMap() 本</li>
+</ol>
+</li>
+</ol>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1530006500269-b956f73a-06a2-43f2-954a-3dc7ad4a968a.png" alt="image.png | left | 284x267"><br>质上是把每个对象转换成流，流会自动合并<br>        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;List&lt;Integer&gt;&gt; stream = Stream.of(Arrays.asList(<span class="number">1</span>,<span class="number">2</span>), Arrays.asList(<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>));</span><br><span class="line">stream.flatMap(list -&gt; list.stream())</span><br><span class="line">    .forEach(i -&gt; System.out.println(i));</span><br></pre></td></tr></table></figure></p>
+<pre><code>3. 直接转成 数值流 .mapToInt .flatMapToInt
+</code></pre><ol start="4">
+<li>排序操作 .sorted</li>
+<li>对每一个对象操作 .peek</li>
+<li>保留前n项 .limit()<br> 无穷流必须执行限流操作，否则将进入死循环</li>
+<li>去掉前n项 .skip()</li>
+<li>筛选操作 .filter()<br> true留，false被删除</li>
+</ol>
+<h3 id="终结操作"><a href="#终结操作" class="headerlink" title="终结操作"></a><a name="bgw4nk"></a>终结操作</h3><hr>
+<p>终结操作后Stream将会被消费完成，不能再执行中间操作</p>
+<ol>
+<li>转数组 .toArray()<ol>
+<li>stream.toArray(String[]::new)</li>
+</ol>
+</li>
+<li>转 Collection/String .collect()</li>
+<li>forEach 逐一消费所有项目<br> 无法提前结束循环，只能用return提前结束当前循环</li>
+<li>两两结合操作 .reduce()<ol>
+<li>.max</li>
+<li>.min</li>
+<li>.findFirst</li>
+<li>.findAny </li>
+</ol>
+</li>
+<li>match 检查<ol>
+<li>allMatch：Stream 中全部元素符合传入的 predicate，返回 true</li>
+<li>anyMatch：Stream 中只要有一个元素符合传入的 predicate，返回 true</li>
+<li>noneMatch：Stream 中没有一个元素符合传入的 predicate，返回 true</li>
+</ol>
+</li>
+</ol>
+<h4 id="reduce操作"><a href="#reduce操作" class="headerlink" title="reduce操作"></a><a name="xa2ezh"></a>reduce操作</h4><p><em>reduce</em>操作可以实现从一组元素中<strong>生成一个值</strong>，<code>sum()</code>、<code>max()</code>、<code>min()</code>、<code>count()</code>等都是<em>reduce</em>操作，将他们单独设为函数只是因为常用。<code>reduce()</code>的方法定义有三种重写形式：</p>
+<ul>
+<li><code>Optional&lt;T&gt; reduce(BinaryOperator&lt;T&gt; accumulator)</code></li>
+<li><code>T reduce(T identity, BinaryOperator&lt;T&gt; accumulator)</code></li>
+<li><code>&lt;U&gt; U reduce(U identity, BiFunction&lt;U,? super T,U&gt; accumulator, BinaryOperator&lt;U&gt; combiner)</code></li>
+</ul>
+<p>虽然函数定义越来越长，但语义不曾改变，多的参数只是为了指明初始值（参数<em>identity</em>），或者是指定并行执行时多个部分结果的合并方式（参数<em>combiner</em>）。<code>reduce()</code>最常用的场景就是从一堆值中生成一个值。用这么复杂的函数去求一个最大或最小值，你是不是觉得设计者有病。其实不然，因为“大”和“小”或者“求和”有时会有不同的语义。而<em>Optional</em>是（一个）值的容器，可以避免null值的问题，下面会提到。</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1530067501704-ec0d3578-9a46-47f7-bede-4964cffade78.png" alt="image.png | left | 366x154"></p>
+<p>需求：<em>从一组单词中找出最长的单词</em>。这里“大”的含义就是“长”。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 找出最长的单词</span></span><br><span class="line">Stream&lt;String&gt; stream = Stream.of(<span class="string">"I"</span>, <span class="string">"love"</span>, <span class="string">"you"</span>, <span class="string">"too"</span>);</span><br><span class="line">Optional&lt;String&gt; longest = stream.reduce((s1, s2) -&gt; s1.length()&gt;=s2.length() ? s1 : s2);</span><br><span class="line"><span class="comment">//Optional&lt;String&gt; longest = stream.max((s1, s2) -&gt; s1.length()-s2.length());</span></span><br><span class="line">System.out.println(longest.get());</span><br></pre></td></tr></table></figure>
+<p>需求：<em>求出一组单词的长度之和</em>。这是个“求和”操作，操作对象输入类型是<em>String</em>，而结果类型是<em>Integer</em>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求单词长度之和</span></span><br><span class="line">Stream&lt;String&gt; stream = Stream.of(<span class="string">"I"</span>, <span class="string">"love"</span>, <span class="string">"you"</span>, <span class="string">"too"</span>);</span><br><span class="line">Integer lengthSum = stream.reduce(<span class="number">0</span>,　<span class="comment">// 初始值　// (1)</span></span><br><span class="line">        (sum, str) -&gt; sum+str.length(), <span class="comment">// 累加器 // (2)</span></span><br><span class="line">        (a, b) -&gt; a+b);　<span class="comment">// 部分和拼接器，并行执行时才会用到 // (3)</span></span><br><span class="line"><span class="comment">// int lengthSum = stream.mapToInt(str -&gt; str.length()).sum();</span></span><br><span class="line">System.out.println(lengthSum);</span><br></pre></td></tr></table></figure>
+<h4 id="Collect操作"><a href="#Collect操作" class="headerlink" title="Collect操作"></a><a name="1rcwrh"></a>Collect操作</h4><p>Collect是终结操作的一个函数，最为强大，不仅可以将流转化成各种数据结构，也可以再补充中间操作不能进行许多操作。</p>
+<p>收集器（<em>Collector</em>）是为<code>Stream.collect()</code>方法量身打造的工具接口（类）。考虑一下将一个<em>Stream</em>转换成一个容器（或者<em>Map</em>）需要做哪些工作？我们至少需要两样东西：</p>
+<ol>
+<li>目标容器是什么？是<em>ArrayList</em>还是<em>HashSet</em>，或者是个<em>TreeMap</em>。</li>
+<li>新元素如何添加到容器中？是<code>List.add()</code>还是<code>Map.put()</code>。</li>
+</ol>
+<p>如果并行的进行规约，还需要告诉<em>collect()</em> 3. 多个部分结果如何合并成一个。</p>
+<p>结合以上分析，<em>collect()方法定义为</em><em><code><r> R collect(Supplier<r> supplier, BiConsumer&lt;R,? super T&gt; accumulator, BiConsumer&lt;R,R&gt; combiner)</r></r></code></em><em>，三个参数依次对应上述三条分析。不过每次调用</em>collect()<em>都要传入这三个参数太麻烦，收集器</em>Collector就是对这三个参数的简单封装,所以<em>collect()的另一定义为</em><em><code>&lt;R,A&gt; R collect(Collector&lt;? super T,A,R&gt; collector)</code></em><em>。Collectors</em>工具类可通过静态方法生成各种常用的Collector。</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1530070950791-e45c7024-812f-4697-8761-af9c27716ae9.png" alt="image.png | left | 327x129"></p>
+<p><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">举例来说，如果要将</span></span><em>Stream</em><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">规约成</span></span><em>List</em><span data-type="color" style="color:rgb(36, 41, 46)"><span data-type="background" style="background-color:rgb(255, 255, 255)">可以通过如下两种方式实现：</span></span><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = stream.collect(ArrayList::<span class="keyword">new</span>, ArrayList::add, ArrayList::addAll);<span class="comment">// 方式１</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>常用的转 Collection / String</strong>，Collectors为辅助类</p>
+<ol>
+<li>转list stream.collect(Collectors.toList()); </li>
+<li>转set stream.collect(Collectors.toSet()); </li>
+<li>转其他 stream.collect(Collectors.toCollection(Stack::new)); </li>
+<li>转String stream.collect(Collectors.joining()).toString();</li>
+</ol>
+<p><strong>转 map</strong></p>
+<p>前面已经说过<em>Stream</em>背后依赖于某种数据源，数据源可以是数组、容器等，但不能是<em>Map</em>。反过来从<em>Stream</em>生成<em>Map</em>是可以的，但我们要想清楚<em>Map</em>的<em>key</em>和<em>value</em>分别代表什么，根本原因是我们要想清楚要干什么。通常在三种情况下<code>collect()</code>的结果会是<em>Map</em>：</p>
+<ol>
+<li>使用<code>Collectors.toMap()</code>生成的收集器，用户需要指定如何生成<em>Map</em>的<em>key</em>和<em>value</em>。</li>
+<li>使用<code>Collectors.partitioningBy()</code>生成的收集器，对元素进行二分区操作时用到。</li>
+<li>使用<code>Collectors.groupingBy()</code>生成的收集器，对元素做<em>group</em>操作时用到。</li>
+</ol>
+<p>情况1：使用<code>toMap()</code>生成的收集器，这种情况是最直接的，前面例子中已提到，这是和<code>Collectors.toCollection()</code>并列的方法。如下代码展示将学生列表转换成由&lt;学生，GPA&gt;组成的<em>Map</em>。。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用toMap()统计学生GPA</span></span><br><span class="line">Map&lt;Student, Double&gt; studentToGPA =</span><br><span class="line">     students.stream().collect(Collectors.toMap(Functions.identity(),<span class="comment">// 如何生成key</span></span><br><span class="line">                                     student -&gt; computeGPA(student)));<span class="comment">// 如何生成value</span></span><br><span class="line"><span class="comment">// Functions.identity() 是一个接口默认方法，return x-&gt;x，即它本身，在这里是 student -&gt; student</span></span><br></pre></td></tr></table></figure>
+<p>情况2：使用<code>partitioningBy()</code>生成的收集器，这种情况适用于将<code>Stream</code>中的元素依据某个二值逻辑（满足条件，或不满足）分成互补相交的两部分，比如男女性别、成绩及格与否等。下列代码展示将学生分成成绩及格或不及格的两部分。拉出来之后用 get(true) 和 get(false) 拉出去两个列表。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Partition students into passing and failing</span></span><br><span class="line">Map&lt;Boolean, List&lt;Student&gt;&gt; passingFailing = students.stream()</span><br><span class="line">         .collect(Collectors.partitioningBy(s -&gt; s.getGrade() &gt;= PASS_THRESHOLD));</span><br></pre></td></tr></table></figure>
+<p>情况3：使用<code>groupingBy()</code>生成的收集器，这是比较灵活的一种情况。跟SQL中的<em>group by</em>语句类似，这里的<em>groupingBy()也是按照某个属性对数据进行分组，属性相同的元素会被对应到</em>Map的同一个<em>key</em>上。下列代码展示将员工按照部门进行分组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Group employees by department</span></span><br><span class="line">Map&lt;Department, List&lt;Employee&gt;&gt; byDept = employees.stream()</span><br><span class="line">            .collect(Collectors.groupingBy(Employee::getDepartment));</span><br></pre></td></tr></table></figure>
+<p>以上只是分组的最基本用法，有些时候仅仅分组是不够的。在SQL中使用<em>group by</em>是为了协助其他查询，比如<em>1. 先将员工按照部门分组，2. 然后统计每个部门员工的人数</em>。Java类库设计者也考虑到了这种情况，增强版的<code>groupingBy()</code>能够满足这种需求。增强版的<code>groupingBy()</code>允许我们对元素分组之后再执行某种运算，比如求和、计数、平均值、类型转换等。这种先将元素分组的收集器叫做<strong>上游收集器</strong>，之后执行其他运算的收集器叫做<strong>下游收集器</strong>(<em>downstream Collector</em>)。我们可以简单理解，下游收集器就是对map 的 values  做了一个 forEach</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用下游收集器统计每个部门的人数</span></span><br><span class="line">Map&lt;Department, Integer&gt; totalByDept = employees.stream()</span><br><span class="line">                    .collect(Collectors.groupingBy(Employee::getDepartment,</span><br><span class="line">                    <span class="comment">// 变成 Map&lt;Department, List&lt;Employee&gt;&gt;</span></span><br><span class="line">                    <span class="comment">// 对每一个 List&lt;Employee&gt; 执行</span></span><br><span class="line">                                                   Collectors.counting()));<span class="comment">// 下游收集器</span></span><br></pre></td></tr></table></figure>
+<p>上面代码的逻辑是不是越看越像SQL？高度非结构化。还有更狠的，下游收集器还可以包含更下游的收集器，这绝不是为了炫技而增加的把戏，而是实际场景需要。考虑将员工按照部门分组的场景，如果<em>我们想得到每个员工的名字（字符串），而不是一个个</em>Employee<em>对象</em>，可通过如下方式做到：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 按照部门对员工分布组，并只保留员工的名字</span></span><br><span class="line">Map&lt;Department, List&lt;String&gt;&gt; byDept = employees.stream()</span><br><span class="line">                .collect(Collectors.groupingBy(Employee::getDepartment,</span><br><span class="line">                        <span class="comment">// Map&lt;Department, Stream&lt;Employee&gt;&gt;</span></span><br><span class="line">                        <span class="comment">// 对每一个 Stream&lt;Employee&gt; ，执行 mapping，会遍历流中每一个数据</span></span><br><span class="line">                        Collectors.mapping(Employee::getName,<span class="comment">// 下游收集器</span></span><br><span class="line">                        <span class="comment">// 得到一个 Map&lt;Department, Stream&lt;String&gt;&gt;</span></span><br><span class="line">                                Collectors.toList())));<span class="comment">// 更下游的收集器</span></span><br><span class="line">                        <span class="comment">// 得到 Map&lt;Department, List&lt;String&gt;&gt; </span></span><br><span class="line">                        <span class="comment">// Map的key不用管，自动只处理 value 的 stream</span></span><br></pre></td></tr></table></figure>
+<h3 id="Optional容器"><a href="#Optional容器" class="headerlink" title="Optional容器"></a><a name="2s0gui"></a>Optional容器</h3><hr>
+<ol>
+<li><p>一般用法：</p>
+<ol>
+<li>新建一个 可空 Optional，ifPresent非空则执行 xxx 操作<br><span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)"><em>Optional.ofNullable</em></span></span><span data-type="color" style="color:rgb(0, 0, 0)"><span data-type="background" style="background-color:rgb(255, 255, 255)">(text).ifPresent(System.out::println);</span></span></li>
+<li>从reduce等stream终结函数返回</li>
+</ol>
+</li>
+<li><p>检查Optional是否为空，一般和三元符配合使用，可同时照顾到非空和空<br>isPresent()?1:0;</p>
+</li>
+<li>orElse() 用法，取值，如果为空，则为默认值（默认值马上获得，传入的是真实值）<br>String name = Optional.ofNullable(nullName).orElse(“john”);</li>
+<li>orElseGet() 取值，如果为空，则为默认值，默认值为一个获取方法<br>Optional.ofNullable(text).orElseGet(this::getMyDefault);<br>当容器内的值为null时，orElse() 和 orElseGet() 完全相同，当容器内值不为 null 时，则 orElseGet() 不会执行相关的函数</li>
+<li>.filter() 过滤，如果.filter()内容为真，则返回内容，如果为假，则容器内为空。支持链式操作<br> boolean is2017 = yearOptional.filter(y -&gt; y == 2017).isPresent();</li>
+<li>.map() 转换，不用判断非空<br> int size = listOptional .map(List::size).orElse(0);</li>
+<li>.flatMap() 多层 Optional 自动拆开</li>
+</ol>
+<h3 id="Stream-底层实现"><a href="#Stream-底层实现" class="headerlink" title="Stream 底层实现"></a><a name="p875wl"></a>Stream 底层实现</h3><p>Stream实际上是一个流水线（Pipelines），那么他的链式调用+惰性执行的原理是什么呢？</p>
+<p>所谓流水线，就是先装配，后启动，一次完成。而不是一步一步迭代实现，这样最大的弊端是没有办法应对复杂的数据结构。效率也十分低</p>
+<p>我们举个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; test = Arrays.asList(&quot;liu&quot;,&quot;zhang&quot;,&quot;huang&quot;,&quot;chen&quot;,&quot;lix&quot;,&quot;fuc&quot;);</span><br><span class="line"></span><br><span class="line">Stream&lt;String&gt; t = test.stream();</span><br><span class="line">Stream&lt;String&gt; t2 = t.skip(2);</span><br><span class="line">Stream&lt;String&gt; t3 = t2.map(x -&gt; x.substring(2));</span><br><span class="line">Stream&lt;String&gt; t4 = t3.sorted();</span><br><span class="line">String t5 = t4.max(String::compareTo).orElse(&quot;&quot;);</span><br></pre></td></tr></table></figure>
+<p>这是一组流水线Stream拆开来生成多个Stream变量。我们知道，Stream实际上是一个接口，那么，我们调用了这些函数之后，到底返回了一个什么对象呢？我们直接用 IDE 告诉我们答案</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1530083608010-9f9792df-354e-4084-a898-1eb5fd9a1a2a.png" alt="image.png | left | 461x400"></p>
+<p>可以看到，首先这里有一个双向链表的结构，每次中间操作，都会增加一个新的 AbstractPipeline，然后记录第一个  AbstractPipeline 和 上一个  AbstractPipeline，上一个  AbstractPipeline 也会记录当前新增的  AbstractPipeline。</p>
+<p>而另一方面，根据增加的操作不同，也会有不同的 AbstractPipeline 子类，包括 ReferencePipeline, SliceOps, SortedOps, StatelessOp 等等，只是实现的层级不同，我们稍后在纠结这些。</p>
+<p>并且，这些实现类内部会有一个 核心的逻辑方法<code>opWrapSink(int flags, Sink&lt;P_OUT&gt; sink</code>，会把逻辑打包成一个 Sink 对象，这个 Sink 对象还接收另外一个 Sink 对象作为构造函数参数。</p>
+<p>我们拿 .filter() 举例，内置了一个函数会返回 Sink 对象，目前还是惰性执行，所以没有立刻生成：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Stream&lt;P_OUT&gt; <span class="title">filter</span><span class="params">(Predicate&lt;? <span class="keyword">super</span> P_OUT&gt; predicate)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(predicate);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> StatelessOp&lt;P_OUT, P_OUT&gt;(<span class="keyword">this</span>, StreamShape.REFERENCE,</span><br><span class="line">                                     StreamOpFlag.NOT_SIZED) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function">Sink&lt;P_OUT&gt; <span class="title">opWrapSink</span><span class="params">(<span class="keyword">int</span> flags, Sink&lt;P_OUT&gt; sink)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> Sink.ChainedReference&lt;P_OUT, P_OUT&gt;(sink) &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">begin</span><span class="params">(<span class="keyword">long</span> size)</span> </span>&#123;</span><br><span class="line">                        downstream.begin(-<span class="number">1</span>);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(P_OUT u)</span> </span>&#123;</span><br><span class="line">                        <span class="keyword">if</span> (predicate.test(u))</span><br><span class="line">                            downstream.accept(u);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>Sink对象源码，我们最关注的是构造函数，可以看到它又藏了另外一个 sink</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ChainedReference</span>&lt;<span class="title">T</span>, <span class="title">E_OUT</span>&gt; <span class="keyword">implements</span> <span class="title">Sink</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">        <span class="keyword">protected</span> <span class="keyword">final</span> Sink&lt;? <span class="keyword">super</span> E_OUT&gt; downstream;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ChainedReference</span><span class="params">(Sink&lt;? <span class="keyword">super</span> E_OUT&gt; downstream)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.downstream = Objects.requireNonNull(downstream);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">begin</span><span class="params">(<span class="keyword">long</span> size)</span> </span>&#123;</span><br><span class="line">            downstream.begin(size);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">end</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            downstream.end();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">cancellationRequested</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> downstream.cancellationRequested();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>当我们走到终结操作的时候，会先执行一个这样的操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">final</span> &lt;P_IN&gt; <span class="function">Sink&lt;P_IN&gt; <span class="title">wrapSink</span><span class="params">(Sink&lt;E_OUT&gt; sink)</span> </span>&#123;</span><br><span class="line">    Objects.requireNonNull(sink);</span><br><span class="line">    <span class="comment">// 检查非空</span></span><br><span class="line">    <span class="keyword">for</span> ( <span class="meta">@SuppressWarnings</span>(<span class="string">"rawtypes"</span>) AbstractPipeline p=AbstractPipeline.<span class="keyword">this</span>; p.depth &gt; <span class="number">0</span>; p=p.previousStage) &#123;</span><br><span class="line">        <span class="comment">// 从后向前调用每个AbstractPipeline的opwrapSink，然后每个 Sink 藏着上一个 Sink</span></span><br><span class="line">        sink = p.opWrapSink(p.previousStage.combinedFlags, sink);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (Sink&lt;P_IN&gt;) sink;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好了，千辛万苦，我们终于得到了这么一个 Sink，这个 Sink 保存了所有的中间流操作和最后一个 reduce 规约操作的所有操作对象。也就是说，我们的流水线建成了。</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/102759/1530085731625-036cc5b0-4904-45f3-87f8-eb3b50de5199.png" alt="image.png | left | 493x326"></p>
+<p>拿到这个 Sink 之后，我们就可以愉快的进行迭代了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AbstractPipelie.copyInto()</span></span><br><span class="line"><span class="keyword">final</span> &lt;P_IN&gt; <span class="function"><span class="keyword">void</span> <span class="title">copyInto</span><span class="params">(Sink&lt;P_IN&gt; wrappedSink, Spliterator&lt;P_IN&gt; spliterator)</span> </span>&#123;</span><br><span class="line">    Objects.requireNonNull(wrappedSink);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!StreamOpFlag.SHORT_CIRCUIT.isKnown(getStreamAndOpFlags())) &#123;</span><br><span class="line">        wrappedSink.begin(spliterator.getExactSizeIfKnown());<span class="comment">// 调用遍历前钩子，通知数据大小</span></span><br><span class="line">        spliterator.forEachRemaining(wrappedSink);<span class="comment">// 迭代器</span></span><br><span class="line">        wrappedSink.end();<span class="comment">// 调用遍历后钩子</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        copyIntoWithCancel(wrappedSink, spliterator);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>遍历调用 Sink的begin() 钩子，主要是用来准备数据结构，每个Sink的begin都会递归调用下游的begin<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SliceOps</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">begin</span><span class="params">(<span class="keyword">long</span> size)</span> </span>&#123;</span><br><span class="line">    downstream.begin(calcSize(size, skip, m));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>调用 forEachRemaining() 方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Spliterators</span></span><br><span class="line"><span class="keyword">if</span> ((a = array).length &gt;= (hi = fence) &amp;&amp;</span><br><span class="line">    (i = index) &gt;= <span class="number">0</span> &amp;&amp; i &lt; (index = hi)) &#123;</span><br><span class="line">    <span class="keyword">do</span> &#123; action.accept((T)a[i]); &#125; <span class="keyword">while</span> (++i &lt; hi);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 就是这么简单粗暴，把 Stream 里面的东西一个一个调用 Sink 里面的 accept 方法</span></span><br><span class="line"><span class="comment">// 然后，这个东西又会调用下游的 accept</span></span><br><span class="line"><span class="comment">// SliceOps</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(T t)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (m &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            m--;</span><br><span class="line">            downstream.accept(t);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        n--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 这里，我们可以看到，切割操作就是有的元素不往下传，就gg了，往下传就继续下面的 accept()</span></span><br></pre></td></tr></table></figure></p>
+<p>最后调用 end() 方法封口，同样是递归调用<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SotedOps()</span></span><br><span class="line"><span class="comment">// Sort有他的特殊性，不能在 accept 的时候一个一个执行，只能在封口的时候，再排序</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">end</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    list.sort(comparator); <span class="comment">// 排序</span></span><br><span class="line">    downstream.begin(list.size()); <span class="comment">// 通知下游准备</span></span><br><span class="line">    <span class="keyword">if</span> (!cancellationWasRequested) &#123; <span class="comment">// 下游Sink不包含短路操作</span></span><br><span class="line">        list.forEach(downstream::accept); <span class="comment">// 把元素继续一个一个丢给下游</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (T t : list) &#123; <span class="comment">//把元素一个一个拉出来</span></span><br><span class="line">            <span class="keyword">if</span> (downstream.cancellationRequested()) <span class="keyword">break</span>;<span class="comment">// 每次都调用cancellationRequested()询问是否可以结束处理。</span></span><br><span class="line">            downstream.accept(t); <span class="comment">//否则，把这个交给下游</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    downstream.end(); <span class="comment">// 调用下游的 end()函数</span></span><br><span class="line">    list = <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 来看下它的其他两个操作，可以看到，他并没有调用下游操作，而是直接拦截了，等到 end 的时候再通知下游</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">begin</span><span class="params">(<span class="keyword">long</span> size)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 创建一个存放排序元素的列表</span></span><br><span class="line">    list = (size &gt;= <span class="number">0</span>) ? <span class="keyword">new</span> ArrayList&lt;T&gt;((<span class="keyword">int</span>) size) : <span class="keyword">new</span> ArrayList&lt;T&gt;();</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(T t)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Sorted的违规操作，</span></span><br><span class="line">    list.add(t);<span class="comment">// 1. 使用当前Sink包装动作处理t，只是简单的将元素添加到中间列表当中</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>经过这些处理之后，会被丢进 reduce 操作 或者是 collect 操作收集 流中的数据。</p>
+<p>关于并且流时候的情况，调用了 Fork/Join 框架，比较复杂，以后再更。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><a name="y1f3zv"></a>参考资料</h3><p><a href="https://github.com/CarpenterLee/JavaLambdaInternals" target="_blank" rel="noopener">深入理解Java函数式编程和Streams API</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Java-核心/">Java 核心</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2018/07/17/yuque/jdk-proxy/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Java 动态代理机制 （一） JDK Proxy详解</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2018/06/26/yuque/lambda/">
+                <span class="level-item">Java Lambda 解析和使用技巧</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Your name">
+                    
+                    <p class="is-size-4 is-block">
+                        Your name
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Your title
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Your location</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        26
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        12
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/ppoffice">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/ppoffice">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/技术实战/">
+            <span class="level-start">
+                <span class="level-item">技术实战</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/技术笔记/">
+            <span class="level-start">
+                <span class="level-item">技术笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/教程/">
+            <span class="level-start">
+                <span class="level-item">教程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/日志/">
+            <span class="level-start">
+                <span class="level-item">日志</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/项目/">
+            <span class="level-start">
+                <span class="level-item">项目</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Java-核心/" style="font-size: 15px;">Java 核心</a> <a href="/tags/Netty/" style="font-size: 10px;">Netty</a> <a href="/tags/SSH/" style="font-size: 12.5px;">SSH</a> <a href="/tags/SSM/" style="font-size: 17.5px;">SSM</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Spring/" style="font-size: 12.5px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10px;">Spring Boot</a> <a href="/tags/Spring-MVC/" style="font-size: 10px;">Spring MVC</a> <a href="/tags/小小商城/" style="font-size: 20px;">小小商城</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/语雀/" style="font-size: 10px;">语雀</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/25/hello-world/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Hello World">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-25T14:20:07.426Z">2018-11-25</time></div>
+                    <a href="/2018/11/25/hello-world/" class="has-link-black-ter is-size-6">Hello World</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/05/yuque/yuque2blog/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="教程：静态博客使用语雀编辑器">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-05T02:38:56.000Z">2018-10-05</time></div>
+                    <a href="/2018/10/05/yuque/yuque2blog/" class="has-link-black-ter is-size-6">教程：静态博客使用语雀编辑器</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/教程/">教程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/jinrishici/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="今日诗词 API - 诗词实时智能推荐">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T06:44:19.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/jinrishici/" class="has-link-black-ter is-size-6">今日诗词 API - 诗词实时智能推荐</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/项目/">项目</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/hexo-yuque/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="博客更新为 Hexo 静态博客 + 语雀">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T02:53:21.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/hexo-yuque/" class="has-link-black-ter is-size-6">博客更新为 Hexo 静态博客 + 语雀</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/日志/">日志</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/08/26/yuque/netty-flow/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Netty 处理流程简析（附流程图）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-26T15:21:09.000Z">2018-08-26</time></div>
+                    <a href="/2018/08/26/yuque/netty-flow/" class="has-link-black-ter is-size-6">Netty 处理流程简析（附流程图）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Hexo/">
+                        <span class="level-start">
+                            <span class="level-item">Hexo</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Java-核心/">
+                        <span class="level-start">
+                            <span class="level-item">Java 核心</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Netty/">
+                        <span class="level-start">
+                            <span class="level-item">Netty</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSH/">
+                        <span class="level-start">
+                            <span class="level-item">SSH</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSM/">
+                        <span class="level-start">
+                            <span class="level-item">SSM</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">6</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Servlet/">
+                        <span class="level-start">
+                            <span class="level-item">Servlet</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring/">
+                        <span class="level-start">
+                            <span class="level-item">Spring</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-Boot/">
+                        <span class="level-start">
+                            <span class="level-item">Spring Boot</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-MVC/">
+                        <span class="level-start">
+                            <span class="level-item">Spring MVC</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/小小商城/">
+                        <span class="level-start">
+                            <span class="level-item">小小商城</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">10</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/网络/">
+                        <span class="level-start">
+                            <span class="level-item">网络</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/语雀/">
+                        <span class="level-start">
+                            <span class="level-item">语雀</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/25/hello-world/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Hello World">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-25T14:20:07.426Z">2018-11-25</time></div>
+                    <a href="/2018/11/25/hello-world/" class="has-link-black-ter is-size-6">Hello World</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/05/yuque/yuque2blog/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="教程：静态博客使用语雀编辑器">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-05T02:38:56.000Z">2018-10-05</time></div>
+                    <a href="/2018/10/05/yuque/yuque2blog/" class="has-link-black-ter is-size-6">教程：静态博客使用语雀编辑器</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/教程/">教程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/jinrishici/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="今日诗词 API - 诗词实时智能推荐">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T06:44:19.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/jinrishici/" class="has-link-black-ter is-size-6">今日诗词 API - 诗词实时智能推荐</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/项目/">项目</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/hexo-yuque/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="博客更新为 Hexo 静态博客 + 语雀">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T02:53:21.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/hexo-yuque/" class="has-link-black-ter is-size-6">博客更新为 Hexo 静态博客 + 语雀</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/日志/">日志</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/08/26/yuque/netty-flow/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Netty 处理流程简析（附流程图）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-26T15:21:09.000Z">2018-08-26</time></div>
+                    <a href="/2018/08/26/yuque/netty-flow/" class="has-link-black-ter is-size-6">Netty 处理流程简析（附流程图）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Hexo/">
+                        <span class="level-start">
+                            <span class="level-item">Hexo</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Java-核心/">
+                        <span class="level-start">
+                            <span class="level-item">Java 核心</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Netty/">
+                        <span class="level-start">
+                            <span class="level-item">Netty</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSH/">
+                        <span class="level-start">
+                            <span class="level-item">SSH</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSM/">
+                        <span class="level-start">
+                            <span class="level-item">SSM</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">6</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Servlet/">
+                        <span class="level-start">
+                            <span class="level-item">Servlet</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring/">
+                        <span class="level-start">
+                            <span class="level-item">Spring</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-Boot/">
+                        <span class="level-start">
+                            <span class="level-item">Spring Boot</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-MVC/">
+                        <span class="level-start">
+                            <span class="level-item">Spring MVC</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/小小商城/">
+                        <span class="level-start">
+                            <span class="level-item">小小商城</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">10</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/网络/">
+                        <span class="level-start">
+                            <span class="level-item">网络</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/语雀/">
+                        <span class="level-start">
+                            <span class="level-item">语雀</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="Java Stream 解析和使用技巧" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2018 John Doe&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

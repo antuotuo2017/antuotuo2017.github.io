@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Netty 处理流程简析（附流程图） - Hexo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="概述入坑 Netty 已有月余，主要还是接触 Vert.x ，并未有太多机会直接写 Netty。也尝试在网上看了许多的源码解析，但是总是没有一个提纲来完整的表述整个 Netty 的完整处理流程。我这里尝试用流程图的方法，解析 Netty 主要的几个Netty主要的处理流程。主要是主流程和Pipeline对于 ByteBuf、各种 Decoder ，我这里也不再详细解析，有兴趣可以再看网上的解析。">
+<meta name="keywords" content="Netty">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Netty 处理流程简析（附流程图）">
+<meta property="og:url" content="http://yoursite.com/2018/08/26/yuque/netty-flow/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="概述入坑 Netty 已有月余，主要还是接触 Vert.x ，并未有太多机会直接写 Netty。也尝试在网上看了许多的源码解析，但是总是没有一个提纲来完整的表述整个 Netty 的完整处理流程。我这里尝试用流程图的方法，解析 Netty 主要的几个Netty主要的处理流程。主要是主流程和Pipeline对于 ByteBuf、各种 Decoder ，我这里也不再详细解析，有兴趣可以再看网上的解析。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.nlark.com/__puml/4f9072fc8ad5cb9c65343d2d4a8d8852.svg">
+<meta property="og:image" content="https://cdn.nlark.com/__puml/49b1c0ce494bc4fd2fa31dfb1b624670.svg">
+<meta property="og:image" content="https://cdn.nlark.com/__puml/2d92e485abd105c83a002d94aca1235d.svg">
+<meta property="og:image" content="https://cdn.nlark.com/__puml/2ce4bcfa400d5c40f27a70dc83c1c050.svg">
+<meta property="og:image" content="https://cdn.nlark.com/__puml/0eaf4f99919fa25543390a35ac1ba4f2.svg">
+<meta property="og:updated_time" content="2018-11-25T16:02:14.200Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Netty 处理流程简析（附流程图）">
+<meta name="twitter:description" content="概述入坑 Netty 已有月余，主要还是接触 Vert.x ，并未有太多机会直接写 Netty。也尝试在网上看了许多的源码解析，但是总是没有一个提纲来完整的表述整个 Netty 的完整处理流程。我这里尝试用流程图的方法，解析 Netty 主要的几个Netty主要的处理流程。主要是主流程和Pipeline对于 ByteBuf、各种 Decoder ，我这里也不再详细解析，有兴趣可以再看网上的解析。">
+<meta name="twitter:image" content="https://cdn.nlark.com/__puml/4f9072fc8ad5cb9c65343d2d4a8d8852.svg">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="Netty 处理流程简析（附流程图）" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-08-26T15:21:09.000Z">2018-08-26</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 750 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Netty 处理流程简析（附流程图）
+            
+        </h1>
+        <div class="content">
+            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a><a name="4ao1xo"></a>概述</h2><p>入坑 Netty 已有月余，主要还是接触 Vert.x ，并未有太多机会直接写 Netty。<br>也尝试在网上看了许多的源码解析，但是总是没有一个提纲来完整的表述整个 Netty 的完整处理流程。<br>我这里尝试用流程图的方法，解析 Netty 主要的几个Netty主要的处理流程。主要是主流程和Pipeline<br>对于 ByteBuf、各种 Decoder ，我这里也不再详细解析，有兴趣可以再看网上的解析。</p>
+<h2 id="Netty运行时处理请求的流程"><a href="#Netty运行时处理请求的流程" class="headerlink" title="Netty运行时处理请求的流程"></a><a name="hsc0gu"></a>Netty运行时处理请求的流程</h2><div id="alw4bv" data-type="puml" data-display="block" data-align="left" data-src="https://cdn.nlark.com/__puml/4f9072fc8ad5cb9c65343d2d4a8d8852.svg" data-width="1235" data-height="1200" data-text="%40startuml%0A%0Aautonumber%0A%0Aparticipant%20%22A%E7%94%A8%E6%88%B7%E8%BF%9E%E6%8E%A5%22%20as%20user%0Aparticipant%20%22JDK%20selector%22%20as%20js%0A%0Aparticipant%20%22Boss%20Eventloop%5Cn(Server%20Channel)%22%20as%20be%0Aparticipant%20%22Work%20EventloopGroup%22%20as%20we%0Aparticipant%20%22Work%20Eventloop%20A%22%20as%20ae%0Aparticipant%20%22A%E7%94%A8%E6%88%B7%20Pipeline%22%20as%20pl%0Aparticipant%20%22A%E7%94%A8%E6%88%B7%20ByteBuf%22%20as%20bf%0Aparticipant%20%22A%20%E7%94%A8%E6%88%B7%20Chanel%22%20as%20ac%0A%0Aactivate%20be%0Abe%20-%3E%20js%3A%20%E6%A3%80%E6%9F%A5%20ACCEPT%20%E4%BA%8B%E4%BB%B6%0Aactivate%20js%0Ajs%20-%3E%20be%3A%20%E6%97%A0%E4%BA%8B%E4%BB%B6%0Adeactivate%20js%0Adeactivate%20be%0A%0Aactivate%20ae%0Aae%20-%3E%20js%3A%20%E6%A3%80%E6%9F%A5%20READ%20%E4%BA%8B%E4%BB%B6%0Aactivate%20js%0Ajs%20-%3E%20ae%3A%20%E6%97%A0%E4%BA%8B%E4%BB%B6%0Adeactivate%20js%0Adeactivate%20ae%0A%0A%0Aae%20-%3E%20ae%3A%20%E6%89%A7%E8%A1%8C%E8%87%AA%E5%B7%B1%E9%98%9F%E5%88%97%E4%B8%8A%E9%9D%A2%E7%9A%84%E4%BB%BB%E5%8A%A1%0A%0A%0A%0Auser%20-%3E%20js%3A%20TCP%E8%BF%9E%E6%8E%A5%0A%0A%0Ajs%20-%3E%20js%3A%20%E5%A4%84%E7%90%86%E8%BF%9E%E6%8E%A5%5Cn%E7%99%BB%E8%AE%B0ACCEPT%E4%BA%8B%E4%BB%B6%0A%0A%0A%0Aactivate%20be%0Abe%20-%3E%20js%3A%20%E6%A3%80%E6%9F%A5%20ACCEPT%20%E4%BA%8B%E4%BB%B6%0Aactivate%20js%0Ajs%20-%3E%20be%3A%20A%E7%94%A8%E6%88%B7%E7%9A%84%20ACCEPT%20%E4%BA%8B%E4%BB%B6%20%5Cn%E5%8C%85%E5%90%AB%E4%B8%80%E4%B8%AA%20Key%20%E5%92%8C%20Channel%0Adeactivate%20js%0A%0A%0Abe%20-%3E%20we%3A%20%E8%8E%B7%E5%8F%96%E4%B8%80%E4%B8%AA%E5%A4%84%E7%90%86%E8%80%85%0Aactivate%20we%0Awe%20-%3E%20be%3A%20%E4%BB%8EEventloop%E6%B1%A0%E5%AD%90%E4%B8%AD%E9%9A%8F%E6%9C%BA%5Cn%E8%BF%94%E5%9B%9E%20Work%20Eventloop%20A%20%E7%9A%84%E5%BC%95%E7%94%A8%0Adeactivate%20we%0Abe%20-%3E%20js%3A%20%E7%99%BB%E8%AE%B0%20Eventloop%20A%20%5Cn%E5%92%8C%20%E7%94%A8%E6%88%B7Channel%5Cn(%E5%B0%81%E8%A3%85%E4%BA%86%20Pipeline)%5Cn%E6%B3%A8%E5%86%8C%E5%8F%AF%E8%AF%BB%E4%BA%8B%E4%BB%B6%0A%0Adeactivate%20be%0A%0A%0Auser%20-%3E%20js%3A%20HTTP%E8%AF%B7%E6%B1%82%0Ajs%20-%3E%20js%3A%20%E6%8E%A5%E6%94%B6%E8%AF%B7%E6%B1%82%EF%BC%8C%E7%99%BB%E8%AE%B0%20READ%20%E4%BA%8B%E4%BB%B6%0A%0Aactivate%20ae%0Aae%20-%3E%20js%3A%20%E6%A3%80%E6%9F%A5%20READ%20%E4%BA%8B%E4%BB%B6%0Aactivate%20js%0Ajs%20-%3E%20ae%3A%20A%E7%94%A8%E6%88%B7%E7%9A%84%20READ%20%E4%BA%8B%E4%BB%B6%0Adeactivate%20js%0A%0Aae%20-%3E%20ae%3A%20%E8%8E%B7%E5%8F%96A%E7%94%A8%E6%88%B7%E7%9A%84%5Cn%20Pipeline%2C%20%5CnChannel%2C%20Buffer%0Aae%20-%3E%20pl%3A%20%E6%89%A7%E8%A1%8C%20Pipeline%0Adeactivate%20ae%0Aactivate%20pl%0Apl%20-%3E%20ac%3A%20%E4%BB%8E%20Channel%20%E6%8B%89%E5%8F%96%E7%94%A8%E6%88%B7%E5%86%99%E5%85%A5%E7%9A%84%E6%95%B0%E6%8D%AE%0Apl%20-%3E%20bf%3A%20%E5%BE%80%20Buffer%20%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%5Cn%EF%BC%88%E5%90%8C%E6%AD%A5%E6%A8%A1%E5%BC%8F%EF%BC%89%0Apl%20-%3E%20ac%3A%20%E6%8A%8A%20Buffer%20%E5%88%B7%E5%85%A5%20Channel%5Cn%EF%BC%88%E5%90%8C%E6%AD%A5%E6%A8%A1%E5%BC%8F%EF%BC%89%0Aac%20-%3E%20user%3A%20%E9%83%A8%E5%88%86%E6%95%B0%E6%8D%AE%0Apl%20-%3E%20ae%3A%20%E6%8F%90%E4%BA%A4%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1%5Cn(%E5%BC%82%E6%AD%A5%E6%A8%A1%E5%BC%8F)%0A%0A%0Aae%20-%3E%20ae%3A%20%E6%89%A7%E8%A1%8C%E8%87%AA%E5%B7%B1%E9%98%9F%E5%88%97%E4%B8%8A%E7%9A%84%E4%BB%BB%E5%8A%A1%0Aactivate%20ae%0Aae%20-%3E%20ac%3A%20%E6%8A%8A%20Buffer%20%E5%88%B7%E5%85%A5%20Channel%5Cn%EF%BC%88%E5%BC%82%E6%AD%A5%E6%A8%A1%E5%BC%8F%EF%BC%89%0Aac%20-%3E%20user%3A%20%E9%83%A8%E5%88%86%E6%95%B0%E6%8D%AE%0Aae%20-%3E%20ac%3A%20%E7%BB%93%E6%9D%9F%20TCP%20%E8%BF%9E%E6%8E%A5%5Cn%EF%BC%88%E5%BC%82%E6%AD%A5%E6%A8%A1%E5%BC%8F%EF%BC%89%0Adeactivate%20ae%0Aac%20-%3E%20user%3A%20%E6%95%B0%E6%8D%AE%E8%BF%94%E5%9B%9E%E5%AE%8C%E6%88%90%0A%0A%40enduml%0A"><img src="https://cdn.nlark.com/__puml/4f9072fc8ad5cb9c65343d2d4a8d8852.svg" width="1235"></div>
+
+
+<p>说明：</p>
+<ol>
+<li>每个 Eventloop 都有自己的一个 Selector，我为了画图方便，改为共用一个 Selector</li>
+<li>Boss Eventloop负责 ACCEPT 事件，他在启动的时候向 Selector 注册 ACCPET 事件和 ServerChannel，并且绑定端口</li>
+<li>Work EventloopGroup 是一组 Work Eventloop 的集合，数量默认为 CPU 核心数 *2</li>
+<li>Work Eventloop 本质上是一个线程，他有一个死循环，执行两种事件：READ事件和自己任务队列上面的事件</li>
+<li>Work Eventloop 的任务队列上面的事件是可以在任何地方提交加入（通过 Future/Promise 的 addListener 方法提交任务）</li>
+<li>Pipeline 是在我们启动的 Netty 的时候指定的，是我们的任务代码</li>
+<li>Buffer 是缓冲区，缓冲我们的数据，并且一次写入。</li>
+<li>Channel 是和用户连接的桥梁，往 Channel 写数据就是往用户电脑写数据</li>
+<li>Pipeline 处理时可以选择同步模式还是异步模式，但无论如何最终都要刷写 Buffer ，最后要结束数据流。</li>
+</ol>
+<h2 id="Netty-Pipeline-流程"><a href="#Netty-Pipeline-流程" class="headerlink" title="Netty Pipeline 流程"></a><a name="6sclhm"></a>Netty Pipeline 流程</h2><h3 id="InBound-操作的流水线"><a href="#InBound-操作的流水线" class="headerlink" title="InBound 操作的流水线"></a><a name="r4tmdt"></a>InBound 操作的流水线</h3><p>Inbound的方法一般由系统Netty帮我们调用<br>ChannelRegister: 客户 Channel 注册到 Eventloop 里面会发送事件 （第一次连接）<br>ChannelActive: 客户 Channel 连接的时候Channel会发送事件 （从未连接到已连接）<br>ChannelRead: 客户的数据已经存了一部分到系统缓冲区的时候会发送事件 （从未发送数据到已发送数据）<br>ChannelReadComplete： 缓冲区里面已经没有数据会发送事件（从发送数据到发送数据完成）<br>调用的流程是一致的，主要用到的是 ChannelRead</p>
+<div id="ogqfok" data-type="puml" data-display="block" data-align="left" data-src="https://cdn.nlark.com/__puml/49b1c0ce494bc4fd2fa31dfb1b624670.svg" data-width="1179" data-height="661" data-text="%40startuml%0A%7CChannel%7C%0Astart%0A%3Apipeline.fireChannelRead()%3B%0A%7CHead%7C%0A%0A%3AchannelRead()%3B%0A%3AfireChannelRead()%3B%0A%7CInboundHandler2%7C%0A%3AchannelRead()%3B%0A%3AdoSomeThing%3B%0A%3AfireChannelRead()%3B%0A%7COutBoundHandler1%7C%0A%7CInboundHandler3%7C%0A%3AchannelRead()%3B%0A%3AdoSomeThing%3B%0Aif(%E8%B0%83%E7%94%A8%20fireChannelRead%EF%BC%9F)%20then(yes)%0A%20%20%7CTaid%7C%0A%20%20%3AonUnhandledInboundMessage()%3B%0A%20%20note%20right%0A%20%20%20%20%E5%85%9C%E5%BA%95%0A%20%20end%20note%0A%20%20stop%0Aelse%20(no)%0A%7CInboundHandler3%7C%0Astop%0Aendif%0A%0A%40enduml"><img src="https://cdn.nlark.com/__puml/49b1c0ce494bc4fd2fa31dfb1b624670.svg" width="1179"></div>
+
+
+<p>说明：</p>
+<ol>
+<li>HandlerContext是 Pipeline 的每一个节点，从而组成一个双向链表结构。每个 HandlerContext 包含以下内容：<ol>
+<li>自定义的Handler对象</li>
+<li>用户 Channel</li>
+<li>关联的 Eventloop</li>
+<li>Inbound 和 OutBound 的触发器</li>
+<li>ByteBuffer 内存分配器</li>
+</ol>
+</li>
+<li>添加 Channel Handler 的方法<ol>
+<li>在 Bootstrap 中 .childHandler() ch.pipeline().addLast()</li>
+<li>可以添加 Inbound 和 OutBound</li>
+</ol>
+</li>
+</ol>
+<h3 id="OutBound操作流水线"><a href="#OutBound操作流水线" class="headerlink" title="OutBound操作流水线"></a><a name="5bdvyg"></a>OutBound操作流水线</h3><p>一般是主动调用，而不是Netty自动调用<br>bind 操作<br>connect 操作<br>disconnect 操作<br>read 操作 （一般不用，用Inbound的自动Read）<br>write 操作<br>deregister 操作</p>
+<div id="p8p3lh" data-type="puml" data-display="block" data-align="left" data-src="https://cdn.nlark.com/__puml/2d92e485abd105c83a002d94aca1235d.svg" data-width="1150" data-height="696" data-text="%40startuml%0A%7CHead%7C%0A%7COutboundHandler1%7C%0A%7CInboundHandler1%7C%0A%7COutboundHandler2%7C%0A%7COutboundHandler3%7C%0A%7CInboundHandler2%7C%0A%0A%7CTail%7C%0A%0A%7CInboundHandler1%7C%0Astart%0A%3Actx.channel().write()%3B%0A%0Anote%20right%0A%09%E5%A6%82%E6%9E%9C%E6%98%AF%20ctx.write()%20%0A%09%E4%BC%9A%E4%BB%8E%E5%BD%93%E5%89%8D%E8%8A%82%E7%82%B9%E5%BC%80%E5%A7%8B%0Aend%20note%0A%0A%0A%7COutboundHandler3%7C%0A%3Awrite()%3B%0A%3Actx.write()%3B%0A%7COutboundHandler2%7C%0A%3Awrite()%3B%0A%3AdoSomething%3B%0A%3Actx.write()%3B%0A%7COutboundHandler1%7C%0A%3Awrite()%3B%0A%3AdoSomething%3B%0A%3Actx.write()%3B%0A%7CInboundHandler1%7C%0A%7CHead%7C%0A%3Awrite()%3B%0A%3Aunsafe.write()%3B%0Astop%0A%0A%0A%40enduml"><img src="https://cdn.nlark.com/__puml/2d92e485abd105c83a002d94aca1235d.svg" width="1150"></div>
+
+
+<h3 id="异常处理流水线"><a href="#异常处理流水线" class="headerlink" title="异常处理流水线"></a><a name="1gk0en"></a>异常处理流水线</h3><div id="27c5md" data-type="puml" data-display="block" data-align="left" data-src="https://cdn.nlark.com/__puml/2ce4bcfa400d5c40f27a70dc83c1c050.svg" data-text="%40startuml%0A%0A%0A%0A%0A%7CHead%7C%0A%7CInboundHandler1%7C%0A%7CInboundHandler2%7C%0A%7COutboundHandler1%7C%0A%7COutboundHandler2%7C%0A%7CTail%7C%0A%0A%0A%7CHead%7C%0Astart%0A%0A%7CInboundHandler1%7C%0A%3Athrow%20new%20Exception()%3B%0Anote%20right%0A%20%20%E4%BB%8E%E6%8A%9B%E9%94%99%E8%AF%AF%E7%9A%84%E5%BD%93%E5%89%8D%E8%8A%82%E7%82%B9%E5%BC%80%E5%A7%8B%E4%BC%A0%E6%92%AD%0Aend%20note%0A%3AexceptionCaught%3B%0A%3AfireExceptionCaught%3B%0A%7CInboundHandler2%7C%0A%3AexceptionCaught%3B%0A%3AfireExceptionCaught%3B%0A%7COutboundHandler1%7C%0A%3AexceptionCaught%3B%0A%3AfireExceptionCaught%3B%0A%7COutboundHandler2%7C%0A%3AexceptionCaught%3B%0A%3AfireExceptionCaught%3B%0A%7CTail%7C%0A%3AonUnhandledInboundException%3B%0Astop%0A%0A%0A%40enduml"><img src="https://cdn.nlark.com/__puml/2ce4bcfa400d5c40f27a70dc83c1c050.svg"></div>
+
+
+
+<h3 id="业务中的流水线"><a href="#业务中的流水线" class="headerlink" title="业务中的流水线"></a><a name="hquahk"></a>业务中的流水线</h3><p>这里只是给一个参考</p>
+<div id="gb6enu" data-type="puml" data-display="block" data-align="left" data-src="https://cdn.nlark.com/__puml/0eaf4f99919fa25543390a35ac1ba4f2.svg" data-width="1625" data-height="971" data-text="%40startuml%0A%7CChannel%7C%0A%7CHead%7C%0A%7CDecoder(Inbound)%7C%0A%7CMainInboundHandler1%7C%0A%7CMainInboundHandler2%7C%0A%7CEncoder(Outbound)%7C%0A%7CExceptionHandler%7C%0A%7CTail%7C%0A%0A%7CChannel%7C%0Astart%0A%3Apipeline.fireChannelRead()%3B%0A%7CHead%7C%0A%3AchannelRead()%3B%0A%3AfireChannelRead()%3B%0A%7CDecoder(Inbound)%7C%0A%3Adecode()%3B%0A%3AfireChannelRead()%3B%0A%7CMainInboundHandler1%7C%0A%3AdoSomeThings()%3B%0A%3AfireChannelRead()%3B%0A%7CMainInboundHandler2%7C%0A%3AdoSomeThings()%3B%0Aif%20(success%3F)%20then%20(yes)%0A%20%20%3Actx.channel().write()%3B%0A%20%20%7CEncoder(Outbound)%7C%0A%20%20%3Aencode()%3B%0A%20%20%3Actx.write()%3B%0A%20%20%7CHead%7C%0A%20%20%3Aunsafe.write()%3B%0A%20%20stop%0Aelse%20(no)%0A%20%20%7CMainInboundHandler2%7C%0A%20%20%3Athrow%20new%20Exception()%3B%0A%20%20%7CEncoder(Outbound)%7C%0A%20%20%3AfireExceptionCaught()%3B%0A%20%20%7CExceptionHandler%7C%0A%20%20%3AexceptionCaught()%3B%0A%20%20%3Actx.channel().write()%3B%0A%20%20%7CEncoder(Outbound)%7C%0A%20%20%3Aencode()%3B%0A%20%20%3Actx.write()%3B%0A%20%20%7CHead%7C%0A%20%20%3Aunsafe.write()%3B%0A%20%20stop%0A%0A%0A%40enduml"><img src="https://cdn.nlark.com/__puml/0eaf4f99919fa25543390a35ac1ba4f2.svg" width="1625"></div>
+
+
+
+
+
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Netty/">Netty</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2018/10/02/yuque/hexo-yuque/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">博客更新为 Hexo 静态博客 + 语雀</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2018/08/08/yuque/io-model/">
+                <span class="level-item">Java NIO、BIO、 AIO 与 同步、阻塞、非阻塞、异步IO 简析</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Your name">
+                    
+                    <p class="is-size-4 is-block">
+                        Your name
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Your title
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Your location</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        26
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        12
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/ppoffice">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/ppoffice">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/技术实战/">
+            <span class="level-start">
+                <span class="level-item">技术实战</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/技术笔记/">
+            <span class="level-start">
+                <span class="level-item">技术笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/教程/">
+            <span class="level-start">
+                <span class="level-item">教程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/日志/">
+            <span class="level-start">
+                <span class="level-item">日志</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/项目/">
+            <span class="level-start">
+                <span class="level-item">项目</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Java-核心/" style="font-size: 15px;">Java 核心</a> <a href="/tags/Netty/" style="font-size: 10px;">Netty</a> <a href="/tags/SSH/" style="font-size: 12.5px;">SSH</a> <a href="/tags/SSM/" style="font-size: 17.5px;">SSM</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Spring/" style="font-size: 12.5px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10px;">Spring Boot</a> <a href="/tags/Spring-MVC/" style="font-size: 10px;">Spring MVC</a> <a href="/tags/小小商城/" style="font-size: 20px;">小小商城</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/语雀/" style="font-size: 10px;">语雀</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/25/hello-world/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Hello World">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-25T14:20:07.426Z">2018-11-25</time></div>
+                    <a href="/2018/11/25/hello-world/" class="has-link-black-ter is-size-6">Hello World</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/05/yuque/yuque2blog/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="教程：静态博客使用语雀编辑器">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-05T02:38:56.000Z">2018-10-05</time></div>
+                    <a href="/2018/10/05/yuque/yuque2blog/" class="has-link-black-ter is-size-6">教程：静态博客使用语雀编辑器</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/教程/">教程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/jinrishici/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="今日诗词 API - 诗词实时智能推荐">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T06:44:19.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/jinrishici/" class="has-link-black-ter is-size-6">今日诗词 API - 诗词实时智能推荐</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/项目/">项目</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/hexo-yuque/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="博客更新为 Hexo 静态博客 + 语雀">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T02:53:21.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/hexo-yuque/" class="has-link-black-ter is-size-6">博客更新为 Hexo 静态博客 + 语雀</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/日志/">日志</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/08/26/yuque/netty-flow/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Netty 处理流程简析（附流程图）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-26T15:21:09.000Z">2018-08-26</time></div>
+                    <a href="/2018/08/26/yuque/netty-flow/" class="has-link-black-ter is-size-6">Netty 处理流程简析（附流程图）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Hexo/">
+                        <span class="level-start">
+                            <span class="level-item">Hexo</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Java-核心/">
+                        <span class="level-start">
+                            <span class="level-item">Java 核心</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Netty/">
+                        <span class="level-start">
+                            <span class="level-item">Netty</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSH/">
+                        <span class="level-start">
+                            <span class="level-item">SSH</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSM/">
+                        <span class="level-start">
+                            <span class="level-item">SSM</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">6</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Servlet/">
+                        <span class="level-start">
+                            <span class="level-item">Servlet</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring/">
+                        <span class="level-start">
+                            <span class="level-item">Spring</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-Boot/">
+                        <span class="level-start">
+                            <span class="level-item">Spring Boot</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-MVC/">
+                        <span class="level-start">
+                            <span class="level-item">Spring MVC</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/小小商城/">
+                        <span class="level-start">
+                            <span class="level-item">小小商城</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">10</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/网络/">
+                        <span class="level-start">
+                            <span class="level-item">网络</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/语雀/">
+                        <span class="level-start">
+                            <span class="level-item">语雀</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/11/25/hello-world/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Hello World">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-25T14:20:07.426Z">2018-11-25</time></div>
+                    <a href="/2018/11/25/hello-world/" class="has-link-black-ter is-size-6">Hello World</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/05/yuque/yuque2blog/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="教程：静态博客使用语雀编辑器">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-05T02:38:56.000Z">2018-10-05</time></div>
+                    <a href="/2018/10/05/yuque/yuque2blog/" class="has-link-black-ter is-size-6">教程：静态博客使用语雀编辑器</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/教程/">教程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/jinrishici/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="今日诗词 API - 诗词实时智能推荐">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T06:44:19.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/jinrishici/" class="has-link-black-ter is-size-6">今日诗词 API - 诗词实时智能推荐</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/项目/">项目</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/10/02/yuque/hexo-yuque/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="博客更新为 Hexo 静态博客 + 语雀">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-10-02T02:53:21.000Z">2018-10-02</time></div>
+                    <a href="/2018/10/02/yuque/hexo-yuque/" class="has-link-black-ter is-size-6">博客更新为 Hexo 静态博客 + 语雀</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/日志/">日志</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/08/26/yuque/netty-flow/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Netty 处理流程简析（附流程图）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-26T15:21:09.000Z">2018-08-26</time></div>
+                    <a href="/2018/08/26/yuque/netty-flow/" class="has-link-black-ter is-size-6">Netty 处理流程简析（附流程图）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/技术笔记/">技术笔记</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Hexo/">
+                        <span class="level-start">
+                            <span class="level-item">Hexo</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Java-核心/">
+                        <span class="level-start">
+                            <span class="level-item">Java 核心</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Netty/">
+                        <span class="level-start">
+                            <span class="level-item">Netty</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSH/">
+                        <span class="level-start">
+                            <span class="level-item">SSH</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/SSM/">
+                        <span class="level-start">
+                            <span class="level-item">SSM</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">6</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Servlet/">
+                        <span class="level-start">
+                            <span class="level-item">Servlet</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring/">
+                        <span class="level-start">
+                            <span class="level-item">Spring</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-Boot/">
+                        <span class="level-start">
+                            <span class="level-item">Spring Boot</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Spring-MVC/">
+                        <span class="level-start">
+                            <span class="level-item">Spring MVC</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/小小商城/">
+                        <span class="level-start">
+                            <span class="level-item">小小商城</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">10</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/网络/">
+                        <span class="level-start">
+                            <span class="level-item">网络</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/语雀/">
+                        <span class="level-start">
+                            <span class="level-item">语雀</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="Netty 处理流程简析（附流程图）" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2018 John Doe&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
